@@ -1,5 +1,5 @@
 {
-  "name": "@llm-observatory/sdk",
+  "name": "@llm-dev-ops/sdk",
   "version": "0.1.0",
   "description": "Official Node.js SDK for LLM Observatory - High-performance observability for LLM applications",
   "main": "dist/index.js",
