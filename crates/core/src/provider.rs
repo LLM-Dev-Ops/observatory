@@ -3,7 +3,7 @@
 
 //! Provider trait definitions and utilities.
 
-use crate::{Error, Result};
+use crate::Result;
 use async_trait::async_trait;
 
 /// Trait for LLM provider implementations.

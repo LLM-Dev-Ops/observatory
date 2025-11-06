@@ -3,8 +3,6 @@
 
 //! Error types for LLM Observatory.
 
-use std::fmt;
-
 /// Result type alias using LLM Observatory's Error type.
 pub type Result<T> = std::result::Result<T, Error>;
 

@@ -123,6 +123,12 @@ pub enum SpanStatus {
     Unset,
 }
 
+impl Default for SpanStatus {
+    fn default() -> Self {
+        SpanStatus::Unset
+    }
+}
+
 /// Event recorded during span execution.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SpanEvent {
