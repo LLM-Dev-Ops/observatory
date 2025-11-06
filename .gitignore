@@ -63,6 +63,9 @@ yarn.lock
 *.temp
 .cache/
 
+# Claude Flow metrics
+.claude-flow/metrics/
+
 # Documentation build
 /docs/_build/
 /docs/.doctrees/
