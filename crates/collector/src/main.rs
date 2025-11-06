@@ -4,7 +4,7 @@
 //! LLM Observatory Collector binary.
 
 use clap::Parser;
-use llm_observatory_collector::{CollectorConfig, OtlpReceiver};
+use llm_observatory_collector::{receiver::Receiver, CollectorConfig, OtlpReceiver};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[derive(Parser, Debug)]

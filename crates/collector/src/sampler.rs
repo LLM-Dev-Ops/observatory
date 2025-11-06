@@ -6,7 +6,7 @@
 //! Implements both head sampling (probabilistic at SDK level) and tail sampling
 //! (decision after trace completion based on actual characteristics).
 
-use llm_observatory_core::{span::LlmSpan, Result};
+use llm_observatory_core::span::LlmSpan;
 use rand::Rng;
 
 pub use crate::config::SamplingStrategy;

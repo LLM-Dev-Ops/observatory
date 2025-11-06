@@ -48,7 +48,7 @@ impl CostCalculationProcessor {
 
         if self.include_breakdown {
             // Calculate with breakdown
-            let (prompt_cost, completion_cost, total) = PricingEngine::calculate_cost_breakdown(
+            let (prompt_cost, completion_cost, _total) = PricingEngine::calculate_cost_breakdown(
                 &span.model,
                 usage.prompt_tokens,
                 usage.completion_tokens,
