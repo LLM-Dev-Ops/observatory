@@ -133,7 +133,7 @@ impl InstrumentedSpan {
 
         // Mark OpenTelemetry span as error
         let span = self.context.span();
-        span.set_status(Status::error(error));
+        span.set_status(Status::error(error.to_string()));
         span.add_event("llm.completion.error", vec![KeyValue::new("error", error.to_string())]);
 
         // Build LlmSpan

@@ -5,7 +5,7 @@
 
 use crate::{
     cost::calculate_cost,
-    instrument::{create_span, InstrumentedSpan},
+    instrument::create_span,
     observatory::LLMObservatory,
     traits::{
         ChatCompletionRequest, ChatCompletionResponse, InstrumentedLLM, StreamChunk,
@@ -224,7 +224,7 @@ impl InstrumentedLLM for OpenAIClient {
                 };
 
                 // Finish the span
-                let (trace_id, span_id, latency_ms) = if let Some(mut span) = span.take() {
+                let (trace_id, span_id, latency_ms) = if let Some(span) = span.take() {
                     let llm_span = span.finish_success(output, usage.clone(), cost.clone())?;
                     (
                         llm_span.trace_id.clone(),

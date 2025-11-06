@@ -31,7 +31,7 @@ use llm_observatory_providers::pricing::{PricingEngine, PRICING_DB};
 /// println!("Total cost: ${:.6}", cost.amount_usd);
 /// ```
 pub fn calculate_cost(model: &str, usage: &TokenUsage) -> Result<Cost> {
-    let (prompt_cost, completion_cost, total_cost) = PricingEngine::calculate_cost_breakdown(
+    let (prompt_cost, completion_cost, _total_cost) = PricingEngine::calculate_cost_breakdown(
         model,
         usage.prompt_tokens,
         usage.completion_tokens,

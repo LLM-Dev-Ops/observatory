@@ -6,7 +6,7 @@
 use crate::{Error, Result};
 use opentelemetry::{
     global,
-    trace::{Tracer, TracerProvider as _},
+    trace::TracerProvider as _,
     KeyValue,
 };
 use opentelemetry_otlp::WithExportConfig;
@@ -208,10 +208,10 @@ impl ObservatoryBuilder {
             .otlp_endpoint
             .ok_or_else(|| Error::config("otlp_endpoint is required"))?;
 
-        let exporter = opentelemetry_otlp::new_exporter()
-            .tonic()
+        let exporter = opentelemetry_otlp::SpanExporter::builder()
+            .with_tonic()
             .with_endpoint(&otlp_endpoint)
-            .build_span_exporter()
+            .build()
             .map_err(|e| Error::OpenTelemetry(e.to_string()))?;
 
         // Create tracer provider
@@ -227,7 +227,6 @@ impl ObservatoryBuilder {
 
         // Get tracer
         let tracer = provider.tracer("llm-observatory");
-        let boxed_tracer = Arc::new(global::boxed_tracer(tracer));
 
         // Setup tracing subscriber for console logging if enabled
         if self.enable_console_export {
@@ -242,7 +241,7 @@ impl ObservatoryBuilder {
         }
 
         Ok(LLMObservatory {
-            tracer: boxed_tracer,
+            tracer: Arc::new(tracer),
             service_name,
             environment: self.environment,
         })

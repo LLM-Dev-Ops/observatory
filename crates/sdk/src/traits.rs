@@ -8,7 +8,7 @@ use async_trait::async_trait;
 use futures::Stream;
 use llm_observatory_core::{
     span::ChatMessage,
-    types::{Cost, TokenUsage},
+    types::TokenUsage,
 };
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
