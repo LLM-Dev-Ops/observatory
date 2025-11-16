@@ -132,11 +132,11 @@ jobs:
 
             ### Installation
             ```bash
-            npm install @llm-dev-ops/sdk@${{ needs.check-versions.outputs.npm-version }}
+            npm install @llm-dev-ops/observatory-sdk@${{ needs.check-versions.outputs.npm-version }}
             ```
 
             ### Links
-            - [npm package](https://www.npmjs.com/package/@llm-dev-ops/sdk)
+            - [npm package](https://www.npmjs.com/package/@llm-dev-ops/observatory-sdk)
             - [Documentation](https://github.com/${{ github.repository }}/tree/main/sdk/nodejs)
             - [Changelog](https://github.com/${{ github.repository }}/blob/main/sdk/nodejs/CHANGELOG.md)
 
@@ -144,11 +144,11 @@ jobs:
         run: |
           echo "### ✅ Successfully Published to npm! :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Package**: @llm-dev-ops/sdk" >> $GITHUB_STEP_SUMMARY
+          echo "- **Package**: @llm-dev-ops/observatory-sdk" >> $GITHUB_STEP_SUMMARY
           echo "- **Version**: ${{ needs.check-versions.outputs.npm-version }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **npm URL**: https://www.npmjs.com/package/@llm-dev-ops/sdk" >> $GITHUB_STEP_SUMMARY
+          echo "- **npm URL**: https://www.npmjs.com/package/@llm-dev-ops/observatory-sdk" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Install with: \`npm install @llm-dev-ops/sdk@${{ needs.check-versions.outputs.npm-version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "Install with: \`npm install @llm-dev-ops/observatory-sdk@${{ needs.check-versions.outputs.npm-version }}\`" >> $GITHUB_STEP_SUMMARY
 
   publish-crates:
     needs: check-versions

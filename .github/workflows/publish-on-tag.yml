@@ -60,10 +60,10 @@ jobs:
 
             Install with:
             ```bash
-            npm install @llm-dev-ops/sdk@${{ steps.version.outputs.version }}
+            npm install @llm-dev-ops/observatory-sdk@${{ steps.version.outputs.version }}
             ```
 
-            [View on npm](https://www.npmjs.com/package/@llm-dev-ops/sdk)
+            [View on npm](https://www.npmjs.com/package/@llm-dev-ops/observatory-sdk)
 
   publish-crates:
     if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, 'sdk-nodejs')

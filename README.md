@@ -55,10 +55,10 @@ LLM Observatory is a **production-ready**, high-performance, open-source observa
 
 ### Node.js SDK
 ```bash
-npm install @llm-dev-ops/sdk
+npm install @llm-dev-ops/observatory-sdk
 ```
-[![npm version](https://img.shields.io/npm/v/@llm-dev-ops/sdk)](https://www.npmjs.com/package/@llm-dev-ops/sdk)
-[![npm downloads](https://img.shields.io/npm/dm/@llm-dev-ops/sdk)](https://www.npmjs.com/package/@llm-dev-ops/sdk)
+[![npm version](https://img.shields.io/npm/v/@llm-dev-ops/observatory-sdk)](https://www.npmjs.com/package/@llm-dev-ops/observatory-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/@llm-dev-ops/observatory-sdk)](https://www.npmjs.com/package/@llm-dev-ops/observatory-sdk)
 
 ### Rust Crates
 ```toml
@@ -104,10 +104,10 @@ open http://localhost:8080  # Analytics API
 
 ```bash
 # Install SDK
-npm install @llm-dev-ops/sdk
+npm install @llm-dev-ops/observatory-sdk
 
 # Initialize in your app
-import { initObservatory, instrumentOpenAI } from '@llm-dev-ops/sdk';
+import { initObservatory, instrumentOpenAI } from '@llm-dev-ops/observatory-sdk';
 import OpenAI from 'openai';
 
 // Initialize observatory
