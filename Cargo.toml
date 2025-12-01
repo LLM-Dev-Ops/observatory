@@ -7,6 +7,8 @@ members = [
     "crates/sdk",
     "crates/providers",
     "crates/cli",
+    "crates/benchmarks",
+    "crates/adapters",
     "services/analytics-api",
 ]
 resolver = "2"
