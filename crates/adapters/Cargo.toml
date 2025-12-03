@@ -8,9 +8,23 @@ license.workspace = true
 repository.workspace = true
 homepage.workspace = true
 documentation.workspace = true
-description = "Benchmark target adapters for LLM Observatory"
+description = "Benchmark target adapters and upstream integrations for LLM Observatory"
 
 [dependencies]
 llm-observatory-benchmarks = { path = "../benchmarks" }
+llm-observatory-core = { path = "../core" }
 serde.workspace = true
 serde_json.workspace = true
+async-trait.workspace = true
+tokio.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+
+# LLM-Dev-Ops Upstream Dependencies (Phase 2B - Consumes-From)
+schema-registry-core.workspace = true
+llm-config-core.workspace = true
+llm-latency-lens-core.workspace = true
+llm-cost-ops.workspace = true
+llm-sentinel-core.workspace = true

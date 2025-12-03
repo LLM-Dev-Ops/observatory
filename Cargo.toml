@@ -93,6 +93,18 @@ ring = "0.17"
 # Testing
 mockall = "0.13"
 
+# LLM-Dev-Ops Upstream Dependencies (Phase 2A - Compile-time mandatory)
+# Schema Registry - provides schema definitions and validation
+schema-registry-core = { git = "https://github.com/LLM-Dev-Ops/schema-registry.git", branch = "main" }
+# Config Manager - provides configuration management
+llm-config-core = { git = "https://github.com/LLM-Dev-Ops/config-manager.git", branch = "main" }
+# Latency Lens - provides latency profiling and metrics
+llm-latency-lens-core = { git = "https://github.com/LLM-Dev-Ops/latency-lens.git", branch = "main" }
+# CostOps - provides cost analytics and tracking
+llm-cost-ops = { git = "https://github.com/LLM-Dev-Ops/cost-ops.git", branch = "main" }
+# Sentinel - provides anomaly detection and alerting
+llm-sentinel-core = { git = "https://github.com/LLM-Dev-Ops/sentinel.git", branch = "main" }
+
 [profile.dev]
 opt-level = 0
 debug = true
