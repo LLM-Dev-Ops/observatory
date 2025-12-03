@@ -109,4 +109,7 @@ pub fn all_targets() -> Vec<Box<dyn BenchTarget>> {
 }
 
 // Re-export upstream adapters at crate root for convenience
+// Phase 2A - Compile-time dependency adapters
 pub use upstream::{ConfigAdapter, CostAdapter, LatencyAdapter, SchemaAdapter, SentinelAdapter};
+// Phase 2B - Runtime-only adapters
+pub use upstream::{EdgeAgentAdapter, InferenceGatewayAdapter, OrchestratorAdapter};
