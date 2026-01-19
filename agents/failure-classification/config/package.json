@@ -1,0 +1,63 @@
+{
+  "name": "@llm-observatory/failure-classification-agent",
+  "version": "1.0.0",
+  "description": "Failure Classification Agent for LLM-Observatory - Classifies observed failures into deterministic categories",
+  "main": "dist/handler.js",
+  "types": "dist/handler.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts contracts/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts contracts/**/*.ts --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "deploy": "gcloud functions deploy failure-classification-agent --gen2 --runtime nodejs20 --trigger-http --entry-point handleClassification --source dist",
+    "deploy:staging": "gcloud functions deploy failure-classification-agent-staging --gen2 --runtime nodejs20 --trigger-http --entry-point handleClassification --source dist",
+    "logs": "gcloud functions logs read failure-classification-agent --gen2",
+    "describe": "gcloud functions describe failure-classification-agent --gen2"
+  },
+  "keywords": [
+    "llm",
+    "observatory",
+    "failure-classification",
+    "telemetry",
+    "diagnostics",
+    "agent"
+  ],
+  "author": "LLM-Observatory Team",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.6",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "contracts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/llm-observatory.git",
+    "directory": "agents/failure-classification"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/llm-observatory/issues"
+  }
+}

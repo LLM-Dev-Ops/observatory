@@ -1,0 +1,57 @@
+{
+  "name": "@llm-observatory/post-mortem-generator-agent",
+  "version": "1.0.0",
+  "description": "Post-Mortem Generator Agent for LLM Observatory - generates structured, reproducible post-mortem reports from historical telemetry",
+  "type": "module",
+  "main": "./dist/src/handler.js",
+  "types": "./dist/src/handler.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/src/handler.js",
+      "types": "./dist/src/handler.d.ts"
+    },
+    "./contracts": {
+      "import": "./dist/contracts/index.js",
+      "types": "./dist/contracts/index.d.ts"
+    },
+    "./cli": {
+      "import": "./dist/src/cli.js",
+      "types": "./dist/src/cli.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src contracts",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "dist",
+    "config"
+  ],
+  "keywords": [
+    "llm",
+    "observatory",
+    "post-mortem",
+    "incident-analysis",
+    "telemetry",
+    "agent"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "peerDependencies": {
+    "zod": "^3.22.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

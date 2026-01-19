@@ -1,0 +1,91 @@
+{
+  "name": "@llm-observatory/telemetry-collector-agent",
+  "version": "1.0.0",
+  "description": "Telemetry Collection Agent - READ-ONLY ingestion of LLM telemetry events from multiple providers",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/globalbusinessadvisors/llm-observatory.git",
+    "directory": "agents/telemetry-collector"
+  },
+  "authors": [
+    "LLM Observatory Contributors"
+  ],
+  "keywords": [
+    "llm",
+    "observability",
+    "telemetry",
+    "agent",
+    "ingestion",
+    "read-only"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "build:watch": "tsc --project tsconfig.json --watch",
+    "clean": "rm -rf dist coverage",
+    "prepack": "npm run build",
+    "dev": "tsx --watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "deploy": "gcloud functions deploy telemetry-collector-agent --gen2 --runtime nodejs20 --region us-central1 --entry-point handleTelemetryIngestion",
+    "deploy:dry-run": "gcloud functions deploy telemetry-collector-agent --gen2 --runtime nodejs20 --region us-central1 --entry-point handleTelemetryIngestion --no-gen2 --dry-run",
+    "logs": "gcloud functions logs read telemetry-collector-agent --limit 50 --follow",
+    "describe": "gcloud functions describe telemetry-collector-agent --gen2 --region us-central1"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/sdk-node": "^0.55.0",
+    "@opentelemetry/sdk-trace-node": "^0.55.0",
+    "@opentelemetry/auto-instrumentations-node": "^2.3.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.55.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.55.0",
+    "zod": "^3.22.0",
+    "axios": "^1.7.0",
+    "pino": "^8.20.0",
+    "pino-pretty": "^10.3.0",
+    "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "eslint": "^9.3.0",
+    "eslint-plugin-prettier": "^5.1.0",
+    "prettier": "^3.2.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.7",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "@llm-observatory/health-check-agent",
+  "version": "1.0.0",
+  "description": "Health Check Agent - ADVISORY, NON-ACTUATING agent for health state evaluation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/handler.js",
+    "dev": "tsx watch src/handler.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/**/*.ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "llm-observatory",
+    "health-check",
+    "agent",
+    "advisory",
+    "telemetry"
+  ],
+  "author": "LLM-Observatory",
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.23.8",
+    "@google-cloud/functions-framework": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0",
+    "tsx": "^4.15.0",
+    "vitest": "^1.6.0",
+    "eslint": "^9.5.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0"
+  },
+  "files": [
+    "dist",
+    "contracts",
+    "config"
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "agentId": "visualization-spec-agent",
+  "agentVersion": "1.0.0",
+  "name": "Visualization Spec Agent",
+  "description": "Generates declarative visualization specifications for dashboards and analytics interfaces. Produces chart, graph, and table specifications without rendering UI or querying raw databases.",
+  "classification": "READ-ONLY",
+  "subClassification": "PRESENTATIONAL",
+  "actuating": false,
+  "decisionType": "visualization_specification",
+  "confidenceType": "analytical",
+
+  "constitutionalConstraints": {
+    "mustNot": [
+      "Render UI components",
+      "Query raw databases directly",
+      "Modify dashboard state",
+      "Execute SQL statements",
+      "Connect to Google SQL directly",
+      "Trigger orchestration workflows",
+      "Initiate remediation actions",
+      "Trigger alerts",
+      "Invoke other agents",
+      "Modify routing policies",
+      "Change thresholds at runtime"
+    ],
+    "must": [
+      "Validate all inputs against agentics-contracts schemas",
+      "Emit exactly ONE DecisionEvent per invocation",
+      "Persist via ruvector-service only",
+      "Return deterministic, machine-readable output",
+      "Expose CLI-invokable endpoints",
+      "Be deployable as Google Edge Function",
+      "Produce visualization schemas (not rendered UI)",
+      "Support time-series, categorical, and comparative views"
+    ]
+  },
+
+  "inputs": [
+    {
+      "name": "data_source",
+      "type": "DataSourceSpec",
+      "description": "Specification of the data source to visualize",
+      "required": true,
+      "schema": "DataSourceSpecSchema"
+    },
+    {
+      "name": "visualization_type",
+      "type": "VisualizationType",
+      "description": "Type of visualization to generate (line_chart, bar_chart, pie_chart, table, heatmap, etc.)",
+      "required": true,
+      "schema": "VisualizationTypeSchema"
+    },
+    {
+      "name": "time_range",
+      "type": "TimeRangeSpec",
+      "description": "Time range for time-series visualizations",
+      "required": false,
+      "schema": "TimeRangeSpecSchema"
+    },
+    {
+      "name": "dimensions",
+      "type": "DimensionSpec[]",
+      "description": "Dimensions for grouping and categorization",
+      "required": false,
+      "schema": "DimensionSpecSchema"
+    },
+    {
+      "name": "metrics",
+      "type": "MetricSpec[]",
+      "description": "Metrics to display in the visualization",
+      "required": true,
+      "schema": "MetricSpecSchema"
+    },
+    {
+      "name": "styling",
+      "type": "StylingSpec",
+      "description": "Styling preferences for the visualization",
+      "required": false,
+      "schema": "StylingSpecSchema"
+    },
+    {
+      "name": "request_id",
+      "type": "string",
+      "description": "Optional request ID for tracing",
+      "required": false,
+      "schema": "z.string().uuid()"
+    }
+  ],
+
+  "outputs": [
+    {
+      "name": "visualization_spec",
+      "type": "VisualizationSpec",
+      "description": "Complete declarative visualization specification",
+      "schema": "VisualizationSpecSchema"
+    },
+    {
+      "name": "decision_event",
+      "type": "VisualizationDecisionEvent",
+      "description": "Constitutional compliance record",
+      "schema": "VisualizationDecisionEventSchema"
+    }
+  ],
+
+  "consumers": [
+    {
+      "name": "LLM-Observatory UI",
+      "type": "dashboard",
+      "consumptionPattern": "async_query"
+    },
+    {
+      "name": "Agentics Dev Platform Dashboards",
+      "type": "dashboard",
+      "consumptionPattern": "async_query"
+    },
+    {
+      "name": "Analytics Tooling",
+      "type": "integration",
+      "consumptionPattern": "batch_export"
+    }
+  ],
+
+  "httpEndpoints": [
+    {
+      "method": "POST",
+      "path": "/generate",
+      "description": "Generate a visualization specification",
+      "requestSchema": "VisualizationRequestSchema",
+      "responseSchema": "VisualizationResponseSchema"
+    },
+    {
+      "method": "POST",
+      "path": "/generate/batch",
+      "description": "Generate multiple visualization specifications",
+      "requestSchema": "BatchVisualizationRequestSchema",
+      "responseSchema": "BatchVisualizationResponseSchema"
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "description": "Agent health status",
+      "responseSchema": "HealthStatusSchema"
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "description": "Prometheus metrics",
+      "responseSchema": "text/plain"
+    }
+  ],
+
+  "cliCommands": [
+    {
+      "name": "generate",
+      "description": "Generate a visualization specification",
+      "options": [
+        "--type <visualization_type>",
+        "--data-source <json>",
+        "--metrics <json>",
+        "--time-range <start:end>",
+        "--output <format>"
+      ]
+    },
+    {
+      "name": "inspect",
+      "description": "Inspect a past specification generation",
+      "options": [
+        "--spec-id <uuid>"
+      ]
+    },
+    {
+      "name": "replay",
+      "description": "Replay a specification generation for verification",
+      "options": [
+        "--spec-id <uuid>",
+        "--verify-determinism"
+      ]
+    },
+    {
+      "name": "list-types",
+      "description": "List supported visualization types",
+      "options": [
+        "--category <category>"
+      ]
+    }
+  ],
+
+  "nonResponsibilities": [
+    "Rendering actual UI components or charts",
+    "Fetching data from raw databases",
+    "Caching or storing data locally",
+    "Managing dashboard layout or state",
+    "User authentication or authorization",
+    "Real-time data streaming",
+    "Executing aggregation queries",
+    "Managing chart interactions",
+    "Handling user input events"
+  ],
+
+  "failureModes": [
+    {
+      "code": "INVALID_DATA_SOURCE",
+      "description": "Data source specification is invalid or unsupported",
+      "httpStatus": 400,
+      "recoverable": true
+    },
+    {
+      "code": "UNSUPPORTED_VISUALIZATION_TYPE",
+      "description": "Requested visualization type is not supported",
+      "httpStatus": 400,
+      "recoverable": true
+    },
+    {
+      "code": "INCOMPATIBLE_METRICS",
+      "description": "Metrics are incompatible with the visualization type",
+      "httpStatus": 400,
+      "recoverable": true
+    },
+    {
+      "code": "INVALID_TIME_RANGE",
+      "description": "Time range is invalid or exceeds maximum allowed",
+      "httpStatus": 400,
+      "recoverable": true
+    },
+    {
+      "code": "RUVECTOR_UNAVAILABLE",
+      "description": "RuVector service is unavailable for persistence",
+      "httpStatus": 503,
+      "recoverable": true
+    },
+    {
+      "code": "SCHEMA_VALIDATION_FAILED",
+      "description": "Input failed schema validation",
+      "httpStatus": 400,
+      "recoverable": true
+    },
+    {
+      "code": "INTERNAL_ERROR",
+      "description": "Unexpected internal error",
+      "httpStatus": 500,
+      "recoverable": false
+    }
+  ],
+
+  "persistenceRules": {
+    "mustPersist": [
+      "DecisionEvent with full specification output",
+      "Input hash for replay verification",
+      "Execution reference for tracing",
+      "Processing metrics"
+    ],
+    "mustNotPersist": [
+      "Raw data source contents",
+      "Intermediate computation state",
+      "User session data",
+      "Rendered visualization output"
+    ]
+  },
+
+  "versioningRules": {
+    "semanticVersioning": true,
+    "breakingChangePolicy": "major_version_increment",
+    "backwardsCompatibilityWindow": "2_major_versions"
+  },
+
+  "healthChecks": [
+    {
+      "name": "ruvector_connectivity",
+      "interval": "30s",
+      "timeout": "5s",
+      "criticalOnFailure": true
+    },
+    {
+      "name": "schema_registry_sync",
+      "interval": "60s",
+      "timeout": "10s",
+      "criticalOnFailure": false
+    }
+  ],
+
+  "telemetry": {
+    "metricsPrefix": "visualization_spec_agent",
+    "spanPrefix": "viz_spec",
+    "prometheusEnabled": true,
+    "openTelemetryEnabled": true
+  }
+}

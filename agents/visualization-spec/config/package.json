@@ -1,0 +1,81 @@
+{
+  "name": "@llm-observatory/visualization-spec-agent",
+  "version": "1.0.0",
+  "description": "Generates declarative visualization specifications for dashboards and analytics interfaces",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./contracts": {
+      "import": "./dist/contracts/index.js",
+      "types": "./dist/contracts/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "config/agent-manifest.json"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "dev": "tsx watch src/handler.ts",
+    "start": "node dist/handler.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src/**/*.ts contracts/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts contracts/**/*.ts --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "llm-observatory",
+    "visualization",
+    "dashboard",
+    "analytics",
+    "charts",
+    "specifications",
+    "declarative",
+    "cloud-functions"
+  ],
+  "author": "LLM Observatory Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llm-observatory/observatory.git",
+    "directory": "agents/visualization-spec"
+  },
+  "bugs": {
+    "url": "https://github.com/llm-observatory/observatory/issues"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitest/coverage-v8": "^1.2.0",
+    "eslint": "^8.56.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "peerDependencies": {
+    "@llm-observatory/contracts": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@llm-observatory/contracts": {
+      "optional": true
+    }
+  }
+}

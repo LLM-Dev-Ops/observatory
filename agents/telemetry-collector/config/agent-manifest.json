@@ -1,0 +1,366 @@
+{
+  "agentId": "telemetry-collector-agent",
+  "agentName": "Telemetry Collector Agent",
+  "agentVersion": "1.0.0",
+  "agentDescription": "READ-ONLY agent responsible for ingesting and normalizing telemetry events from multiple LLM providers (OpenAI, Anthropic, Google, etc.). Performs no interpretation, aggregation, or decision-making.",
+  "classification": "READ-ONLY",
+  "componentType": "ingestion-layer",
+  "decisionType": "telemetry_ingestion",
+  "deploymentType": "cloud-function",
+  "inputs": [
+    {
+      "type": "TelemetryEvent",
+      "schema": {
+        "provider": "string",
+        "eventType": "string",
+        "timestamp": "ISO8601",
+        "payload": "object"
+      },
+      "examples": [
+        {
+          "provider": "openai",
+          "eventType": "completion_created",
+          "timestamp": "2025-01-19T10:30:00Z",
+          "payload": {
+            "modelId": "gpt-4-turbo",
+            "tokensUsed": 150,
+            "cost": 0.45
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "type": "NormalizedTelemetry",
+      "schema": {
+        "normalizedId": "uuid",
+        "agentId": "string",
+        "agentVersion": "string",
+        "eventTimestamp": "ISO8601",
+        "provider": "string",
+        "eventType": "string",
+        "normalizedPayload": "object",
+        "validationStatus": "PASSED|FAILED",
+        "ingestionTimestamp": "ISO8601",
+        "rawEventHash": "string"
+      },
+      "examples": [
+        {
+          "normalizedId": "550e8400-e29b-41d4-a716-446655440000",
+          "agentId": "telemetry-collector-agent",
+          "agentVersion": "1.0.0",
+          "eventTimestamp": "2025-01-19T10:30:00Z",
+          "provider": "openai",
+          "eventType": "completion_created",
+          "normalizedPayload": {
+            "modelId": "gpt-4-turbo",
+            "tokensUsed": 150,
+            "cost": 0.45
+          },
+          "validationStatus": "PASSED",
+          "ingestionTimestamp": "2025-01-19T10:30:00.500Z",
+          "rawEventHash": "abc123def456"
+        }
+      ]
+    },
+    {
+      "type": "DecisionEvent",
+      "schema": {
+        "decisionId": "uuid",
+        "agentId": "string",
+        "decisionType": "telemetry_ingestion",
+        "decision": "INGEST|REJECT|QUEUE",
+        "reason": "string",
+        "timestamp": "ISO8601",
+        "metadata": "object"
+      },
+      "examples": [
+        {
+          "decisionId": "550e8400-e29b-41d4-a716-446655440001",
+          "agentId": "telemetry-collector-agent",
+          "decisionType": "telemetry_ingestion",
+          "decision": "INGEST",
+          "reason": "Event passed schema validation",
+          "timestamp": "2025-01-19T10:30:00.100Z",
+          "metadata": {
+            "schemaVersion": "1.0.0",
+            "validationMs": 2
+          }
+        }
+      ]
+    }
+  ],
+  "consumers": [
+    {
+      "agentId": "usage-pattern-agent",
+      "eventTypes": ["NormalizedTelemetry"],
+      "priority": "HIGH",
+      "queueStrategy": "DIRECT"
+    },
+    {
+      "agentId": "failure-classification-agent",
+      "eventTypes": ["NormalizedTelemetry"],
+      "priority": "HIGH",
+      "queueStrategy": "DIRECT"
+    },
+    {
+      "agentId": "health-check-agent",
+      "eventTypes": ["DecisionEvent"],
+      "priority": "MEDIUM",
+      "queueStrategy": "BATCH"
+    },
+    {
+      "agentId": "visualization-spec-agent",
+      "eventTypes": ["NormalizedTelemetry"],
+      "priority": "MEDIUM",
+      "queueStrategy": "BATCH"
+    }
+  ],
+  "responsibilities": [
+    "Ingest telemetry events from HTTP endpoints",
+    "Normalize events across provider schemas",
+    "Validate events against schema registry",
+    "Normalize payload structures",
+    "Compute event hashes for deduplication",
+    "Route valid events to downstream consumers",
+    "Emit decision events for all ingestion decisions",
+    "Maintain ingestion metrics and health status",
+    "Handle batching and buffering",
+    "Implement retry logic for transient failures",
+    "Log all ingestion activities for audit trail",
+    "Support self-observation and tracing"
+  ],
+  "nonResponsibilities": [
+    "Aggregation (temporal, spatial, or dimensional)",
+    "Interpretation of event semantics",
+    "Classification of events into categories",
+    "Anomaly detection or alerting",
+    "Correlation of events across time or providers",
+    "Storage or persistence of events",
+    "Caching of events or results",
+    "Sampling or filtering of events",
+    "Computation of derived metrics",
+    "Authorization or access control decisions"
+  ],
+  "dependencies": [
+    {
+      "name": "schema-registry",
+      "type": "external-service",
+      "endpoint": "https://schema-registry.internal",
+      "critical": true
+    },
+    {
+      "name": "ruvector-service",
+      "type": "external-service",
+      "endpoint": "https://ruvector-service.internal",
+      "critical": true
+    },
+    {
+      "name": "otel-collector",
+      "type": "external-service",
+      "endpoint": "https://otel-collector.internal:4317",
+      "critical": false
+    }
+  ],
+  "cliCommands": [
+    {
+      "name": "inspect",
+      "description": "Inspect ingestion status and metrics",
+      "usage": "npx @llm-observatory/cli telemetry-collector inspect [--provider=<provider>]"
+    },
+    {
+      "name": "replay",
+      "description": "Replay telemetry events from a time range",
+      "usage": "npx @llm-observatory/cli telemetry-collector replay --from=<timestamp> --to=<timestamp>"
+    },
+    {
+      "name": "analyze",
+      "description": "Analyze ingestion patterns and anomalies",
+      "usage": "npx @llm-observatory/cli telemetry-collector analyze [--provider=<provider>] [--time-window=<hours>]"
+    },
+    {
+      "name": "status",
+      "description": "Check agent health and status",
+      "usage": "npx @llm-observatory/cli telemetry-collector status [--detailed]"
+    },
+    {
+      "name": "validate",
+      "description": "Validate a telemetry event against schema",
+      "usage": "npx @llm-observatory/cli telemetry-collector validate --input=<file.json>"
+    },
+    {
+      "name": "export",
+      "description": "Export ingestion metrics to file",
+      "usage": "npx @llm-observatory/cli telemetry-collector export [--format=json|csv] [--output=<file>]"
+    }
+  ],
+  "httpEndpoints": [
+    {
+      "method": "POST",
+      "path": "/telemetry/ingest",
+      "description": "Ingest telemetry events",
+      "authentication": "optional",
+      "rateLimit": "1000 req/min per IP",
+      "requestSchema": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "enum": ["openai", "anthropic", "google", "bedrock", "custom"]
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "iso8601"
+          },
+          "payload": {
+            "type": "object"
+          }
+        },
+        "required": ["provider", "eventType", "timestamp", "payload"]
+      },
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "normalizedId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["INGESTED", "QUEUED", "REJECTED"]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/telemetry/health",
+      "description": "Health check endpoint",
+      "authentication": "none",
+      "rateLimit": "unlimited",
+      "responseSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["healthy", "degraded", "unhealthy"]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "iso8601"
+          },
+          "eventsIngested": {
+            "type": "integer"
+          },
+          "eventsRejected": {
+            "type": "integer"
+          },
+          "uptime": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/telemetry/metrics",
+      "description": "Prometheus-compatible metrics endpoint",
+      "authentication": "optional",
+      "rateLimit": "100 req/min",
+      "contentType": "text/plain"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "telemetry_events_ingested_total",
+      "type": "counter",
+      "description": "Total events ingested",
+      "labels": ["provider", "event_type", "status"]
+    },
+    {
+      "name": "telemetry_ingestion_latency_ms",
+      "type": "histogram",
+      "description": "Ingestion latency in milliseconds",
+      "buckets": [1, 5, 10, 25, 50, 100, 250, 500, 1000]
+    },
+    {
+      "name": "telemetry_queue_depth",
+      "type": "gauge",
+      "description": "Current ingestion queue depth",
+      "labels": ["consumer"]
+    },
+    {
+      "name": "telemetry_schema_validation_errors_total",
+      "type": "counter",
+      "description": "Total schema validation errors",
+      "labels": ["provider", "error_type"]
+    }
+  ],
+  "healthChecks": [
+    {
+      "name": "schema-registry-connectivity",
+      "endpoint": "https://schema-registry.internal/health",
+      "interval": "30s",
+      "timeout": "5s"
+    },
+    {
+      "name": "ruvector-connectivity",
+      "endpoint": "https://ruvector-service.internal/health",
+      "interval": "30s",
+      "timeout": "5s"
+    },
+    {
+      "name": "queue-throughput",
+      "description": "Verify event processing throughput",
+      "interval": "60s",
+      "threshold": {
+        "minEventsPerMinute": 10
+      }
+    }
+  ],
+  "integrations": {
+    "observability": {
+      "tracing": true,
+      "metrics": true,
+      "logging": true,
+      "spans": [
+        "telemetry-ingestion",
+        "schema-validation",
+        "payload-normalization",
+        "consumer-dispatch"
+      ]
+    },
+    "deployment": {
+      "platform": "gcp",
+      "service": "cloud-functions",
+      "runtime": "nodejs20",
+      "vpcEnabled": true
+    },
+    "messaging": {
+      "brokers": ["ruvector-service"],
+      "publishTopics": ["telemetry.normalized", "telemetry.decisions"],
+      "subscribeTopics": []
+    }
+  },
+  "sla": {
+    "availability": 0.999,
+    "latencyP50Ms": 10,
+    "latencyP99Ms": 100,
+    "throughputEventsPerSecond": 1000
+  },
+  "tags": [
+    "ingestion",
+    "telemetry",
+    "read-only",
+    "streaming",
+    "event-driven",
+    "google-cloud-functions"
+  ]
+}

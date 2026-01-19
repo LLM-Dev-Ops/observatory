@@ -1,0 +1,400 @@
+{
+  "id": "post-mortem-generator-agent",
+  "version": "1.0.0",
+  "name": "Post-Mortem Generator Agent",
+  "description": "Generates structured, reproducible post-mortem reports from historical telemetry, failure classifications, and health evaluations.",
+
+  "classification": {
+    "type": "READ-ONLY",
+    "subtype": "ANALYTICAL",
+    "enforcement": false,
+    "advisory": false
+  },
+
+  "purpose": {
+    "primary": "Generate structured post-mortem reports from historical observational data",
+    "scope": [
+      "Consume historical telemetry events",
+      "Consume failure classification data",
+      "Consume health evaluation data",
+      "Produce structured post-mortem summaries and narratives",
+      "Identify contributing factors and timelines",
+      "Output machine-readable post-mortem artifacts"
+    ]
+  },
+
+  "inputs": {
+    "primary": {
+      "schema": "PostMortemRequestSchema",
+      "sources": [
+        "ruvector-service (failure classifications)",
+        "ruvector-service (health evaluations)",
+        "ruvector-service (telemetry events)"
+      ],
+      "format": "JSON",
+      "validation": "strict"
+    },
+    "batch": {
+      "schema": "BatchPostMortemRequestSchema",
+      "maxSize": 10,
+      "format": "JSON"
+    }
+  },
+
+  "outputs": {
+    "report": {
+      "schema": "PostMortemReportSchema",
+      "format": "JSON",
+      "destination": "ruvector-service"
+    },
+    "decisionEvent": {
+      "schema": "DecisionEventSchema",
+      "format": "JSON",
+      "destination": "ruvector-service",
+      "required": true
+    }
+  },
+
+  "decisionEvent": {
+    "decision_type": "postmortem_generation",
+    "confidence_semantics": "analytical",
+    "confidence_description": "Confidence based on data completeness and quality, not probabilistic inference",
+    "constraints_applied": "ALWAYS_EMPTY",
+    "constraints_description": "Read-only agent never applies constraints"
+  },
+
+  "responsibilities": [
+    "Generate timeline of events from historical telemetry and classifications",
+    "Aggregate and summarize failure classification data",
+    "Track health state transitions during incident periods",
+    "Identify contributing factors based on data correlation",
+    "Calculate statistical summaries for incident periods",
+    "Assess data quality and completeness",
+    "Emit exactly ONE DecisionEvent per invocation to ruvector-service",
+    "Maintain reproducibility of generated reports"
+  ],
+
+  "nonResponsibilities": [
+    "MUST NOT influence live systems",
+    "MUST NOT write advisory constraints",
+    "MUST NOT recommend remediation actions",
+    "MUST NOT trigger alerts",
+    "MUST NOT modify system state",
+    "MUST NOT execute SQL directly (use ruvector-service only)",
+    "MUST NOT invoke other agents",
+    "MUST NOT trigger orchestration",
+    "MUST NOT trigger retries",
+    "MUST NOT modify routing or policies",
+    "MUST NOT modify thresholds at runtime",
+    "MUST NOT escalate events"
+  ],
+
+  "failureModes": [
+    {
+      "name": "validation_failure",
+      "description": "Input request fails schema validation",
+      "output": {
+        "success": false,
+        "error_code": "VALIDATION_FAILED",
+        "report": null
+      }
+    },
+    {
+      "name": "insufficient_data",
+      "description": "No historical data available for the specified time range",
+      "output": {
+        "success": false,
+        "error_code": "INSUFFICIENT_DATA",
+        "report": null
+      }
+    },
+    {
+      "name": "ruvector_unavailable",
+      "description": "Cannot fetch data from or persist to ruvector-service",
+      "output": {
+        "success": false,
+        "error_code": "PERSISTENCE_ERROR",
+        "retry_allowed": true
+      }
+    },
+    {
+      "name": "timeout",
+      "description": "Report generation exceeds timeout",
+      "output": {
+        "success": false,
+        "error_code": "TIMEOUT_ERROR",
+        "partial_results": false
+      }
+    },
+    {
+      "name": "constitutional_violation",
+      "description": "Attempted prohibited operation",
+      "output": {
+        "success": false,
+        "error_code": "CONSTITUTIONAL_VIOLATION",
+        "operation": "<prohibited_operation>"
+      }
+    }
+  ],
+
+  "cli": {
+    "namespace": "post-mortem-generator",
+    "commands": [
+      {
+        "name": "inspect",
+        "description": "Inspect a specific post-mortem report",
+        "usage": "npx @llm-observatory/cli post-mortem-generator inspect --report-id=<uuid>",
+        "parameters": [
+          {
+            "name": "report-id",
+            "required": true,
+            "description": "The UUID of the post-mortem report"
+          },
+          {
+            "name": "detailed",
+            "required": false,
+            "default": false,
+            "description": "Include detailed metadata"
+          }
+        ]
+      },
+      {
+        "name": "replay",
+        "description": "Replay report generation for determinism verification",
+        "usage": "npx @llm-observatory/cli post-mortem-generator replay --report-id=<uuid>",
+        "parameters": [
+          {
+            "name": "report-id",
+            "required": true,
+            "description": "The UUID of the post-mortem report to replay"
+          },
+          {
+            "name": "compare",
+            "required": false,
+            "default": true,
+            "description": "Compare with original report"
+          }
+        ]
+      },
+      {
+        "name": "generate",
+        "description": "Generate a new post-mortem report",
+        "usage": "npx @llm-observatory/cli post-mortem-generator generate --start-time=<iso> --end-time=<iso>",
+        "parameters": [
+          {
+            "name": "start-time",
+            "required": true,
+            "description": "Start time for analysis (ISO 8601)"
+          },
+          {
+            "name": "end-time",
+            "required": true,
+            "description": "End time for analysis (ISO 8601)"
+          },
+          {
+            "name": "providers",
+            "required": false,
+            "description": "Comma-separated list of providers to include"
+          },
+          {
+            "name": "models",
+            "required": false,
+            "description": "Comma-separated list of models to include"
+          },
+          {
+            "name": "services",
+            "required": false,
+            "description": "Comma-separated list of services to include"
+          },
+          {
+            "name": "incident-id",
+            "required": false,
+            "description": "Incident identifier to associate with the report"
+          }
+        ]
+      },
+      {
+        "name": "status",
+        "description": "Get agent status and health",
+        "usage": "npx @llm-observatory/cli post-mortem-generator status [--detailed]",
+        "parameters": [
+          {
+            "name": "detailed",
+            "required": false,
+            "default": false,
+            "description": "Include detailed metrics"
+          }
+        ]
+      },
+      {
+        "name": "query",
+        "description": "Query post-mortem reports",
+        "usage": "npx @llm-observatory/cli post-mortem-generator query [options]",
+        "parameters": [
+          {
+            "name": "report-id",
+            "required": false,
+            "description": "Filter by report ID"
+          },
+          {
+            "name": "incident-id",
+            "required": false,
+            "description": "Filter by incident ID"
+          },
+          {
+            "name": "start-time",
+            "required": false,
+            "description": "Filter by start time"
+          },
+          {
+            "name": "end-time",
+            "required": false,
+            "description": "Filter by end time"
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "default": 10,
+            "description": "Maximum results"
+          }
+        ]
+      },
+      {
+        "name": "list",
+        "description": "List recent post-mortem reports",
+        "usage": "npx @llm-observatory/cli post-mortem-generator list [--limit=10]",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "default": 10,
+            "description": "Maximum results"
+          }
+        ]
+      }
+    ]
+  },
+
+  "endpoints": {
+    "http": [
+      {
+        "method": "POST",
+        "path": "/generate",
+        "description": "Generate a single post-mortem report",
+        "input": "PostMortemRequestSchema",
+        "output": "PostMortemReportSchema"
+      },
+      {
+        "method": "POST",
+        "path": "/generate/batch",
+        "description": "Generate multiple post-mortem reports",
+        "input": "BatchPostMortemRequestSchema",
+        "output": "BatchPostMortemResultSchema"
+      },
+      {
+        "method": "GET",
+        "path": "/health",
+        "description": "Health check endpoint",
+        "output": "HealthStatus"
+      },
+      {
+        "method": "GET",
+        "path": "/metrics",
+        "description": "Prometheus metrics endpoint",
+        "output": "text/plain"
+      }
+    ]
+  },
+
+  "deployment": {
+    "runtime": "Google Cloud Functions Gen2",
+    "platform": "Google Cloud Edge Functions",
+    "service": "llm-observatory",
+    "stateless": true,
+    "persistence": "ruvector-service only"
+  },
+
+  "upstreamSources": [
+    {
+      "id": "failure-classification-agent",
+      "bundle": "LLM-Observatory",
+      "consumptionType": "query",
+      "dataType": "FailureClassificationSchema"
+    },
+    {
+      "id": "health-check-agent",
+      "bundle": "LLM-Observatory",
+      "consumptionType": "query",
+      "dataType": "HealthEvaluationSchema"
+    },
+    {
+      "id": "telemetry-collector-agent",
+      "bundle": "LLM-Observatory",
+      "consumptionType": "query",
+      "dataType": "NormalizedTelemetrySchema"
+    }
+  ],
+
+  "downstreamConsumers": [
+    {
+      "id": "incident-review-systems",
+      "bundle": "Governance",
+      "consumptionType": "query"
+    },
+    {
+      "id": "governance-reporting",
+      "bundle": "Governance",
+      "consumptionType": "subscription"
+    },
+    {
+      "id": "compliance-audits",
+      "bundle": "Compliance",
+      "consumptionType": "query"
+    }
+  ],
+
+  "versioning": {
+    "strategy": "semantic",
+    "breaking_changes": "major_version_bump",
+    "schema_evolution": "backwards_compatible",
+    "deprecation_policy": "2_major_versions"
+  },
+
+  "metrics": [
+    {
+      "name": "postmortem_generations_total",
+      "type": "counter",
+      "labels": ["status"]
+    },
+    {
+      "name": "postmortem_generation_latency_ms",
+      "type": "histogram",
+      "buckets": [10, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
+    },
+    {
+      "name": "postmortem_data_completeness",
+      "type": "histogram",
+      "buckets": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    },
+    {
+      "name": "postmortem_errors_total",
+      "type": "counter",
+      "labels": ["error_type"]
+    }
+  ],
+
+  "healthChecks": [
+    {
+      "name": "ruvector-connectivity",
+      "endpoint": "https://ruvector-service.internal/health",
+      "interval": "30s",
+      "timeout": "5s"
+    }
+  ],
+
+  "sla": {
+    "availability": 0.999,
+    "latency_p99_ms": 5000,
+    "latency_p50_ms": 500
+  }
+}

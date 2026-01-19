@@ -1,0 +1,124 @@
+# Health Check Agent - Google Cloud Functions Deployment
+#
+# CLASSIFICATION: ADVISORY, NON-ACTUATING
+# DECISION_TYPE: health_evaluation
+#
+# This configuration deploys the Health Check Agent as a
+# serverless Google Cloud Function.
+
+name: health-check-agent
+runtime: nodejs20
+entryPoint: handleHealthEvaluation
+
+# Resource Allocation
+memory: 256MB
+timeout: 30s
+minInstances: 0
+maxInstances: 50
+concurrency: 80
+
+# Service Configuration
+serviceAccountEmail: health-check-agent@llm-observatory.iam.gserviceaccount.com
+ingressSettings: ALLOW_INTERNAL_AND_GCLB
+
+# VPC Configuration
+vpcConnector: projects/llm-observatory/locations/us-central1/connectors/observatory-vpc
+vpcConnectorEgressSettings: PRIVATE_RANGES_ONLY
+
+# Environment Variables
+environmentVariables:
+  # Agent Identity
+  AGENT_ID: health-check-agent
+  AGENT_VERSION: "1.0.0"
+  AGENT_CLASSIFICATION: ADVISORY
+
+  # Ruvector Integration
+  RUVECTOR_ENDPOINT: https://ruvector-service.internal:443
+  RUVECTOR_TIMEOUT_MS: "5000"
+  RUVECTOR_MAX_RETRIES: "3"
+  RUVECTOR_RETRY_BASE_DELAY_MS: "1000"
+  RUVECTOR_POOL_SIZE: "5"
+
+  # Default Windows
+  DEFAULT_EVALUATION_WINDOW: "5m"
+  DEFAULT_TREND_WINDOW: "1h"
+
+  # Latency Thresholds (ms)
+  LATENCY_HEALTHY_MAX_P95_MS: "500"
+  LATENCY_DEGRADED_MAX_P95_MS: "2000"
+
+  # Error Rate Thresholds (percentage)
+  ERROR_RATE_HEALTHY_MAX_PCT: "1"
+  ERROR_RATE_DEGRADED_MAX_PCT: "5"
+
+  # Throughput Thresholds (req/s)
+  THROUGHPUT_HEALTHY_MIN_RPS: "10"
+  THROUGHPUT_DEGRADED_MIN_RPS: "1"
+
+  # Saturation Thresholds (percentage)
+  SATURATION_HEALTHY_MAX_PCT: "70"
+  SATURATION_DEGRADED_MAX_PCT: "90"
+
+  # Availability Thresholds (percentage)
+  AVAILABILITY_HEALTHY_MIN_PCT: "99.9"
+  AVAILABILITY_DEGRADED_MIN_PCT: "99"
+
+  # Hysteresis Configuration
+  HYSTERESIS_THRESHOLD_IMPROVE: "3"
+  HYSTERESIS_THRESHOLD_DEGRADE: "1"
+
+  # Indicator Weights
+  WEIGHT_ERROR_RATE: "3.0"
+  WEIGHT_AVAILABILITY: "2.5"
+  WEIGHT_LATENCY: "2.0"
+  WEIGHT_THROUGHPUT: "1.5"
+  WEIGHT_SATURATION: "1.0"
+
+  # Self-Observation
+  SELF_OBSERVATION_ENABLED: "true"
+  OTEL_EXPORTER_OTLP_ENDPOINT: https://otel-collector.internal:4317
+
+  # Logging
+  LOG_LEVEL: info
+  NODE_ENV: production
+
+# Secrets (via Google Secret Manager)
+secretEnvironmentVariables:
+  - key: RUVECTOR_API_KEY
+    projectId: llm-observatory
+    secret: ruvector-api-key
+    version: latest
+  - key: OTEL_AUTH_TOKEN
+    projectId: llm-observatory
+    secret: otel-auth-token
+    version: latest
+
+# Labels
+labels:
+  environment: production
+  service: health-monitoring
+  team: observatory
+  component: agent
+  agent-type: advisory
+  agent-classification: advisory
+  decision-type: health-evaluation
+
+# HTTP Trigger
+httpsTrigger:
+  securityLevel: SECURE_ALWAYS
+
+# Build Configuration
+buildConfig:
+  entryPoint: handleHealthEvaluation
+  source:
+    storageSource:
+      bucket: llm-observatory-deployments
+      object: health-check-agent/latest.zip
+
+# Event Trigger (optional - for scheduled evaluation)
+# Uncomment to enable scheduled health checks
+# eventTrigger:
+#   eventType: google.cloud.scheduler.job.v1.completed
+#   pubsubTopic: projects/llm-observatory/topics/health-check-schedule
+#   serviceAccountEmail: health-check-agent@llm-observatory.iam.gserviceaccount.com
+#   retryPolicy: RETRY_POLICY_DO_NOT_RETRY

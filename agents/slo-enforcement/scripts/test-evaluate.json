@@ -1,0 +1,100 @@
+{
+  "slo_definitions": [
+    {
+      "slo_id": "latency-p95-global",
+      "name": "Global P95 Latency SLO",
+      "description": "95th percentile latency must be under 500ms",
+      "indicator": "latency_p95",
+      "operator": "lt",
+      "threshold": 500,
+      "unit": "ms",
+      "window": "5m",
+      "enabled": true,
+      "is_sla": false,
+      "warning_threshold_percentage": 80
+    },
+    {
+      "slo_id": "error-rate-global",
+      "name": "Global Error Rate SLO",
+      "description": "Error rate must be under 1%",
+      "indicator": "error_rate",
+      "operator": "lt",
+      "threshold": 1.0,
+      "unit": "%",
+      "window": "5m",
+      "enabled": true,
+      "is_sla": false,
+      "warning_threshold_percentage": 80
+    },
+    {
+      "slo_id": "availability-sla",
+      "name": "Availability SLA",
+      "description": "Availability must be at least 99.9%",
+      "indicator": "availability",
+      "operator": "gte",
+      "threshold": 99.9,
+      "unit": "%",
+      "window": "24h",
+      "enabled": true,
+      "is_sla": true,
+      "sla_penalty_tier": 2,
+      "warning_threshold_percentage": 80
+    },
+    {
+      "slo_id": "openai-latency",
+      "name": "OpenAI P95 Latency SLO",
+      "description": "OpenAI GPT-4 latency under 2000ms",
+      "indicator": "latency_p95",
+      "operator": "lt",
+      "threshold": 2000,
+      "unit": "ms",
+      "window": "5m",
+      "provider": "openai",
+      "model": "gpt-4",
+      "enabled": true,
+      "is_sla": false,
+      "warning_threshold_percentage": 80
+    }
+  ],
+  "metrics": [
+    {
+      "metric_id": "550e8400-e29b-41d4-a716-446655440001",
+      "indicator": "latency_p95",
+      "value": 450,
+      "unit": "ms",
+      "window": "5m",
+      "timestamp": "2024-01-15T12:00:00Z",
+      "sample_count": 1000
+    },
+    {
+      "metric_id": "550e8400-e29b-41d4-a716-446655440002",
+      "indicator": "error_rate",
+      "value": 0.5,
+      "unit": "%",
+      "window": "5m",
+      "timestamp": "2024-01-15T12:00:00Z",
+      "sample_count": 10000
+    },
+    {
+      "metric_id": "550e8400-e29b-41d4-a716-446655440003",
+      "indicator": "availability",
+      "value": 99.95,
+      "unit": "%",
+      "window": "24h",
+      "timestamp": "2024-01-15T12:00:00Z",
+      "sample_count": 86400
+    },
+    {
+      "metric_id": "550e8400-e29b-41d4-a716-446655440004",
+      "indicator": "latency_p95",
+      "value": 2500,
+      "unit": "ms",
+      "window": "5m",
+      "timestamp": "2024-01-15T12:00:00Z",
+      "provider": "openai",
+      "model": "gpt-4",
+      "sample_count": 500
+    }
+  ],
+  "evaluation_time": "2024-01-15T12:00:00Z"
+}

@@ -1,0 +1,139 @@
+# Google Cloud Functions Deployment Configuration
+# Telemetry Collector Agent - READ-ONLY Ingestion Service
+#
+# This configuration deploys the telemetry collection ingestion endpoint
+# as a serverless Google Cloud Function with auto-scaling capabilities.
+
+name: telemetry-collector-agent
+runtime: nodejs20
+entryPoint: handleTelemetryIngestion
+
+# Resource Allocation
+memory: 256MB
+timeout: 30s
+availableMemoryMb: 256
+
+# Auto-scaling Configuration
+minInstances: 0
+maxInstances: 100
+
+# Concurrency - max concurrent requests per instance
+maxConcurrentConnections: 1000
+
+# Service Configuration
+serviceAccountEmail: telemetry-collector@llm-observatory.iam.gserviceaccount.com
+ingressSettings: ALLOW_ALL
+
+# VPC Configuration (for private deployment)
+vpcConnector: projects/llm-observatory/locations/us-central1/connectors/observatory-vpc
+vpcConnectorEgressSettings: PRIVATE_RANGES_ONLY
+
+# Environment Variables
+environmentVariables:
+  # Agent Configuration
+  AGENT_ID: telemetry-collector-agent
+  AGENT_VERSION: "1.0.0"
+  AGENT_CLASSIFICATION: READ-ONLY
+
+  # RuVector Service Integration
+  RUVECTOR_ENDPOINT: https://ruvector-service.internal:443
+  RUVECTOR_API_KEY: ${RUVECTOR_API_KEY}
+  RUVECTOR_TIMEOUT_MS: "5000"
+
+  # Self-Observation and Tracing
+  SELF_OBSERVATION_ENABLED: "true"
+  OTEL_EXPORTER_OTLP_ENDPOINT: https://otel-collector.internal:4317
+  OTEL_EXPORTER_OTLP_HEADERS: "Authorization=${OTEL_AUTH_TOKEN}"
+
+  # Telemetry Processing Configuration
+  BATCH_SIZE: "100"
+  BATCH_TIMEOUT_MS: "5000"
+  MAX_PAYLOAD_SIZE_BYTES: "10485760"  # 10MB
+
+  # Validation
+  SCHEMA_VALIDATION_ENABLED: "true"
+  SCHEMA_REGISTRY_ENDPOINT: https://schema-registry.internal
+
+  # Retry Strategy
+  MAX_RETRIES: "3"
+  RETRY_BACKOFF_MS: "100"
+
+  # Logging and Monitoring
+  LOG_LEVEL: info
+  METRICS_ENABLED: "true"
+  HEALTH_CHECK_ENABLED: "true"
+
+  # Consumer Registration
+  REGISTERED_CONSUMERS: "usage-pattern-agent,failure-classification-agent,health-check-agent,visualization-spec-agent"
+
+  # Node.js Runtime Settings
+  NODE_ENV: production
+  NODE_OPTIONS: "--max-old-space-size=256"
+
+# Secrets Configuration (stored in Google Secret Manager)
+secretEnvironmentVariables:
+  - key: RUVECTOR_API_KEY
+    secret: ruvector-api-key
+    version: latest
+  - key: OTEL_AUTH_TOKEN
+    secret: otel-collector-token
+    version: latest
+  - key: DATABASE_URL
+    secret: observatory-database-url
+    version: latest
+
+# Source Code Configuration
+sourceArchiveUrl: gs://llm-observatory-builds/telemetry-collector-agent-v1.0.0.zip
+# Alternative: git configuration
+sourceRepository:
+  url: https://github.com/globalbusinessadvisors/llm-observatory.git
+  branch: main
+  commitSha: "" # Will be replaced during deployment
+
+# Build Configuration
+buildConfig:
+  runtime: nodejs20
+  environmentVariables:
+    FUNCTIONS_FRAMEWORK_VERSION: "3.x"
+    NODE_ENV: production
+
+# Triggers - HTTP endpoint configuration
+httpsTrigger:
+  securityLevel: SECURE_ALWAYS
+
+# Additional HTTP Trigger Settings
+ingressSettings: ALLOW_ALL
+allowPublicRead: false
+
+# Labels for resource organization
+labels:
+  environment: production
+  service: telemetry-collection
+  team: observatory
+  component: agent
+  agent-type: read-only
+
+# Monitoring and Alerting
+monitoringConfig:
+  metricsEnabled: true
+  logsEnabled: true
+  tracesEnabled: true
+
+# Deployment Notes
+#
+# Deploy using:
+#   gcloud functions deploy telemetry-collector-agent \
+#     --gen2 \
+#     --runtime nodejs20 \
+#     --region us-central1 \
+#     --entry-point handleTelemetryIngestion \
+#     --config cloudfunctions.yaml
+#
+# Monitor logs:
+#   gcloud functions logs read telemetry-collector-agent --limit 50
+#
+# Monitor metrics:
+#   gcloud monitoring metrics-descriptors list --filter="telemetry-collector"
+#
+# Update secrets:
+#   gcloud secrets versions add ruvector-api-key --data-file=- < key.txt

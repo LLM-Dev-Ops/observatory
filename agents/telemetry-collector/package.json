@@ -1,0 +1,48 @@
+{
+  "name": "@observatory/telemetry-collector",
+  "version": "1.0.0",
+  "description": "Read-only telemetry collection agent for LLM Observatory",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "node --test",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "keywords": [
+    "telemetry",
+    "observability",
+    "llm",
+    "cloud-functions",
+    "edge-computing"
+  ],
+  "author": "LLM Observatory Contributors",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./handler": {
+      "import": "./dist/handler.js",
+      "types": "./dist/handler.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  }
+}
