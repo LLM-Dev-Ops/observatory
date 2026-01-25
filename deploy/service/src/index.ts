@@ -5,6 +5,11 @@
  * OBSERVATION-ONLY: Does NOT execute workflows, trigger remediation, or own a database.
  * All persistence via ruvector-service client calls only.
  *
+ * HARDENED: Phase 1 Layer 1 deployment
+ * - Mandatory startup assertions
+ * - Ruvector health check (crashes if unavailable)
+ * - Standardized logging
+ *
  * Copyright 2025 LLM Observatory Contributors
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -14,12 +19,12 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const pino = require('pino');
 const pinoHttp = require('pino-http');
-import { loadConfig, validateEnvironment } from './config.js';
+import { loadConfig, validateEnvironment, logAgentStarted, logAgentAbort } from './config.js';
 import { createAgentRouter } from './router.js';
 import { healthCheck, readinessCheck } from './health.js';
 
 // ============================================================================
-// CONFIGURATION
+// CONFIGURATION (HARDENED)
 // ============================================================================
 
 const config = loadConfig();
@@ -28,11 +33,68 @@ const logger = pino({
   name: config.serviceName,
 });
 
-// Validate environment on startup
+// HARDENED: Validate mandatory environment variables on startup
 const envErrors = validateEnvironment();
 if (envErrors.length > 0) {
-  logger.error({ errors: envErrors }, 'Environment validation failed');
+  logAgentAbort('startup_assertion_failed', envErrors);
+  logger.error({ errors: envErrors }, 'HARDENED: Environment validation failed');
   process.exit(1);
+}
+
+// ============================================================================
+// HARDENED: RUVECTOR HEALTH ASSERTION
+// ============================================================================
+
+/**
+ * Assert Ruvector service is healthy at startup.
+ * CRASHES the container if health check fails.
+ */
+async function assertRuvectorHealth(): Promise<void> {
+  const startTime = Date.now();
+
+  try {
+    const response = await fetch(`${config.ruvectorServiceUrl}/health`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${config.ruvectorApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      signal: AbortSignal.timeout(5000),
+    });
+
+    const latencyMs = Date.now() - startTime;
+
+    if (!response.ok) {
+      logAgentAbort('ruvector_health_check_failed', [
+        `HTTP ${response.status}`,
+        `Latency: ${latencyMs}ms`,
+        `Endpoint: ${config.ruvectorServiceUrl}`,
+      ]);
+      logger.error({
+        status: response.status,
+        latencyMs,
+        endpoint: config.ruvectorServiceUrl,
+      }, 'HARDENED: Ruvector health check failed');
+      process.exit(1);
+    }
+
+    logAgentStarted({ ruvectorLatencyMs: latencyMs });
+    logger.info({
+      latencyMs,
+      endpoint: config.ruvectorServiceUrl,
+    }, 'HARDENED: Ruvector health check passed');
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logAgentAbort('ruvector_unreachable', [
+      errorMessage,
+      `Endpoint: ${config.ruvectorServiceUrl}`,
+    ]);
+    logger.error({
+      error: errorMessage,
+      endpoint: config.ruvectorServiceUrl,
+    }, 'HARDENED: Ruvector unreachable');
+    process.exit(1);
+  }
 }
 
 // ============================================================================
@@ -129,19 +191,41 @@ app.use((req: Request, res: Response) => {
 });
 
 // ============================================================================
-// SERVER STARTUP
+// SERVER STARTUP (HARDENED)
 // ============================================================================
 
 const PORT = parseInt(process.env.PORT || '8080', 10);
 
-app.listen(PORT, '0.0.0.0', () => {
-  logger.info({
-    port: PORT,
-    service: config.serviceName,
-    version: config.serviceVersion,
-    environment: config.environment,
-    ruvectorEndpoint: config.ruvectorServiceUrl,
-  }, 'LLM Observatory unified service started');
+/**
+ * HARDENED: Startup sequence
+ * 1. Assert Ruvector health (crashes if fails)
+ * 2. Start server
+ */
+async function startServer(): Promise<void> {
+  // HARDENED: Assert Ruvector is healthy before starting
+  await assertRuvectorHealth();
+
+  app.listen(PORT, '0.0.0.0', () => {
+    logger.info({
+      port: PORT,
+      service: config.serviceName,
+      version: config.serviceVersion,
+      environment: config.environment,
+      ruvectorEndpoint: config.ruvectorServiceUrl,
+      // HARDENED: Agent identity
+      agentName: config.agentName,
+      agentDomain: config.agentDomain,
+      agentPhase: config.agentPhase,
+      agentLayer: config.agentLayer,
+    }, 'HARDENED: LLM Observatory unified service started');
+  });
+}
+
+// Start the server
+startServer().catch((error) => {
+  logAgentAbort('startup_failed', [error instanceof Error ? error.message : 'Unknown error']);
+  logger.error({ error }, 'HARDENED: Failed to start server');
+  process.exit(1);
 });
 
 // Graceful shutdown

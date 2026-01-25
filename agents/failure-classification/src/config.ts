@@ -4,19 +4,32 @@
  * CONSTITUTIONAL CLASSIFICATION: READ-ONLY, DIAGNOSTIC
  *
  * Configuration is loaded from environment variables.
+ *
+ * HARDENED: Phase 1 Layer 1 deployment
+ * - Mandatory environment variables enforced
+ * - Performance boundaries applied
+ * - Contract assertions enabled
  */
 
 import type { RuvectorConfig } from '../contracts';
+import {
+  PERFORMANCE_BOUNDARIES,
+  type AgentIdentity,
+  type HardenedEnvironment,
+} from '../../shared/hardening/index';
 
 // =============================================================================
 // AGENT CONFIGURATION INTERFACE
 // =============================================================================
 
 export interface AgentConfig {
-  // Agent identification
+  // Agent identification (original)
   agentId: string;
   agentVersion: string;
   classification: 'READ-ONLY';
+
+  // HARDENED: Agent identity (Phase 1 Layer 1)
+  identity: AgentIdentity;
 
   // RuVector configuration
   ruvector: RuvectorConfig;
@@ -25,6 +38,11 @@ export interface AgentConfig {
   batchSize: number;
   timeoutMs: number;
   maxPayloadSizeBytes: number;
+
+  // HARDENED: Performance boundaries
+  maxTokens: number;
+  maxLatencyMs: number;
+  maxCallsPerRun: number;
 
   // Feature flags
   schemaValidationEnabled: boolean;
@@ -39,7 +57,12 @@ export interface AgentConfig {
 // DEFAULT CONFIGURATION
 // =============================================================================
 
-const DEFAULT_CONFIG: AgentConfig = {
+const DEFAULT_CONFIG: Omit<AgentConfig, 'identity' | 'ruvector'> & {
+  ruvector: Omit<RuvectorConfig, 'endpoint' | 'apiKey'> & {
+    endpoint: string;
+    apiKey: string | undefined;
+  };
+} = {
   agentId: 'failure-classification-agent',
   agentVersion: '1.0.0',
   classification: 'READ-ONLY',
@@ -58,6 +81,11 @@ const DEFAULT_CONFIG: AgentConfig = {
   timeoutMs: 30000,
   maxPayloadSizeBytes: 10485760, // 10MB
 
+  // HARDENED: Performance boundaries (conservative defaults)
+  maxTokens: PERFORMANCE_BOUNDARIES.MAX_TOKENS,
+  maxLatencyMs: PERFORMANCE_BOUNDARIES.MAX_LATENCY_MS,
+  maxCallsPerRun: PERFORMANCE_BOUNDARIES.MAX_CALLS_PER_RUN,
+
   schemaValidationEnabled: true,
   selfObservationEnabled: true,
 
@@ -70,16 +98,33 @@ const DEFAULT_CONFIG: AgentConfig = {
 // =============================================================================
 
 /**
- * Load configuration from environment variables
+ * Load configuration from environment variables.
+ *
+ * HARDENED: Uses hardened environment for mandatory variables.
+ * Call loadConfigWithHardenedEnv() for full hardening with startup assertions.
  */
 export function loadConfig(): AgentConfig {
+  // HARDENED: Build identity from environment (may be undefined for legacy mode)
+  const identity: AgentIdentity = {
+    agentName: process.env.AGENT_NAME || 'failure-classification-agent',
+    agentDomain: process.env.AGENT_DOMAIN || 'diagnostics',
+    agentPhase: 'phase1',
+    agentLayer: 'layer1',
+  };
+
   return {
     agentId: process.env.AGENT_ID || DEFAULT_CONFIG.agentId,
     agentVersion: process.env.AGENT_VERSION || DEFAULT_CONFIG.agentVersion,
     classification: 'READ-ONLY', // CONSTITUTIONAL: Cannot be overridden
 
+    // HARDENED: Agent identity
+    identity,
+
     ruvector: {
-      endpoint: process.env.RUVECTOR_ENDPOINT || DEFAULT_CONFIG.ruvector.endpoint,
+      // HARDENED: Prefer RUVECTOR_SERVICE_URL over legacy RUVECTOR_ENDPOINT
+      endpoint: process.env.RUVECTOR_SERVICE_URL ||
+                process.env.RUVECTOR_ENDPOINT ||
+                DEFAULT_CONFIG.ruvector.endpoint,
       apiKey: process.env.RUVECTOR_API_KEY || DEFAULT_CONFIG.ruvector.apiKey,
       timeout: parseInt(
         process.env.RUVECTOR_TIMEOUT || String(DEFAULT_CONFIG.ruvector.timeout),
@@ -121,6 +166,20 @@ export function loadConfig(): AgentConfig {
       10
     ),
 
+    // HARDENED: Performance boundaries
+    maxTokens: parseInt(
+      process.env.MAX_TOKENS || String(DEFAULT_CONFIG.maxTokens),
+      10
+    ),
+    maxLatencyMs: parseInt(
+      process.env.MAX_LATENCY_MS || String(DEFAULT_CONFIG.maxLatencyMs),
+      10
+    ),
+    maxCallsPerRun: parseInt(
+      process.env.MAX_CALLS_PER_RUN || String(DEFAULT_CONFIG.maxCallsPerRun),
+      10
+    ),
+
     schemaValidationEnabled:
       process.env.SCHEMA_VALIDATION_ENABLED !== 'false',
     selfObservationEnabled:
@@ -134,6 +193,24 @@ export function loadConfig(): AgentConfig {
       process.env.RETRY_BACKOFF_MS || String(DEFAULT_CONFIG.retryBackoffMs),
       10
     ),
+  };
+}
+
+/**
+ * Load configuration with hardened environment assertions.
+ * CRASHES the container if mandatory variables are missing.
+ */
+export function loadConfigWithHardenedEnv(hardenedEnv: HardenedEnvironment): AgentConfig {
+  const baseConfig = loadConfig();
+
+  return {
+    ...baseConfig,
+    identity: hardenedEnv.identity,
+    ruvector: {
+      ...baseConfig.ruvector,
+      endpoint: hardenedEnv.ruvector.serviceUrl,
+      apiKey: hardenedEnv.ruvector.apiKey,
+    },
   };
 }
 
@@ -161,6 +238,23 @@ export function validateConfig(config: AgentConfig): string[] {
     errors.push('CONSTITUTIONAL VIOLATION: Classification must be READ-ONLY');
   }
 
+  // HARDENED: Validate agent identity
+  if (!config.identity.agentName) {
+    errors.push('HARDENED: Agent name is required');
+  }
+
+  if (!config.identity.agentDomain) {
+    errors.push('HARDENED: Agent domain is required');
+  }
+
+  if (config.identity.agentPhase !== 'phase1') {
+    errors.push('HARDENED: Agent phase must be "phase1"');
+  }
+
+  if (config.identity.agentLayer !== 'layer1') {
+    errors.push('HARDENED: Agent layer must be "layer1"');
+  }
+
   // Validate RuVector configuration
   if (!config.ruvector.endpoint) {
     errors.push('RuVector endpoint is required');
@@ -181,6 +275,19 @@ export function validateConfig(config: AgentConfig): string[] {
 
   if (config.timeoutMs < 1000) {
     errors.push('Timeout must be at least 1000ms');
+  }
+
+  // HARDENED: Validate performance boundaries
+  if (config.maxTokens > PERFORMANCE_BOUNDARIES.MAX_TOKENS) {
+    errors.push(`HARDENED: MAX_TOKENS cannot exceed ${PERFORMANCE_BOUNDARIES.MAX_TOKENS}`);
+  }
+
+  if (config.maxLatencyMs > PERFORMANCE_BOUNDARIES.MAX_LATENCY_MS) {
+    errors.push(`HARDENED: MAX_LATENCY_MS cannot exceed ${PERFORMANCE_BOUNDARIES.MAX_LATENCY_MS}`);
+  }
+
+  if (config.maxCallsPerRun > PERFORMANCE_BOUNDARIES.MAX_CALLS_PER_RUN) {
+    errors.push(`HARDENED: MAX_CALLS_PER_RUN cannot exceed ${PERFORMANCE_BOUNDARIES.MAX_CALLS_PER_RUN}`);
   }
 
   return errors;

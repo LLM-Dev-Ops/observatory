@@ -1,0 +1,28 @@
+# Cloud Build ignore file
+# Overrides .gitignore for gcloud builds submit
+
+.git
+.gitignore
+node_modules/
+*.log
+.env
+.env.*
+!.env.example
+
+# Do NOT ignore package-lock.json files - they're needed for builds
+!**/package-lock.json
+
+# Ignore test artifacts
+coverage/
+.nyc_output/
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignore large binary files
+*.zip
+*.tar
+*.tar.gz

@@ -6,6 +6,12 @@
  * This handler processes failure events and classifies them into
  * deterministic categories. It emits DecisionEvents to ruvector-service
  * but does NOT trigger any actions.
+ *
+ * HARDENED: Phase 1 Layer 1 deployment
+ * - Mandatory startup assertions
+ * - Performance boundary guards
+ * - Contract assertions (≥1 DecisionEvent per run)
+ * - Standardized logging
  */
 
 import type { Request, Response } from '@google-cloud/functions-framework';
@@ -28,23 +34,55 @@ import {
 } from '../contracts';
 import { classifyFailure, ClassificationEngine } from './classifier';
 import { RuvectorClient } from './ruvector-client';
-import { loadConfig } from './config';
+import { loadConfig, loadConfigWithHardenedEnv } from './config';
 import { emitTelemetry, startSpan, endSpan } from './telemetry';
+import {
+  initializeHardenedAgent,
+  PerformanceGuard,
+  ContractAssertions,
+  PerformanceBoundaryError,
+  ContractViolationError,
+  logAgentAbort,
+  logDecisionEventEmitted,
+  type HardenedAgentContext,
+} from '../../shared/hardening/index';
 
 // =============================================================================
-// HANDLER INITIALIZATION
+// HANDLER INITIALIZATION (HARDENED)
 // =============================================================================
 
-const config = loadConfig();
-const ruvectorClient = new RuvectorClient(config.ruvector);
+let hardenedContext: HardenedAgentContext | null = null;
+let config = loadConfig();
+let ruvectorClient = new RuvectorClient(config.ruvector);
 const classificationEngine = new ClassificationEngine();
 
+/**
+ * Initialize hardened agent context.
+ * CRASHES the container if initialization fails.
+ */
+async function ensureHardenedInitialization(): Promise<HardenedAgentContext> {
+  if (hardenedContext) {
+    return hardenedContext;
+  }
+
+  hardenedContext = await initializeHardenedAgent();
+  config = loadConfigWithHardenedEnv(hardenedContext.environment);
+  ruvectorClient = new RuvectorClient(config.ruvector);
+
+  return hardenedContext;
+}
+
 // =============================================================================
-// MAIN HANDLER
+// MAIN HANDLER (HARDENED)
 // =============================================================================
 
 /**
  * Main HTTP handler for Cloud Function
+ *
+ * HARDENED:
+ * - Ensures hardened initialization on first call
+ * - Creates new PerformanceGuard and ContractAssertions per request
+ * - Asserts contracts are met at the end of each run
  */
 export async function handleFailureClassification(
   req: Request,
@@ -52,6 +90,13 @@ export async function handleFailureClassification(
 ): Promise<void> {
   const executionRef = randomUUID();
   const startTime = Date.now();
+
+  // HARDENED: Ensure initialization (crashes container if fails)
+  const hardened = await ensureHardenedInitialization();
+
+  // HARDENED: Create per-request guards
+  const performanceGuard = new PerformanceGuard();
+  const contractAssertions = new ContractAssertions();
 
   const context: HandlerContext = {
     execution_ref: executionRef,
@@ -64,17 +109,21 @@ export async function handleFailureClassification(
   const span = startSpan('failure-classification', executionRef);
 
   try {
+    // HARDENED: Check latency boundary before processing
+    performanceGuard.assertLatencyLimit();
+
     // Route based on path
     switch (req.path) {
       case '/classify':
-        await handleSingleClassification(req, res, context);
+        await handleSingleClassification(req, res, context, performanceGuard, contractAssertions);
         break;
       case '/classify/batch':
-        await handleBatchClassification(req, res, context);
+        await handleBatchClassification(req, res, context, performanceGuard, contractAssertions);
         break;
       case '/health':
         await handleHealthCheck(req, res);
-        break;
+        // Health check doesn't require DecisionEvent
+        return;
       default:
         res.status(404).json({
           success: false,
@@ -84,8 +133,41 @@ export async function handleFailureClassification(
           },
           metadata: buildMetadata(executionRef, startTime),
         });
+        // 404 doesn't require DecisionEvent
+        return;
     }
+
+    // HARDENED: Assert contracts are met (≥1 DecisionEvent emitted)
+    contractAssertions.assertContractsMet();
+
   } catch (error) {
+    // HARDENED: Handle performance boundary and contract violations
+    if (error instanceof PerformanceBoundaryError) {
+      logAgentAbort('performance_boundary_exceeded', [error.message]);
+      res.status(503).json({
+        success: false,
+        error: {
+          code: 'PERFORMANCE_BOUNDARY_EXCEEDED',
+          message: error.message,
+        },
+        metadata: buildMetadata(executionRef, startTime),
+      });
+      return;
+    }
+
+    if (error instanceof ContractViolationError) {
+      logAgentAbort('contract_violation', [error.message]);
+      res.status(500).json({
+        success: false,
+        error: {
+          code: 'CONTRACT_VIOLATION',
+          message: error.message,
+        },
+        metadata: buildMetadata(executionRef, startTime),
+      });
+      return;
+    }
+
     await handleError(error, res, executionRef, startTime);
   } finally {
     endSpan(span, 'OK');
@@ -97,15 +179,20 @@ export async function handleFailureClassification(
 }
 
 // =============================================================================
-// SINGLE CLASSIFICATION HANDLER
+// SINGLE CLASSIFICATION HANDLER (HARDENED)
 // =============================================================================
 
 async function handleSingleClassification(
   req: Request,
   res: Response,
-  context: HandlerContext
+  context: HandlerContext,
+  performanceGuard: PerformanceGuard,
+  contractAssertions: ContractAssertions
 ): Promise<void> {
   const startTime = Date.now();
+
+  // HARDENED: Assert call limit
+  performanceGuard.assertCallLimit();
 
   // Validate input
   const validation = validateFailureEvent(req.body);
@@ -115,15 +202,19 @@ async function handleSingleClassification(
 
   const event = validation.data!;
 
+  // HARDENED: Check latency before classification
+  performanceGuard.assertLatencyLimit();
+
   // Classify the failure
   const classification = await classifyFailure(event, classificationEngine);
 
-  // Build decision event
+  // HARDENED: Build decision event with identity fields
   const decisionEvent = buildDecisionEvent(
     [classification],
     hashInput(event),
     context.execution_ref,
-    classification.confidence
+    classification.confidence,
+    'failure_signal' // event_type: signal, NOT conclusion
   );
 
   // Validate decision event (constitutional compliance)
@@ -135,8 +226,17 @@ async function handleSingleClassification(
     );
   }
 
+  // HARDENED: Assert call limit before persistence
+  performanceGuard.assertCallLimit();
+
   // Persist to ruvector-service
   await ruvectorClient.persistDecisionEvent(decisionEvent);
+
+  // HARDENED: Record DecisionEvent emission for contract assertion
+  contractAssertions.recordDecisionEventEmitted(
+    context.execution_ref,
+    config.identity.agentName
+  );
 
   // Return response
   const response: HandlerResponse<FailureClassification> = {
@@ -149,15 +249,20 @@ async function handleSingleClassification(
 }
 
 // =============================================================================
-// BATCH CLASSIFICATION HANDLER
+// BATCH CLASSIFICATION HANDLER (HARDENED)
 // =============================================================================
 
 async function handleBatchClassification(
   req: Request,
   res: Response,
-  context: HandlerContext
+  context: HandlerContext,
+  performanceGuard: PerformanceGuard,
+  contractAssertions: ContractAssertions
 ): Promise<void> {
   const startTime = Date.now();
+
+  // HARDENED: Assert call limit
+  performanceGuard.assertCallLimit();
 
   // Validate batch request
   const validation = validateBatchRequest(req.body);
@@ -168,15 +273,24 @@ async function handleBatchClassification(
   const { events, correlation_id } = validation.data!;
   const batchId = correlation_id || randomUUID();
 
+  // HARDENED: Check latency before batch processing
+  performanceGuard.assertLatencyLimit();
+
   // Classify all events
   const classifications: FailureClassification[] = [];
   const failures: Array<{ span_id: string; error: string }> = [];
 
   for (const event of events) {
     try {
+      // HARDENED: Check latency during batch processing
+      performanceGuard.assertLatencyLimit();
+
       const classification = await classifyFailure(event, classificationEngine);
       classifications.push(classification);
     } catch (error) {
+      if (error instanceof PerformanceBoundaryError) {
+        throw error; // Re-throw performance boundary errors
+      }
       failures.push({
         span_id: event.span_id,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -189,12 +303,13 @@ async function handleBatchClassification(
     ? classifications.reduce((sum, c) => sum + c.confidence, 0) / classifications.length
     : 0;
 
-  // Build decision event
+  // HARDENED: Build decision event with identity fields
   const decisionEvent = buildDecisionEvent(
     classifications,
     hashInputs(events),
     context.execution_ref,
-    avgConfidence
+    avgConfidence,
+    'failure_batch_signal' // event_type: signal, NOT conclusion
   );
 
   // Validate and persist
@@ -206,7 +321,16 @@ async function handleBatchClassification(
     );
   }
 
+  // HARDENED: Assert call limit before persistence
+  performanceGuard.assertCallLimit();
+
   await ruvectorClient.persistDecisionEvent(decisionEvent);
+
+  // HARDENED: Record DecisionEvent emission for contract assertion
+  contractAssertions.recordDecisionEventEmitted(
+    context.execution_ref,
+    config.identity.agentName
+  );
 
   // Build response
   const result: BatchClassificationResult = {
@@ -249,16 +373,32 @@ async function handleHealthCheck(req: Request, res: Response): Promise<void> {
 }
 
 // =============================================================================
-// HELPER FUNCTIONS
+// HELPER FUNCTIONS (HARDENED)
 // =============================================================================
 
+/**
+ * Build a hardened DecisionEvent with identity fields.
+ *
+ * HARDENED: Includes source_agent, domain, phase, layer
+ */
 function buildDecisionEvent(
   classifications: FailureClassification[],
   inputsHash: string,
   executionRef: string,
-  confidence: number
+  confidence: number,
+  eventType: string = 'failure_signal'
 ): DecisionEvent {
   return {
+    // HARDENED: Agent identity fields (Phase 1 Layer 1)
+    source_agent: config.identity.agentName,
+    domain: config.identity.agentDomain,
+    phase: config.identity.agentPhase,
+    layer: config.identity.agentLayer,
+
+    // HARDENED: Event type (signal, NOT conclusion)
+    event_type: eventType,
+
+    // Original fields
     agent_id: 'failure-classification-agent',
     agent_version: AGENT_METADATA.version,
     decision_type: 'failure_classification',
@@ -268,6 +408,13 @@ function buildDecisionEvent(
     constraints_applied: [], // ALWAYS empty for read-only agent
     execution_ref: executionRef,
     timestamp: new Date().toISOString(),
+
+    // HARDENED: Evidence references (from classifications)
+    evidence_refs: classifications.map(c => ({
+      ref_type: 'span_id' as const,
+      ref_value: c.span_id,
+      timestamp: c.classified_at,
+    })),
   };
 }
 

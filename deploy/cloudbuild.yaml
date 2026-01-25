@@ -1,10 +1,21 @@
 # Cloud Build configuration for LLM Observatory
 # Builds and deploys the unified service to Cloud Run
+#
+# HARDENED: Phase 1 Layer 1 deployment
+# - Mandatory environment variables enforced
+# - Ruvector API key from Google Secret Manager
+# - Agent identity standardization
 
 substitutions:
   _SERVICE_NAME: llm-observatory
   _REGION: us-central1
-  _RUVECTOR_SERVICE_URL: https://ruvector-service-${_REGION}-${PROJECT_ID}.a.run.app
+  _RUVECTOR_SERVICE_URL: https://ruvvector-service-xx7kwyd5ra-uc.a.run.app
+  # HARDENED: Agent identity defaults
+  _AGENT_NAME: llm-observatory-unified
+  _AGENT_DOMAIN: observability
+  _AGENT_PHASE: phase1
+  _AGENT_LAYER: layer1
+  _ENV: prod
 
 steps:
   # Step 1: Build the Docker image
@@ -34,7 +45,7 @@ steps:
       - 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:latest'
     waitFor: ['build-image']
 
-  # Step 3: Deploy to Cloud Run
+  # Step 3: Deploy to Cloud Run (HARDENED)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
@@ -61,8 +72,10 @@ steps:
       - '--timeout'
       - '60s'
       - '--set-env-vars'
-      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=${COMMIT_SHA},PLATFORM_ENV=${_ENV},RUVECTOR_SERVICE_URL=${_RUVECTOR_SERVICE_URL}'
+      # HARDENED: All mandatory environment variables
+      - 'SERVICE_NAME=${_SERVICE_NAME},SERVICE_VERSION=${COMMIT_SHA},PLATFORM_ENV=${_ENV},RUVECTOR_SERVICE_URL=${_RUVECTOR_SERVICE_URL},AGENT_NAME=${_AGENT_NAME},AGENT_DOMAIN=${_AGENT_DOMAIN},AGENT_PHASE=${_AGENT_PHASE},AGENT_LAYER=${_AGENT_LAYER},MAX_TOKENS=800,MAX_LATENCY_MS=1500,MAX_CALLS_PER_RUN=2'
       - '--set-secrets'
+      # HARDENED: Ruvector API key from Google Secret Manager
       - 'RUVECTOR_API_KEY=ruvector-api-key:latest'
       - '--service-account'
       - 'llm-observatory-sa@${PROJECT_ID}.iam.gserviceaccount.com'
@@ -76,21 +89,21 @@ steps:
       - '-c'
       - |
         echo "Verifying deployment..."
-        SERVICE_URL=$(gcloud run services describe ${_SERVICE_NAME} --region=${_REGION} --format='value(status.url)')
-        echo "Service URL: $SERVICE_URL"
+        SVC_URL=$$(gcloud run services describe $_SERVICE_NAME --region=$_REGION --format='value(status.url)')
+        echo "Service URL: $$SVC_URL"
 
         # Wait for service to be ready
         sleep 10
 
         # Health check
-        HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_URL/health")
-        if [ "$HTTP_STATUS" != "200" ] && [ "$HTTP_STATUS" != "503" ]; then
-          echo "Health check failed with status: $HTTP_STATUS"
+        HTTP_CODE=$$(curl -s -o /dev/null -w "%{http_code}" "$$SVC_URL/health")
+        if [ "$$HTTP_CODE" != "200" ] && [ "$$HTTP_CODE" != "503" ]; then
+          echo "Health check failed with status: $$HTTP_CODE"
           exit 1
         fi
 
         echo "Deployment verified successfully"
-        echo "Service is live at: $SERVICE_URL"
+        echo "Service is live at: $$SVC_URL"
     id: 'verify-deployment'
     waitFor: ['deploy-cloud-run']
 

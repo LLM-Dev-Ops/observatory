@@ -29,7 +29,10 @@ export {
   FailureClassificationSchema,
   BatchClassificationResultSchema,
 
-  // Decision event schema (constitutional)
+  // HARDENED: Evidence reference schema
+  EvidenceRefSchema,
+
+  // Decision event schema (constitutional + hardened)
   DecisionEventSchema,
 
   // Query schemas
@@ -58,6 +61,8 @@ export type {
   ClassificationQuery,
   AnalysisQuery,
   AnalysisResult,
+  // HARDENED: Evidence reference type
+  EvidenceRef,
 } from './schemas';
 
 export type {
@@ -109,13 +114,22 @@ export {
 } from './validation';
 
 // =============================================================================
-// AGENT METADATA
+// AGENT METADATA (HARDENED)
 // =============================================================================
 export const AGENT_METADATA = {
   id: 'failure-classification-agent',
   version: '1.0.0',
   classification: 'READ-ONLY' as const,
   decision_type: 'failure_classification',
+
+  // HARDENED: Phase 1 Layer 1 identity
+  hardened: {
+    phase: 'phase1' as const,
+    layer: 'layer1' as const,
+    domain: 'diagnostics' as const,
+    ruvector_required: true as const,
+    min_decision_events_per_run: 1 as const,
+  },
 
   capabilities: [
     'classify_failures',

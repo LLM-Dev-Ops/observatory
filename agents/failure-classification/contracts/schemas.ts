@@ -221,7 +221,21 @@ export const BatchClassificationResultSchema = z.object({
 }).strict();
 
 // =============================================================================
-// DECISION EVENT SCHEMA (Constitutional Constraints)
+// HARDENED: Evidence Reference Schema
+// =============================================================================
+
+/**
+ * EvidenceRefSchema - Reference to supporting evidence for audit trails
+ */
+export const EvidenceRefSchema = z.object({
+  ref_type: z.enum(['span_id', 'trace_id', 'log_id', 'metric_id', 'external']),
+  ref_value: z.string().min(1),
+  timestamp: z.string().datetime().optional(),
+  source: z.string().optional(),
+});
+
+// =============================================================================
+// DECISION EVENT SCHEMA (Constitutional Constraints + HARDENED)
 // =============================================================================
 
 /**
@@ -231,9 +245,23 @@ export const BatchClassificationResultSchema = z.object({
  * - decision_type MUST be 'failure_classification'
  * - constraints_applied MUST be empty (read-only agent)
  * - confidence is analytical (based on signal matching), not probabilistic
+ *
+ * HARDENED: Phase 1 Layer 1 standardization:
+ * - source_agent, domain, phase, layer REQUIRED
+ * - event_type differentiates signal types
+ * - evidence_refs for audit trails
  */
 export const DecisionEventSchema = z.object({
-  // Agent identification
+  // HARDENED: Agent Identity (Phase 1 Layer 1 standardization)
+  source_agent: z.string().min(1).describe('Agent name emitting this event'),
+  domain: z.string().min(1).describe('Agent domain'),
+  phase: z.literal('phase1').describe('Deployment phase'),
+  layer: z.literal('layer1').describe('Architecture layer'),
+
+  // HARDENED: Event type (signal, NOT conclusion)
+  event_type: z.string().min(1).describe('Type of signal being emitted'),
+
+  // Agent identification (backwards compatibility)
   agent_id: z.literal('failure-classification-agent'),
   agent_version: z.string().regex(/^\d+\.\d+\.\d+$/),
 
@@ -248,6 +276,9 @@ export const DecisionEventSchema = z.object({
 
   // Confidence (analytical, not probabilistic)
   confidence: z.number().min(0).max(1),
+
+  // HARDENED: Evidence references for audit trails
+  evidence_refs: z.array(EvidenceRefSchema).default([]),
 
   // CONSTITUTIONAL CONSTRAINT: No constraints applied for read-only agent
   constraints_applied: z.array(z.never()).length(0),
@@ -335,3 +366,6 @@ export type DecisionEvent = z.infer<typeof DecisionEventSchema>;
 export type ClassificationQuery = z.infer<typeof ClassificationQuerySchema>;
 export type AnalysisQuery = z.infer<typeof AnalysisQuerySchema>;
 export type AnalysisResult = z.infer<typeof AnalysisResultSchema>;
+
+// HARDENED: Evidence reference type
+export type EvidenceRef = z.infer<typeof EvidenceRefSchema>;

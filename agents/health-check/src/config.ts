@@ -3,9 +3,35 @@
  *
  * Loads configuration from environment variables with sensible defaults.
  * All thresholds are configurable per-environment.
+ *
+ * HARDENED: Phase 1 Layer 1 deployment
+ * - Mandatory environment variables enforced
+ * - Performance boundaries applied
+ * - Agent identity standardization
  */
 
 import type { IndicatorType } from '../contracts/schemas.js';
+
+// ============================================================================
+// HARDENED: Performance Boundaries
+// ============================================================================
+
+export const PERFORMANCE_BOUNDARIES = {
+  MAX_TOKENS: 800,
+  MAX_LATENCY_MS: 1500,
+  MAX_CALLS_PER_RUN: 2,
+} as const;
+
+// ============================================================================
+// HARDENED: Agent Identity
+// ============================================================================
+
+export interface AgentIdentity {
+  agentName: string;
+  agentDomain: string;
+  agentPhase: 'phase1';
+  agentLayer: 'layer1';
+}
 
 // ============================================================================
 // THRESHOLD CONFIGURATION
@@ -73,7 +99,7 @@ export interface RuvectorConfig {
 }
 
 // ============================================================================
-// AGENT CONFIGURATION
+// AGENT CONFIGURATION (HARDENED)
 // ============================================================================
 
 export interface AgentConfig {
@@ -81,6 +107,14 @@ export interface AgentConfig {
   version: string;
   classification: 'advisory';
   decision_type: 'health_evaluation';
+
+  // HARDENED: Agent identity (Phase 1 Layer 1)
+  identity: AgentIdentity;
+
+  // HARDENED: Performance boundaries
+  maxTokens: number;
+  maxLatencyMs: number;
+  maxCallsPerRun: number;
 }
 
 // ============================================================================
@@ -185,6 +219,8 @@ let cachedConfig: Config | null = null;
 /**
  * Load configuration from environment variables.
  * Configuration is cached after first load.
+ *
+ * HARDENED: Includes Phase 1 Layer 1 identity and performance boundaries
  */
 export function loadConfig(): Config {
   if (cachedConfig) {
@@ -197,6 +233,19 @@ export function loadConfig(): Config {
       version: getEnv('AGENT_VERSION', '1.0.0'),
       classification: 'advisory',
       decision_type: 'health_evaluation',
+
+      // HARDENED: Agent identity (Phase 1 Layer 1)
+      identity: {
+        agentName: getEnv('AGENT_NAME', 'health-check-agent'),
+        agentDomain: getEnv('AGENT_DOMAIN', 'health'),
+        agentPhase: 'phase1',
+        agentLayer: 'layer1',
+      },
+
+      // HARDENED: Performance boundaries
+      maxTokens: getEnvInt('MAX_TOKENS', PERFORMANCE_BOUNDARIES.MAX_TOKENS),
+      maxLatencyMs: getEnvInt('MAX_LATENCY_MS', PERFORMANCE_BOUNDARIES.MAX_LATENCY_MS),
+      maxCallsPerRun: getEnvInt('MAX_CALLS_PER_RUN', PERFORMANCE_BOUNDARIES.MAX_CALLS_PER_RUN),
     },
 
     thresholds: {
@@ -236,7 +285,8 @@ export function loadConfig(): Config {
     },
 
     ruvector: {
-      endpoint: getEnv('RUVECTOR_ENDPOINT', 'https://ruvector-service.internal:443'),
+      // HARDENED: Prefer RUVECTOR_SERVICE_URL over legacy RUVECTOR_ENDPOINT
+      endpoint: getEnv('RUVECTOR_SERVICE_URL', getEnv('RUVECTOR_ENDPOINT', 'https://ruvector-service.internal:443')),
       apiKey: getEnv('RUVECTOR_API_KEY', ''),
       timeout_ms: getEnvInt('RUVECTOR_TIMEOUT_MS', 5000),
       max_retries: getEnvInt('RUVECTOR_MAX_RETRIES', 3),
@@ -284,4 +334,91 @@ export function getDefaultHysteresis(): HysteresisConfig {
  */
 export function getDefaultIndicatorWeights(): IndicatorWeights {
   return { ...DEFAULT_INDICATOR_WEIGHTS };
+}
+
+// ============================================================================
+// HARDENED: Environment Validation
+// ============================================================================
+
+/**
+ * HARDENED: Validate mandatory environment variables.
+ * Returns list of errors (empty if valid).
+ */
+export function validateHardenedEnvironment(): string[] {
+  const errors: string[] = [];
+
+  // Ruvector requirements (mandatory)
+  if (!process.env.RUVECTOR_SERVICE_URL && !process.env.RUVECTOR_ENDPOINT) {
+    errors.push('RUVECTOR_SERVICE_URL is required');
+  }
+
+  if (!process.env.RUVECTOR_API_KEY) {
+    errors.push('RUVECTOR_API_KEY is required (must be from Google Secret Manager)');
+  }
+
+  // Agent identity requirements (mandatory)
+  if (!process.env.AGENT_NAME) {
+    errors.push('AGENT_NAME is required');
+  }
+
+  if (!process.env.AGENT_DOMAIN) {
+    errors.push('AGENT_DOMAIN is required');
+  }
+
+  if (process.env.AGENT_PHASE !== 'phase1') {
+    errors.push('AGENT_PHASE must be "phase1"');
+  }
+
+  if (process.env.AGENT_LAYER !== 'layer1') {
+    errors.push('AGENT_LAYER must be "layer1"');
+  }
+
+  return errors;
+}
+
+// ============================================================================
+// HARDENED: Structured Logging
+// ============================================================================
+
+/**
+ * HARDENED: Log agent_started event
+ */
+export function logAgentStarted(data: Record<string, unknown> = {}): void {
+  console.log(JSON.stringify({
+    event: 'agent_started',
+    timestamp: new Date().toISOString(),
+    agent_name: process.env.AGENT_NAME,
+    agent_domain: process.env.AGENT_DOMAIN,
+    agent_phase: process.env.AGENT_PHASE,
+    agent_layer: process.env.AGENT_LAYER,
+    ...data,
+  }));
+}
+
+/**
+ * HARDENED: Log agent_abort event
+ */
+export function logAgentAbort(reason: string, details: string[]): void {
+  console.error(JSON.stringify({
+    event: 'agent_abort',
+    timestamp: new Date().toISOString(),
+    reason,
+    details,
+    agent_name: process.env.AGENT_NAME || 'unknown',
+    agent_domain: process.env.AGENT_DOMAIN || 'unknown',
+    agent_phase: process.env.AGENT_PHASE || 'unknown',
+    agent_layer: process.env.AGENT_LAYER || 'unknown',
+  }));
+}
+
+/**
+ * HARDENED: Log decision_event_emitted event
+ */
+export function logDecisionEventEmitted(executionRef: string, agentName: string): void {
+  console.log(JSON.stringify({
+    event: 'decision_event_emitted',
+    timestamp: new Date().toISOString(),
+    execution_ref: executionRef,
+    agent_name: agentName,
+  }));
 }
