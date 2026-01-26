@@ -40,7 +40,7 @@ jobs:
           fi
 
       - name: Configure kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       # For local/testing environments without real Kubernetes
       - name: Setup deployment (simulation mode)
