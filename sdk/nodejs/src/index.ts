@@ -79,6 +79,26 @@ export {
   ObservatoryError,
 } from './types';
 
+// Execution context (Agentics Foundational Execution Unit)
+export {
+  ExecutionTracker,
+  extractExecutionContext,
+  injectExecutionHeaders,
+  ExecutionHeaders,
+  ExecutionSpanKind,
+  ExecutionSpanStatus,
+} from './execution';
+
+export type {
+  ExecutionContext,
+  ExecutionSpan,
+  ExecutionResult,
+  ExecutionEvent,
+  Artifact,
+  ArtifactContent,
+  ExecutionConfig,
+} from './execution';
+
 // Import everything for default export
 import {
   initObservatory as init,

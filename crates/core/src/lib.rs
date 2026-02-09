@@ -11,8 +11,13 @@
 #![deny(unsafe_code)]
 
 pub mod error;
+pub mod execution;
 pub mod provider;
 pub mod span;
 pub mod types;
 
 pub use error::{Error, Result};
+pub use execution::{
+    Artifact, ArtifactContent, ExecutionContext, ExecutionEvent, ExecutionId, ExecutionResult,
+    ExecutionSpan, ExecutionSpanBuilder, ExecutionSpanId, ExecutionSpanKind, ExecutionSpanStatus,
+};

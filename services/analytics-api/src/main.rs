@@ -149,12 +149,23 @@ fn build_router(
         .allow_headers([header::CONTENT_TYPE, header::AUTHORIZATION])
         .max_age(Duration::from_secs(3600));
 
-    // Protected API routes (require authentication and rate limiting)
+    // Execution context middleware configuration (permissive mode for backwards compatibility)
+    let execution_config = analytics_api::middleware::ExecutionMiddlewareConfig::permissive(
+        std::env::var("REPO_NAME").unwrap_or_else(|_| "llm-observatory".to_string()),
+    );
+
+    // Protected API routes (require authentication, rate limiting, and execution context)
+    // Note: Axum layers execute in reverse order -- rate_limit runs first, then auth,
+    // then execution context, then the route handler.
     let protected_routes = Router::new()
         .merge(routes::traces::routes())
         .merge(routes::metrics::routes())
         .merge(routes::costs::routes())
         .merge(routes::export::routes())
+        .layer(middleware::from_fn(move |req, next| {
+            let config = execution_config.clone();
+            analytics_api::middleware::execution::execution_context_middleware(config, req, next)
+        }))
         .layer(middleware::from_fn_with_state(
             jwt_validator.clone(),
             analytics_api::middleware::auth::require_auth,

@@ -53,6 +53,9 @@ httpdate = "1.0"
 config = { workspace = true }
 dotenvy = { workspace = true }
 
+# LLM Observatory core types
+llm-observatory-core = { path = "../../crates/core" }
+
 # Security
 jsonwebtoken = { workspace = true }
 

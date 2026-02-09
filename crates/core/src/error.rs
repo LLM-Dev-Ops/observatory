@@ -45,6 +45,10 @@ pub enum Error {
     #[error("Internal error: {0}")]
     Internal(String),
 
+    /// Execution context error (missing context, validation failure, enforcement rejection)
+    #[error("Execution error: {0}")]
+    Execution(String),
+
     /// IO error
     #[error("IO error: {0}")]
     Io(#[from] std::io::Error),
@@ -84,5 +88,10 @@ impl Error {
     /// Create an internal error.
     pub fn internal(msg: impl Into<String>) -> Self {
         Self::Internal(msg.into())
+    }
+
+    /// Create an execution error.
+    pub fn execution(msg: impl Into<String>) -> Self {
+        Self::Execution(msg.into())
     }
 }

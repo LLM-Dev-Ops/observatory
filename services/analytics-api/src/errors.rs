@@ -64,6 +64,11 @@ pub enum ErrorCode {
     InvalidDateRange,
     LimitExceeded,
 
+    // Execution context errors (1250-1252)
+    MissingExecutionId,
+    MissingParentSpanId,
+    ExecutionValidationFailed,
+
     // Resource errors (1300-1399)
     ResourceNotFound,
     TraceNotFound,
@@ -123,6 +128,9 @@ impl ErrorCode {
             ErrorCode::InvalidFieldFormat => 1203,
             ErrorCode::InvalidDateRange => 1204,
             ErrorCode::LimitExceeded => 1205,
+            ErrorCode::MissingExecutionId => 1250,
+            ErrorCode::MissingParentSpanId => 1251,
+            ErrorCode::ExecutionValidationFailed => 1252,
 
             // Resources (1300-1399)
             ErrorCode::ResourceNotFound => 1300,
@@ -178,6 +186,9 @@ impl ErrorCode {
             ErrorCode::InvalidFieldFormat => "INVALID_FIELD_FORMAT",
             ErrorCode::InvalidDateRange => "INVALID_DATE_RANGE",
             ErrorCode::LimitExceeded => "LIMIT_EXCEEDED",
+            ErrorCode::MissingExecutionId => "MISSING_EXECUTION_ID",
+            ErrorCode::MissingParentSpanId => "MISSING_PARENT_SPAN_ID",
+            ErrorCode::ExecutionValidationFailed => "EXECUTION_VALIDATION_FAILED",
             ErrorCode::ResourceNotFound => "RESOURCE_NOT_FOUND",
             ErrorCode::TraceNotFound => "TRACE_NOT_FOUND",
             ErrorCode::JobNotFound => "JOB_NOT_FOUND",
@@ -220,7 +231,10 @@ impl ErrorCode {
             | ErrorCode::InvalidFieldValue
             | ErrorCode::InvalidFieldFormat
             | ErrorCode::InvalidDateRange
-            | ErrorCode::LimitExceeded => ErrorCategory::Validation,
+            | ErrorCode::LimitExceeded
+            | ErrorCode::MissingExecutionId
+            | ErrorCode::MissingParentSpanId
+            | ErrorCode::ExecutionValidationFailed => ErrorCategory::Validation,
 
             ErrorCode::ResourceNotFound
             | ErrorCode::TraceNotFound
@@ -389,6 +403,25 @@ impl ApiError {
             ErrorCode::ServiceUnavailable,
             format!("Service {} is temporarily unavailable", service),
         )
+    }
+
+    pub fn missing_execution_id() -> Self {
+        Self::new(
+            ErrorCode::MissingExecutionId,
+            "x-execution-id header is required",
+        )
+    }
+
+    pub fn missing_parent_span_id() -> Self {
+        Self::new(
+            ErrorCode::MissingParentSpanId,
+            "x-execution-parent-span-id header is required",
+        )
+    }
+
+    pub fn execution_validation_failed(reason: impl Into<String>) -> Self {
+        Self::new(ErrorCode::ExecutionValidationFailed, reason)
+            .with_details("Execution context validation failed. Ensure valid execution headers are provided.")
     }
 }
 
