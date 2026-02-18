@@ -149,6 +149,7 @@ app.get('/', (req: Request, res: Response) => {
         slo: '/api/v1/slo/*',
         postmortem: '/api/v1/postmortem/*',
         visualization: '/api/v1/visualization/*',
+        observations: '/api/v1/observations',
       },
     },
     timestamp: new Date().toISOString(),

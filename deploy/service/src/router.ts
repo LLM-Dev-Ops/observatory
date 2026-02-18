@@ -455,6 +455,24 @@ export function createAgentRouter(logger: Logger): Router {
     });
   });
 
+  // -------------------------------------------------------------------------
+  // OBSERVATIONS ENDPOINT (intelligence-core intake)
+  // -------------------------------------------------------------------------
+
+  router.post('/observations', (req: Request, res: Response) => {
+    const { source, event_type, execution_id, timestamp, payload } = req.body;
+
+    logger.info(
+      { source, event_type, execution_id, timestamp },
+      'Observation received',
+    );
+
+    res.status(202).json({
+      status: 'accepted',
+      execution_id,
+    });
+  });
+
   return router;
 }
 

@@ -185,12 +185,16 @@ fn build_router(
             analytics_api::middleware::caching::cache_middleware(cache_config, req, next)
         }));
 
+    // Internal routes (no authentication required, service-to-service only)
+    let internal_routes = Router::new().merge(routes::observations::routes());
+
     // Build main router
     Router::new()
         .route("/health", get(health_check))
         .route("/metrics", get(move || async move { prometheus_handle.render() }))
         .merge(protected_routes)
         .merge(public_routes)
+        .merge(internal_routes)
         .layer(
             TraceLayer::new_for_http()
                 .make_span_with(DefaultMakeSpan::new().level(Level::INFO))
