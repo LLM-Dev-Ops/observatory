@@ -1,5 +1,18 @@
 {
+  "name": "observatory-agents",
+  "version": "1.0.0",
+  "description": "LLM Observatory Agents - Google Cloud Function",
+  "main": "functions/index.js",
+  "scripts": {
+    "start": "npx @google-cloud/functions-framework --target=api --port=8080",
+    "deploy": "gcloud functions deploy observatory-agents --runtime nodejs20 --trigger-http --allow-unauthenticated --region us-central1 --project agentics-dev --entry-point api --memory 256MB --timeout 60s"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
-    "claude-flow": "^2.7.41"
+    "@google-cloud/functions-framework": "^3.3.0",
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
   }
 }

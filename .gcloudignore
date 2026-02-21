@@ -1,9 +1,13 @@
-# Cloud Build ignore file
-# Overrides .gitignore for gcloud builds submit
+# Cloud Functions ignore file
+# Overrides .gitignore for gcloud functions deploy
 
-.git
-.gitignore
 node_modules/
+.git/
+dist/
+target/
+*.test.ts
+
+.gitignore
 *.log
 .env
 .env.*
