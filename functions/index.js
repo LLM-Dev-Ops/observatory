@@ -12,6 +12,7 @@ const express = require('express');
 const crypto = require('crypto');
 
 const app = express();
+const MAX_BATCH_ITEMS = 1000;
 
 // ----------------------------------------------------------------------------
 // MIDDLEWARE
@@ -122,6 +123,40 @@ function hashInputs(inputs) {
   return crypto.createHash('sha256').update(JSON.stringify(inputs)).digest('hex');
 }
 
+function readBoundedArray(res, value, field, { required = false } = {}) {
+  if (!Array.isArray(value)) {
+    res.status(400).json({
+      success: false,
+      error: { code: 'VALIDATION_FAILED', message: `${field} must be an array` },
+      layers_executed: ['input_validation'],
+    });
+    return null;
+  }
+
+  if (required && value.length === 0) {
+    res.status(400).json({
+      success: false,
+      error: { code: 'VALIDATION_FAILED', message: `${field} must contain at least one item` },
+      layers_executed: ['input_validation'],
+    });
+    return null;
+  }
+
+  if (value.length > MAX_BATCH_ITEMS) {
+    res.status(413).json({
+      success: false,
+      error: {
+        code: 'PAYLOAD_TOO_LARGE',
+        message: `${field} exceeds the ${MAX_BATCH_ITEMS}-item limit`,
+      },
+      layers_executed: ['input_validation'],
+    });
+    return null;
+  }
+
+  return value;
+}
+
 function buildDecisionEvent(agentMeta, inputsHash, executionRef, outputs, confidence) {
   return {
     agent_id: agentMeta.id,
@@ -161,15 +196,9 @@ app.post('/v1/observatory/telemetry', (req, res) => {
   const startTime = req._startTime;
   const { payload, context } = req.body || {};
 
-  const events = payload?.events || (Array.isArray(payload) ? payload : [payload]);
-
-  if (!events || events.length === 0) {
-    return res.status(400).json({
-      success: false,
-      error: { code: 'VALIDATION_FAILED', message: 'No events provided in payload' },
-      layers_executed: ['input_validation'],
-    });
-  }
+  const rawEvents = Array.isArray(payload) ? payload : payload?.events;
+  const events = readBoundedArray(res, rawEvents, 'payload.events', { required: true });
+  if (!events) return;
 
   const agentMeta = AGENTS.telemetry;
   const inputsHash = hashInputs(events);
@@ -244,7 +273,8 @@ app.post('/v1/observatory/failures', (req, res) => {
     });
   }
 
-  const errorEvents = payload.error_events || [];
+  const errorEvents = readBoundedArray(res, payload.error_events ?? [], 'payload.error_events');
+  if (!errorEvents) return;
   const agentMeta = AGENTS.failures;
   const inputsHash = hashInputs(payload);
   const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {
@@ -283,7 +313,8 @@ app.post('/v1/observatory/health-check', (req, res) => {
     });
   }
 
-  const targets = payload.targets || [];
+  const targets = readBoundedArray(res, payload.targets ?? [], 'payload.targets');
+  if (!targets) return;
   const agentMeta = AGENTS['health-check'];
   const inputsHash = hashInputs(payload);
 
@@ -327,7 +358,14 @@ app.post('/v1/observatory/slo', (req, res) => {
     });
   }
 
-  const sloDefinitions = payload.slo_definitions || [];
+  const sloDefinitions = readBoundedArray(
+    res,
+    payload.slo_definitions ?? [],
+    'payload.slo_definitions'
+  );
+  if (!sloDefinitions) return;
+  const metrics = readBoundedArray(res, payload.metrics ?? [], 'payload.metrics');
+  if (!metrics) return;
   const agentMeta = AGENTS.slo;
   const inputsHash = hashInputs(payload);
 
@@ -343,7 +381,7 @@ app.post('/v1/observatory/slo', (req, res) => {
     violations: [],
     slo_statuses: sloStatuses,
     slos_evaluated: sloDefinitions.length,
-    metrics_evaluated: (payload.metrics || []).length,
+    metrics_evaluated: metrics.length,
   });
 
   res.json({
