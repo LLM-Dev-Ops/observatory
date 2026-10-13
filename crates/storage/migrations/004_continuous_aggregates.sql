@@ -46,7 +46,7 @@ FROM llm_traces
 GROUP BY bucket, provider, model, status_code
 WITH NO DATA;
 
-COMMENT ON MATERIALIZED VIEW llm_metrics_1min IS 'Real-time 1-minute rollups for monitoring dashboards. Note: Percentiles must be computed from raw data or via approximate algorithms.';
+COMMENT ON VIEW llm_metrics_1min IS 'Real-time 1-minute rollups for monitoring dashboards. Note: Percentiles must be computed from raw data or via approximate algorithms.';
 
 -- Refresh policy: Update every 30 seconds
 -- Covers data from 1 hour ago to 1 minute ago
@@ -93,7 +93,7 @@ FROM llm_traces
 GROUP BY bucket, provider, model, environment
 WITH NO DATA;
 
-COMMENT ON MATERIALIZED VIEW llm_metrics_1hour IS 'Hourly rollups for historical analysis and trending. Compute error_rate as error_count / request_count in queries.';
+COMMENT ON VIEW llm_metrics_1hour IS 'Hourly rollups for historical analysis and trending. Compute error_rate as error_count / request_count in queries.';
 
 -- Refresh policy: Update every 5 minutes
 -- Covers data from 1 day ago to 1 hour ago
@@ -141,7 +141,7 @@ FROM llm_traces
 GROUP BY bucket, provider, model
 WITH NO DATA;
 
-COMMENT ON MATERIALIZED VIEW llm_metrics_1day IS 'Daily rollups for long-term trends and capacity planning. Includes unique user/session counts.';
+COMMENT ON VIEW llm_metrics_1day IS 'Daily rollups for long-term trends and capacity planning. Includes unique user/session counts.';
 
 -- Refresh policy: Update every 1 hour
 -- Covers data from 7 days ago to 1 day ago
@@ -182,7 +182,7 @@ WHERE status_code != 'OK'  -- Only track errors and non-OK statuses
 GROUP BY bucket, provider, model, status_code, environment
 WITH NO DATA;
 
-COMMENT ON MATERIALIZED VIEW llm_error_summary IS 'Hourly error aggregation for monitoring and alerting. Filters to non-OK status codes only.';
+COMMENT ON VIEW llm_error_summary IS 'Hourly error aggregation for monitoring and alerting. Filters to non-OK status codes only.';
 
 -- Refresh policy: Update every 5 minutes
 -- Covers data from 1 day ago to 1 hour ago
