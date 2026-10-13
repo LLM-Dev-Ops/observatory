@@ -29,13 +29,13 @@
 //! }
 //! ```
 
+use chrono::{DateTime, Utc};
+use llm_observatory_core::span::{LlmInput, LlmOutput, LlmSpan, SpanStatus};
+use llm_observatory_core::types::Provider as ObsProvider;
 use llm_sentinel_core::{
     AnomalyContext, AnomalyDetails, AnomalyEvent, AnomalyType, DetectionMethod, ModelId,
     PromptInfo, ResponseInfo, ServiceId, Severity, TelemetryEvent,
 };
-use llm_observatory_core::span::{LlmInput, LlmOutput, LlmSpan, SpanStatus};
-use llm_observatory_core::types::Provider as ObsProvider;
-use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use thiserror::Error;
@@ -80,10 +80,10 @@ pub struct AnomalyThresholds {
 impl Default for AnomalyThresholds {
     fn default() -> Self {
         Self {
-            latency_threshold_ms: 5000,      // 5 seconds
-            cost_threshold_usd: 1.0,         // $1.00
-            error_rate_threshold: 0.1,       // 10%
-            token_spike_multiplier: 3.0,     // 3x average
+            latency_threshold_ms: 5000,  // 5 seconds
+            cost_threshold_usd: 1.0,     // $1.00
+            error_rate_threshold: 0.1,   // 10%
+            token_spike_multiplier: 3.0, // 3x average
         }
     }
 }
@@ -163,10 +163,7 @@ impl SentinelAdapter {
     }
 
     /// Create a new SentinelAdapter with custom thresholds.
-    pub fn with_thresholds(
-        service_name: impl Into<String>,
-        thresholds: AnomalyThresholds,
-    ) -> Self {
+    pub fn with_thresholds(service_name: impl Into<String>, thresholds: AnomalyThresholds) -> Self {
         Self {
             service_id: ServiceId::new(service_name),
             thresholds,
@@ -280,7 +277,9 @@ impl SentinelAdapter {
                 let text = parts
                     .iter()
                     .filter_map(|p| match p {
-                        llm_observatory_core::span::ContentPart::Text { text } => Some(text.clone()),
+                        llm_observatory_core::span::ContentPart::Text { text } => {
+                            Some(text.clone())
+                        }
                         _ => None,
                     })
                     .collect::<Vec<_>>()
@@ -321,10 +320,8 @@ impl SentinelAdapter {
                 let anomaly = DetectedAnomaly {
                     id: Uuid::new_v4(),
                     anomaly_type: "CostAnomaly".to_string(),
-                    severity: self.calculate_severity(
-                        cost.amount_usd,
-                        self.thresholds.cost_threshold_usd,
-                    ),
+                    severity: self
+                        .calculate_severity(cost.amount_usd, self.thresholds.cost_threshold_usd),
                     detection_method: "Threshold".to_string(),
                     confidence: 0.95,
                     metric: "cost_usd".to_string(),
@@ -525,7 +522,12 @@ impl SentinelAdapter {
 
     /// Get supported severity levels.
     pub fn supported_severities() -> Vec<Severity> {
-        vec![Severity::Low, Severity::Medium, Severity::High, Severity::Critical]
+        vec![
+            Severity::Low,
+            Severity::Medium,
+            Severity::High,
+            Severity::Critical,
+        ]
     }
 
     /// Get supported detection methods.

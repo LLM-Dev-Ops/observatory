@@ -42,7 +42,9 @@ async fn setup_test_database() -> StoragePool {
     if let Ok(database_url) = std::env::var("DATABASE_URL") {
         eprintln!("Using DATABASE_URL: {}", database_url);
         let config = StorageConfig::from_env().expect("Failed to load config from environment");
-        let pool = StoragePool::new(config).await.expect("Failed to create pool");
+        let pool = StoragePool::new(config)
+            .await
+            .expect("Failed to create pool");
 
         // Run migrations
         sqlx::migrate!("./migrations")
@@ -217,9 +219,7 @@ pub fn generate_logs(count: usize) -> Vec<LogRecord> {
                 severity_text: severity_text.to_string(),
                 body: format!(
                     "[{}] Benchmark log message {} - {}",
-                    severity_text,
-                    i,
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                    severity_text, i, "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
                 ),
                 service_name: "benchmark-service".to_string(),
                 trace_id: if i % 5 == 0 {
@@ -265,14 +265,16 @@ pub fn generate_metrics(count: usize) -> Vec<Metric> {
                 id: Uuid::new_v4(),
                 name: format!("benchmark.metric.{}.{}", metric_type, i),
                 description: Some(format!("Benchmark {} metric {}", metric_type, i)),
-                unit: Some(match metric_type {
-                    "counter" => "count",
-                    "gauge" => "percent",
-                    "histogram" => "milliseconds",
-                    "summary" => "bytes",
-                    _ => "unit",
-                }
-                .to_string()),
+                unit: Some(
+                    match metric_type {
+                        "counter" => "count",
+                        "gauge" => "percent",
+                        "histogram" => "milliseconds",
+                        "summary" => "bytes",
+                        _ => "unit",
+                    }
+                    .to_string(),
+                ),
                 metric_type: metric_type.to_string(),
                 service_name: "benchmark-service".to_string(),
                 attributes: serde_json::json!({

@@ -60,17 +60,18 @@ async fn create_test_app(pool: PgPool) -> Router {
         cache_ttl: 60, // 1 minute for tests
     });
 
-    let jwt_secret =
-        std::env::var("JWT_SECRET").unwrap_or("test_secret_for_integration_tests_minimum_32_chars".to_string());
+    let jwt_secret = std::env::var("JWT_SECRET")
+        .unwrap_or("test_secret_for_integration_tests_minimum_32_chars".to_string());
     let jwt_validator = Arc::new(JwtValidator::new(&jwt_secret));
 
     // Build test router with protected cost routes
-    let protected_routes = Router::new()
-        .merge(routes::costs::routes())
-        .layer(middleware::from_fn_with_state(
-            jwt_validator.clone(),
-            analytics_api::middleware::auth::require_auth,
-        ));
+    let protected_routes =
+        Router::new()
+            .merge(routes::costs::routes())
+            .layer(middleware::from_fn_with_state(
+                jwt_validator.clone(),
+                analytics_api::middleware::auth::require_auth,
+            ));
 
     Router::new()
         .route("/health", get(|| async { "OK" }))
@@ -98,10 +99,7 @@ fn generate_test_jwt() -> String {
         sub: "test_user".to_string(),
         org_id: "test_org_costs".to_string(),
         role: "admin".to_string(),
-        permissions: vec![
-            "costs:read".to_string(),
-            "traces:read".to_string(),
-        ],
+        permissions: vec!["costs:read".to_string(), "traces:read".to_string()],
         exp,
     };
 
@@ -139,7 +137,11 @@ async fn setup_test_data(pool: &PgPool) -> anyhow::Result<()> {
                 _ => ("anthropic", "claude-3-sonnet"),
             };
 
-            let environment = if day % 3 == 0 { "production" } else { "staging" };
+            let environment = if day % 3 == 0 {
+                "production"
+            } else {
+                "staging"
+            };
             let user_id = format!("user_{}", (day % 5) + 1); // 5 different users
             let team_id = format!("team_{}", (day % 3) + 1); // 3 different teams
 
@@ -147,7 +149,11 @@ async fn setup_test_data(pool: &PgPool) -> anyhow::Result<()> {
             let base_cost = 10.0 + (60 - day) as f64 * 0.5; // Increasing trend
             let tokens = (1000 + day * 50) as i64;
 
-            let status_code = if (day + hour) % 20 == 0 { "ERROR" } else { "OK" };
+            let status_code = if (day + hour) % 20 == 0 {
+                "ERROR"
+            } else {
+                "OK"
+            };
 
             sqlx::query(
                 r#"
@@ -210,7 +216,9 @@ async fn test_cost_summary_basic() {
         .await
         .expect("Failed to connect to test database");
 
-    setup_test_data(&pool).await.expect("Failed to setup test data");
+    setup_test_data(&pool)
+        .await
+        .expect("Failed to setup test data");
 
     let app = create_test_app(pool.clone()).await;
     let token = generate_test_jwt();
@@ -243,9 +251,15 @@ async fn test_cost_summary_basic() {
     // Verify response structure
     assert!(json["metadata"].is_object(), "Should have metadata");
     assert!(json["overview"].is_object(), "Should have overview");
-    assert!(json["by_provider"].is_array(), "Should have provider breakdown");
+    assert!(
+        json["by_provider"].is_array(),
+        "Should have provider breakdown"
+    );
     assert!(json["by_model"].is_array(), "Should have model breakdown");
-    assert!(json["by_environment"].is_array(), "Should have environment breakdown");
+    assert!(
+        json["by_environment"].is_array(),
+        "Should have environment breakdown"
+    );
 
     // Verify overview metrics
     assert!(json["overview"]["total_cost"].as_f64().unwrap() > 0.0);
@@ -289,8 +303,14 @@ async fn test_cost_summary_with_trends() {
 
     // Verify trends are included
     assert!(json["trends"].is_object(), "Should include trends");
-    assert!(json["trends"]["daily"].is_array(), "Should have daily trends");
-    assert!(json["trends"]["weekly"].is_array(), "Should have weekly trends");
+    assert!(
+        json["trends"]["daily"].is_array(),
+        "Should have daily trends"
+    );
+    assert!(
+        json["trends"]["weekly"].is_array(),
+        "Should have weekly trends"
+    );
     assert!(
         json["trends"]["growth_rate_daily"].is_number(),
         "Should have daily growth rate"
@@ -607,7 +627,10 @@ async fn test_cost_forecast_next_month() {
 
     // Verify response structure
     assert!(json["metadata"].is_object());
-    assert_eq!(json["metadata"]["model_type"].as_str().unwrap(), "linear_regression");
+    assert_eq!(
+        json["metadata"]["model_type"].as_str().unwrap(),
+        "linear_regression"
+    );
     assert_eq!(json["metadata"]["forecast_days"].as_u64().unwrap(), 30);
 
     assert!(json["historical"].is_array());

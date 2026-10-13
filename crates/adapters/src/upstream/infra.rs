@@ -371,10 +371,7 @@ impl MetricsAdapter {
 
     /// Build a key with labels.
     fn build_key(&self, name: &str, labels: &[(&str, &str)]) -> String {
-        let label_str: Vec<String> = labels
-            .iter()
-            .map(|(k, v)| format!("{}={}", k, v))
-            .collect();
+        let label_str: Vec<String> = labels.iter().map(|(k, v)| format!("{}={}", k, v)).collect();
         format!("{}:{{{}}}", name, label_str.join(","))
     }
 
@@ -530,7 +527,11 @@ impl<V: Clone> CacheAdapter<V> {
 
     /// Set a value in the cache.
     pub fn set(&mut self, key: impl Into<String>, value: V) {
-        self.set_with_ttl(key, value, Duration::from_secs(self.config.default_ttl_secs));
+        self.set_with_ttl(
+            key,
+            value,
+            Duration::from_secs(self.config.default_ttl_secs),
+        );
     }
 
     /// Set a value with a custom TTL.
@@ -646,12 +647,13 @@ impl RateLimitAdapter {
         let now = std::time::Instant::now();
         let window = Duration::from_secs(self.config.window_secs);
 
-        let bucket = self.buckets.entry(key.to_string()).or_insert_with(|| {
-            RateLimitBucket {
+        let bucket = self
+            .buckets
+            .entry(key.to_string())
+            .or_insert_with(|| RateLimitBucket {
                 tokens: self.config.max_requests,
                 last_refill: now,
-            }
-        });
+            });
 
         // Refill tokens based on elapsed time
         let elapsed = now.duration_since(bucket.last_refill);
@@ -951,19 +953,35 @@ mod tests {
     fn test_metrics_counter() {
         let mut adapter = InfraAdapter::new("test-service");
 
-        adapter.metrics().increment_counter(ObservatoryMetric::RequestsTotal, 5);
-        adapter.metrics().increment_counter(ObservatoryMetric::RequestsTotal, 3);
+        adapter
+            .metrics()
+            .increment_counter(ObservatoryMetric::RequestsTotal, 5);
+        adapter
+            .metrics()
+            .increment_counter(ObservatoryMetric::RequestsTotal, 3);
 
-        assert_eq!(adapter.metrics().get_counter(ObservatoryMetric::RequestsTotal), 8);
+        assert_eq!(
+            adapter
+                .metrics()
+                .get_counter(ObservatoryMetric::RequestsTotal),
+            8
+        );
     }
 
     #[test]
     fn test_metrics_gauge() {
         let mut adapter = InfraAdapter::new("test-service");
 
-        adapter.metrics().set_gauge(ObservatoryMetric::ActiveConnections, 10.0);
+        adapter
+            .metrics()
+            .set_gauge(ObservatoryMetric::ActiveConnections, 10.0);
 
-        assert_eq!(adapter.metrics().get_gauge(ObservatoryMetric::ActiveConnections), 10.0);
+        assert_eq!(
+            adapter
+                .metrics()
+                .get_gauge(ObservatoryMetric::ActiveConnections),
+            10.0
+        );
     }
 
     #[test]
@@ -1023,7 +1041,13 @@ mod tests {
 
     #[test]
     fn test_observatory_metric_names() {
-        assert_eq!(ObservatoryMetric::RequestsTotal.name(), "observatory_requests_total");
-        assert_eq!(ObservatoryMetric::RequestLatency.name(), "observatory_request_latency_seconds");
+        assert_eq!(
+            ObservatoryMetric::RequestsTotal.name(),
+            "observatory_requests_total"
+        );
+        assert_eq!(
+            ObservatoryMetric::RequestLatency.name(),
+            "observatory_request_latency_seconds"
+        );
     }
 }

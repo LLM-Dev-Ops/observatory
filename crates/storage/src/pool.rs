@@ -61,7 +61,10 @@ impl StoragePool {
             match Self::create_redis_pool_with_retry(redis_config, &config.retry).await {
                 Ok(manager) => Some(Arc::new(manager)),
                 Err(e) => {
-                    tracing::warn!("Failed to connect to Redis: {}. Continuing without Redis.", e);
+                    tracing::warn!(
+                        "Failed to connect to Redis: {}. Continuing without Redis.",
+                        e
+                    );
                     None
                 }
             }
@@ -208,12 +211,15 @@ impl StoragePool {
     pub async fn get_tokio_postgres_client(
         &self,
     ) -> StorageResult<(tokio_postgres::Client, tokio::task::JoinHandle<()>)> {
-        let (client, connection) = tokio_postgres::connect(
-            &self.config.postgres_url(),
-            tokio_postgres::NoTls,
-        )
-        .await
-        .map_err(|e| StorageError::ConnectionError(format!("Failed to create tokio-postgres client: {}", e)))?;
+        let (client, connection) =
+            tokio_postgres::connect(&self.config.postgres_url(), tokio_postgres::NoTls)
+                .await
+                .map_err(|e| {
+                    StorageError::ConnectionError(format!(
+                        "Failed to create tokio-postgres client: {}",
+                        e
+                    ))
+                })?;
 
         // Spawn connection handler in background
         let handle = tokio::spawn(async move {
@@ -291,7 +297,9 @@ impl StoragePool {
         sqlx::query("SELECT 1")
             .execute(&self.postgres)
             .await
-            .map_err(|e| StorageError::ConnectionError(format!("PostgreSQL health check failed: {}", e)))?;
+            .map_err(|e| {
+                StorageError::ConnectionError(format!("PostgreSQL health check failed: {}", e))
+            })?;
 
         tracing::debug!("PostgreSQL health check passed");
         Ok(())
@@ -304,7 +312,9 @@ impl StoragePool {
             redis::cmd("PING")
                 .query_async::<_, String>(&mut conn)
                 .await
-                .map_err(|e| StorageError::RedisError(format!("Redis health check failed: {}", e)))?;
+                .map_err(|e| {
+                    StorageError::RedisError(format!("Redis health check failed: {}", e))
+                })?;
 
             tracing::debug!("Redis health check passed");
             Ok(())

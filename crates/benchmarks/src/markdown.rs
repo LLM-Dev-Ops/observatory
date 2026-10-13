@@ -32,7 +32,8 @@ pub fn generate_summary(results: &[BenchmarkResult]) -> String {
             result.target_id,
             result.timestamp.format("%Y-%m-%d %H:%M:%S UTC"),
             metrics_short
-        ).unwrap();
+        )
+        .unwrap();
     }
 
     writeln!(output).unwrap();
@@ -58,7 +59,12 @@ pub fn generate_detailed_report(results: &[BenchmarkResult]) -> String {
         writeln!(output).unwrap();
         writeln!(output, "**Metrics:**").unwrap();
         writeln!(output, "```json").unwrap();
-        writeln!(output, "{}", serde_json::to_string_pretty(&result.metrics).unwrap_or_default()).unwrap();
+        writeln!(
+            output,
+            "{}",
+            serde_json::to_string_pretty(&result.metrics).unwrap_or_default()
+        )
+        .unwrap();
         writeln!(output, "```").unwrap();
         writeln!(output).unwrap();
     }

@@ -26,8 +26,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("LLM Observatory SDK - Cost Tracking Example\n");
 
-    let api_key = std::env::var("OPENAI_API_KEY")
-        .expect("OPENAI_API_KEY environment variable not set");
+    let api_key =
+        std::env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY environment variable not set");
 
     let observatory = LLMObservatory::builder()
         .with_service_name("cost-tracking-example")
@@ -39,7 +39,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Example 1: Estimate cost before making request
     println!("=== Example 1: Cost Estimation ===");
     let estimated_cost = estimate_cost("gpt-4o-mini", 500, 200)?;
-    println!("Estimated cost for gpt-4o-mini (500 prompt, 200 completion tokens): ${:.6}", estimated_cost);
+    println!(
+        "Estimated cost for gpt-4o-mini (500 prompt, 200 completion tokens): ${:.6}",
+        estimated_cost
+    );
     println!();
 
     // Example 2: Track costs across multiple requests
@@ -61,7 +64,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         match client.chat_completion(request).await {
             Ok(response) => {
-                println!("  Tokens: {} (prompt: {}, completion: {})",
+                println!(
+                    "  Tokens: {} (prompt: {}, completion: {})",
                     response.total_tokens(),
                     response.prompt_tokens(),
                     response.completion_tokens()
@@ -96,8 +100,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let tokens_prompt = 1000;
     let tokens_completion = 500;
 
-    println!("Cost comparison for {} prompt tokens and {} completion tokens:",
-        tokens_prompt, tokens_completion);
+    println!(
+        "Cost comparison for {} prompt tokens and {} completion tokens:",
+        tokens_prompt, tokens_completion
+    );
 
     for model in models {
         match estimate_cost(model, tokens_prompt, tokens_completion) {

@@ -54,12 +54,10 @@ async fn main() -> anyhow::Result<()> {
     );
 
     // Create receiver
-    let mut receiver = OtlpReceiver::new(
-        config.receiver.grpc_endpoint,
-        config.receiver.http_endpoint,
-    )
-    .with_grpc(config.receiver.enable_grpc)
-    .with_http(config.receiver.enable_http);
+    let mut receiver =
+        OtlpReceiver::new(config.receiver.grpc_endpoint, config.receiver.http_endpoint)
+            .with_grpc(config.receiver.enable_grpc)
+            .with_http(config.receiver.enable_http);
 
     // Start receiver
     receiver.start().await?;

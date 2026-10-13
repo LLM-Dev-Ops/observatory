@@ -6,10 +6,12 @@
 mod common;
 
 use common::*;
-use llm_observatory_storage::config::{PoolConfig, PostgresConfig, RedisConfig, RetryConfig, StorageConfig};
+use llm_observatory_storage::config::{
+    PoolConfig, PostgresConfig, RedisConfig, RetryConfig, StorageConfig,
+};
 use std::env;
-use tempfile::NamedTempFile;
 use std::io::Write;
+use tempfile::NamedTempFile;
 
 #[test]
 fn test_config_from_individual_components() {
@@ -203,7 +205,14 @@ fn test_postgres_config_validation_invalid_ssl_mode() {
 
 #[test]
 fn test_postgres_config_validation_valid_ssl_modes() {
-    let ssl_modes = vec!["disable", "allow", "prefer", "require", "verify-ca", "verify-full"];
+    let ssl_modes = vec![
+        "disable",
+        "allow",
+        "prefer",
+        "require",
+        "verify-ca",
+        "verify-full",
+    ];
 
     for ssl_mode in ssl_modes {
         let config = PostgresConfig {
@@ -216,7 +225,11 @@ fn test_postgres_config_validation_valid_ssl_modes() {
             application_name: "app".to_string(),
         };
 
-        assert!(config.validate().is_ok(), "SSL mode {} should be valid", ssl_mode);
+        assert!(
+            config.validate().is_ok(),
+            "SSL mode {} should be valid",
+            ssl_mode
+        );
     }
 }
 

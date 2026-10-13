@@ -10,10 +10,10 @@
 #![warn(missing_docs, rust_2018_idioms)]
 #![deny(unsafe_code)]
 
-pub mod openai;
 pub mod anthropic;
+pub mod openai;
 pub mod pricing;
 
-pub use openai::OpenAiProvider;
 pub use anthropic::AnthropicProvider;
-pub use pricing::{PricingEngine, PricingDatabase};
+pub use openai::OpenAiProvider;
+pub use pricing::{PricingDatabase, PricingEngine};

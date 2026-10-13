@@ -69,10 +69,14 @@ async fn compare_models(
     );
 
     // Try to get from cache
-    let mut redis_conn = state.redis_client.get_async_connection().await.map_err(|e| {
-        error!("Redis connection error: {}", e);
-        ApiError::Internal("Failed to connect to cache".to_string())
-    })?;
+    let mut redis_conn = state
+        .redis_client
+        .get_async_connection()
+        .await
+        .map_err(|e| {
+            error!("Redis connection error: {}", e);
+            ApiError::Internal("Failed to connect to cache".to_string())
+        })?;
 
     // Check cache
     if let Ok(cached) = redis_conn.get::<_, String>(&cache_key).await {
@@ -143,10 +147,14 @@ async fn get_optimization_recommendations(
     );
 
     // Try to get from cache (shorter TTL for recommendations)
-    let mut redis_conn = state.redis_client.get_async_connection().await.map_err(|e| {
-        error!("Redis connection error: {}", e);
-        ApiError::Internal("Failed to connect to cache".to_string())
-    })?;
+    let mut redis_conn = state
+        .redis_client
+        .get_async_connection()
+        .await
+        .map_err(|e| {
+            error!("Redis connection error: {}", e);
+            ApiError::Internal("Failed to connect to cache".to_string())
+        })?;
 
     // Check cache
     if let Ok(cached) = redis_conn.get::<_, String>(&cache_key).await {

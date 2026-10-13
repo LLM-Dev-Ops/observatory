@@ -76,9 +76,7 @@ impl IntoResponse for ApiError {
             ApiError::Unauthorized(msg) => (StatusCode::UNAUTHORIZED, "unauthorized", msg),
             ApiError::Forbidden(msg) => (StatusCode::FORBIDDEN, "forbidden", msg),
             ApiError::NotFound(msg) => (StatusCode::NOT_FOUND, "not_found", msg),
-            ApiError::Internal(msg) => {
-                (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", msg)
-            }
+            ApiError::Internal(msg) => (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", msg),
         };
 
         let body = Json(ErrorResponse {
@@ -486,10 +484,7 @@ async fn query_custom_metrics(
     // Cache result
     cache_custom_metrics_response(&state, &cache_key, &response).await;
 
-    info!(
-        rows = response.data.len(),
-        "Custom metrics query completed"
-    );
+    info!(rows = response.data.len(), "Custom metrics query completed");
 
     Ok(Json(response))
 }
@@ -536,11 +531,7 @@ async fn execute_metrics_query(
         interval: format!("{:?}", request.interval),
         start_time,
         end_time,
-        metrics: request
-            .metrics
-            .iter()
-            .map(|m| format!("{:?}", m))
-            .collect(),
+        metrics: request.metrics.iter().map(|m| format!("{:?}", m)).collect(),
         group_by: request
             .group_by
             .iter()
@@ -806,10 +797,7 @@ async fn query_period_summary(
 }
 
 /// Calculate period-over-period changes
-fn calculate_period_changes(
-    current: &PeriodSummary,
-    previous: &PeriodSummary,
-) -> PeriodChanges {
+fn calculate_period_changes(current: &PeriodSummary, previous: &PeriodSummary) -> PeriodChanges {
     let calc_change = |curr: f64, prev: f64| -> f64 {
         if prev == 0.0 {
             if curr > 0.0 {
@@ -1040,10 +1028,7 @@ fn generate_metrics_cache_key(request: &MetricsQueryRequest, org_id: &str) -> St
             .start_time
             .map(|t| t.to_rfc3339())
             .unwrap_or_default(),
-        request
-            .end_time
-            .map(|t| t.to_rfc3339())
-            .unwrap_or_default(),
+        request.end_time.map(|t| t.to_rfc3339()).unwrap_or_default(),
         request.provider.as_deref().unwrap_or("all"),
         request.model.as_deref().unwrap_or("all"),
         request.environment.as_deref().unwrap_or("all"),
@@ -1068,9 +1053,13 @@ async fn try_get_from_cache<T: serde::de::DeserializeOwned>(
     state: &Arc<AppState>,
     cache_key: &str,
 ) -> Result<T, ()> {
-    let mut redis_conn = state.redis_client.get_async_connection().await.map_err(|e| {
-        warn!(error = %e, "Redis connection error");
-    })?;
+    let mut redis_conn = state
+        .redis_client
+        .get_async_connection()
+        .await
+        .map_err(|e| {
+            warn!(error = %e, "Redis connection error");
+        })?;
 
     let cached: String = redis_conn.get(cache_key).await.map_err(|_| ())?;
 
@@ -1078,7 +1067,11 @@ async fn try_get_from_cache<T: serde::de::DeserializeOwned>(
 }
 
 /// Cache metrics response
-async fn cache_metrics_response(state: &Arc<AppState>, cache_key: &str, response: &MetricsResponse) {
+async fn cache_metrics_response(
+    state: &Arc<AppState>,
+    cache_key: &str,
+    response: &MetricsResponse,
+) {
     if let Ok(serialized) = serde_json::to_string(response) {
         if let Ok(mut conn) = state.redis_client.get_async_connection().await {
             let _: Result<(), _> = conn.set_ex(cache_key, serialized, state.cache_ttl).await;

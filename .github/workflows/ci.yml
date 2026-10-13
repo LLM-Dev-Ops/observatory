@@ -128,8 +128,14 @@ jobs:
         env:
           DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
         run: |
-          cd crates/storage
-          sqlx migrate run
+          unexpected=$(find crates/storage/migrations -maxdepth 1 -type f -name '*.sql' \
+            ! -name '[0-9][0-9][0-9]_*.sql' -print)
+          if [ -n "$unexpected" ]; then
+            echo "Non-migration SQL found in the SQLx migration root:" >&2
+            echo "$unexpected" >&2
+            exit 1
+          fi
+          sqlx migrate run --source crates/storage/migrations
 
       - name: Install cargo-tarpaulin
         run: cargo install cargo-tarpaulin --locked
@@ -231,8 +237,14 @@ jobs:
         env:
           DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
         run: |
-          cd crates/storage
-          sqlx migrate run
+          unexpected=$(find crates/storage/migrations -maxdepth 1 -type f -name '*.sql' \
+            ! -name '[0-9][0-9][0-9]_*.sql' -print)
+          if [ -n "$unexpected" ]; then
+            echo "Non-migration SQL found in the SQLx migration root:" >&2
+            echo "$unexpected" >&2
+            exit 1
+          fi
+          sqlx migrate run --source crates/storage/migrations
 
       - name: Run integration tests
         env:

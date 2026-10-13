@@ -1,7 +1,7 @@
 //! Log repository for querying log data.
 
 use crate::error::{StorageError, StorageResult};
-use crate::models::{LogRecord, LogLevel};
+use crate::models::{LogLevel, LogRecord};
 use crate::pool::StoragePool;
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
@@ -145,7 +145,7 @@ impl LogRepository {
               AND timestamp <= $3
             ORDER BY timestamp DESC
             LIMIT 1000
-            "#
+            "#,
         )
         .bind(service_name)
         .bind(start_time)
@@ -167,7 +167,7 @@ impl LogRepository {
             SELECT * FROM log_records
             WHERE trace_id = $1
             ORDER BY timestamp ASC
-            "#
+            "#,
         )
         .bind(trace_id)
         .fetch_all(self.pool.postgres())
@@ -187,7 +187,11 @@ impl LogRepository {
     }
 
     /// Full-text search in log messages.
-    pub async fn search_text(&self, query: &str, filters: LogFilters) -> StorageResult<Vec<LogRecord>> {
+    pub async fn search_text(
+        &self,
+        query: &str,
+        filters: LogFilters,
+    ) -> StorageResult<Vec<LogRecord>> {
         let mut filters = filters;
         filters.search_query = Some(query.to_string());
         self.list(filters).await
@@ -208,7 +212,7 @@ impl LogRepository {
               AND timestamp <= $3
             ORDER BY timestamp DESC
             LIMIT 1000
-            "#
+            "#,
         )
         .bind(format!("%{}%", query))
         .bind(start_time)
@@ -294,7 +298,7 @@ impl LogRepository {
             WHERE timestamp >= $1 AND timestamp <= $2
             GROUP BY severity_number, severity_text
             ORDER BY severity_number ASC
-            "#
+            "#,
         )
         .bind(start_time)
         .bind(end_time)
@@ -316,13 +320,10 @@ impl LogRepository {
 
     /// Delete old logs (for data retention).
     pub async fn delete_before(&self, before: DateTime<Utc>) -> StorageResult<u64> {
-        let result = sqlx::query!(
-            "DELETE FROM log_records WHERE timestamp < $1",
-            before
-        )
-        .execute(self.pool.postgres())
-        .await
-        .map_err(StorageError::from)?;
+        let result = sqlx::query!("DELETE FROM log_records WHERE timestamp < $1", before)
+            .execute(self.pool.postgres())
+            .await
+            .map_err(StorageError::from)?;
 
         Ok(result.rows_affected())
     }

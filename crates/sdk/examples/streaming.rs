@@ -14,10 +14,8 @@
 //! cargo run --example streaming --features openai
 //! ```
 
-use llm_observatory_sdk::{
-    ChatCompletionRequest, InstrumentedLLM, LLMObservatory, OpenAIClient,
-};
 use futures::StreamExt;
+use llm_observatory_sdk::{ChatCompletionRequest, InstrumentedLLM, LLMObservatory, OpenAIClient};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -25,8 +23,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("LLM Observatory SDK - Streaming Example\n");
 
-    let api_key = std::env::var("OPENAI_API_KEY")
-        .expect("OPENAI_API_KEY environment variable not set");
+    let api_key =
+        std::env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY environment variable not set");
 
     // Initialize observatory
     let observatory = LLMObservatory::builder()

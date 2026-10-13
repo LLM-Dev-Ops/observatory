@@ -1,7 +1,7 @@
 //! Trace writer for batch insertion of trace data.
 
 use crate::error::{StorageError, StorageResult};
-use crate::models::{Trace, TraceSpan, TraceEvent};
+use crate::models::{Trace, TraceEvent, TraceSpan};
 use crate::pool::StoragePool;
 use std::sync::Arc;
 use tokio::sync::RwLock;
@@ -154,9 +154,8 @@ impl TraceWriter {
         if !traces.is_empty() {
             let count = traces.len();
             let traces_clone = traces.clone();
-            self.with_retry(|| async {
-                self.insert_traces(traces_clone.clone()).await
-            }).await?;
+            self.with_retry(|| async { self.insert_traces(traces_clone.clone()).await })
+                .await?;
 
             // Update stats
             let mut stats = self.stats.write().await;
@@ -168,9 +167,8 @@ impl TraceWriter {
         if !spans.is_empty() {
             let count = spans.len();
             let spans_clone = spans.clone();
-            self.with_retry(|| async {
-                self.insert_spans(spans_clone.clone()).await
-            }).await?;
+            self.with_retry(|| async { self.insert_spans(spans_clone.clone()).await })
+                .await?;
 
             // Update stats
             let mut stats = self.stats.write().await;
@@ -182,9 +180,8 @@ impl TraceWriter {
         if !events.is_empty() {
             let count = events.len();
             let events_clone = events.clone();
-            self.with_retry(|| async {
-                self.insert_events(events_clone.clone()).await
-            }).await?;
+            self.with_retry(|| async { self.insert_events(events_clone.clone()).await })
+                .await?;
 
             // Update stats
             let mut stats = self.stats.write().await;
@@ -208,7 +205,7 @@ impl TraceWriter {
         let mut query_builder = sqlx::QueryBuilder::new(
             "INSERT INTO traces (id, trace_id, service_name, start_time, end_time, duration_us, \
              status, status_message, root_span_name, attributes, resource_attributes, span_count, \
-             created_at, updated_at) "
+             created_at, updated_at) ",
         );
 
         query_builder.push_values(traces, |mut b, trace| {
@@ -236,13 +233,10 @@ impl TraceWriter {
              status = EXCLUDED.status, \
              status_message = EXCLUDED.status_message, \
              span_count = EXCLUDED.span_count, \
-             updated_at = EXCLUDED.updated_at"
+             updated_at = EXCLUDED.updated_at",
         );
 
-        query_builder
-            .build()
-            .execute(self.pool.postgres())
-            .await?;
+        query_builder.build().execute(self.pool.postgres()).await?;
 
         let elapsed = start.elapsed();
         tracing::info!(
@@ -267,7 +261,7 @@ impl TraceWriter {
         let mut query_builder = sqlx::QueryBuilder::new(
             "INSERT INTO trace_spans (id, trace_id, span_id, parent_span_id, name, kind, \
              service_name, start_time, end_time, duration_us, status, status_message, \
-             attributes, events, links, created_at) "
+             attributes, events, links, created_at) ",
         );
 
         query_builder.push_values(spans, |mut b, span| {
@@ -297,13 +291,10 @@ impl TraceWriter {
              status = EXCLUDED.status, \
              status_message = EXCLUDED.status_message, \
              attributes = EXCLUDED.attributes, \
-             events = EXCLUDED.events"
+             events = EXCLUDED.events",
         );
 
-        query_builder
-            .build()
-            .execute(self.pool.postgres())
-            .await?;
+        query_builder.build().execute(self.pool.postgres()).await?;
 
         let elapsed = start.elapsed();
         tracing::info!(
@@ -326,7 +317,7 @@ impl TraceWriter {
         let start = std::time::Instant::now();
 
         let mut query_builder = sqlx::QueryBuilder::new(
-            "INSERT INTO trace_events (id, span_id, name, timestamp, attributes, created_at) "
+            "INSERT INTO trace_events (id, span_id, name, timestamp, attributes, created_at) ",
         );
 
         query_builder.push_values(events, |mut b, event| {
@@ -338,10 +329,7 @@ impl TraceWriter {
                 .push_bind(event.created_at);
         });
 
-        query_builder
-            .build()
-            .execute(self.pool.postgres())
-            .await?;
+        query_builder.build().execute(self.pool.postgres()).await?;
 
         let elapsed = start.elapsed();
         tracing::info!(
@@ -452,19 +440,20 @@ impl TraceWriter {
         llm_span: &llm_observatory_core::span::LlmSpan,
     ) -> StorageResult<Trace> {
         // Try to get existing trace first (most common case - trace already exists)
-        let existing = sqlx::query_as::<_, Trace>(
-            "SELECT * FROM traces WHERE trace_id = $1 LIMIT 1"
-        )
-        .bind(trace_id)
-        .fetch_optional(self.pool.postgres())
-        .await?;
+        let existing =
+            sqlx::query_as::<_, Trace>("SELECT * FROM traces WHERE trace_id = $1 LIMIT 1")
+                .bind(trace_id)
+                .fetch_optional(self.pool.postgres())
+                .await?;
 
         if let Some(trace) = existing {
             return Ok(trace);
         }
 
         // Trace doesn't exist, create it
-        let service_name = llm_span.metadata.environment
+        let service_name = llm_span
+            .metadata
+            .environment
             .clone()
             .unwrap_or_else(|| format!("llm-{}", llm_span.provider.as_str()));
 
@@ -482,7 +471,7 @@ impl TraceWriter {
              created_at, updated_at) \
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) \
              ON CONFLICT (trace_id) DO UPDATE SET updated_at = EXCLUDED.updated_at \
-             RETURNING *"
+             RETURNING *",
         )
         .bind(trace.id)
         .bind(&trace.trace_id)
@@ -599,8 +588,8 @@ mod tests {
         use super::*;
         use chrono::Utc;
         use llm_observatory_core::{
-            span::{LlmSpan, LlmInput, SpanStatus},
-            types::{Provider, Latency, Metadata},
+            span::{LlmInput, LlmSpan, SpanStatus},
+            types::{Latency, Metadata, Provider},
         };
 
         fn create_test_llm_span() -> LlmSpan {
@@ -665,7 +654,10 @@ mod tests {
 
             // Verify LLM attributes are added
             let attrs = trace_span.attributes.as_object().unwrap();
-            assert_eq!(attrs.get("llm.provider").unwrap().as_str().unwrap(), "openai");
+            assert_eq!(
+                attrs.get("llm.provider").unwrap().as_str().unwrap(),
+                "openai"
+            );
             assert_eq!(attrs.get("llm.model").unwrap().as_str().unwrap(), "gpt-4");
             assert!(attrs.contains_key("llm.latency.total_ms"));
         }
@@ -680,9 +672,30 @@ mod tests {
             let trace_span = TraceSpan::from(llm_span);
             let attrs = trace_span.attributes.as_object().unwrap();
 
-            assert_eq!(attrs.get("llm.usage.prompt_tokens").unwrap().as_u64().unwrap(), 100);
-            assert_eq!(attrs.get("llm.usage.completion_tokens").unwrap().as_u64().unwrap(), 50);
-            assert_eq!(attrs.get("llm.usage.total_tokens").unwrap().as_u64().unwrap(), 150);
+            assert_eq!(
+                attrs
+                    .get("llm.usage.prompt_tokens")
+                    .unwrap()
+                    .as_u64()
+                    .unwrap(),
+                100
+            );
+            assert_eq!(
+                attrs
+                    .get("llm.usage.completion_tokens")
+                    .unwrap()
+                    .as_u64()
+                    .unwrap(),
+                50
+            );
+            assert_eq!(
+                attrs
+                    .get("llm.usage.total_tokens")
+                    .unwrap()
+                    .as_u64()
+                    .unwrap(),
+                150
+            );
         }
 
         #[test]
@@ -695,9 +708,22 @@ mod tests {
             let trace_span = TraceSpan::from(llm_span);
             let attrs = trace_span.attributes.as_object().unwrap();
 
-            assert_eq!(attrs.get("llm.cost.amount_usd").unwrap().as_f64().unwrap(), 0.003);
-            assert_eq!(attrs.get("llm.cost.prompt_usd").unwrap().as_f64().unwrap(), 0.001);
-            assert_eq!(attrs.get("llm.cost.completion_usd").unwrap().as_f64().unwrap(), 0.002);
+            assert_eq!(
+                attrs.get("llm.cost.amount_usd").unwrap().as_f64().unwrap(),
+                0.003
+            );
+            assert_eq!(
+                attrs.get("llm.cost.prompt_usd").unwrap().as_f64().unwrap(),
+                0.001
+            );
+            assert_eq!(
+                attrs
+                    .get("llm.cost.completion_usd")
+                    .unwrap()
+                    .as_f64()
+                    .unwrap(),
+                0.002
+            );
         }
 
         #[test]
@@ -714,8 +740,18 @@ mod tests {
             let attrs = trace_span.attributes.as_object().unwrap();
 
             assert_eq!(attrs.get("user.id").unwrap().as_str().unwrap(), "user123");
-            assert_eq!(attrs.get("session.id").unwrap().as_str().unwrap(), "session456");
-            assert_eq!(attrs.get("deployment.environment").unwrap().as_str().unwrap(), "production");
+            assert_eq!(
+                attrs.get("session.id").unwrap().as_str().unwrap(),
+                "session456"
+            );
+            assert_eq!(
+                attrs
+                    .get("deployment.environment")
+                    .unwrap()
+                    .as_str()
+                    .unwrap(),
+                "production"
+            );
             assert_eq!(trace_span.service_name, "production");
         }
 
@@ -741,13 +777,11 @@ mod tests {
             use llm_observatory_core::span::SpanEvent;
 
             let mut llm_span = create_test_llm_span();
-            llm_span.events = vec![
-                SpanEvent {
-                    name: "test_event".to_string(),
-                    timestamp: Utc::now(),
-                    attributes: Default::default(),
-                }
-            ];
+            llm_span.events = vec![SpanEvent {
+                name: "test_event".to_string(),
+                timestamp: Utc::now(),
+                attributes: Default::default(),
+            }];
 
             let trace_span = TraceSpan::from(llm_span);
 
@@ -760,22 +794,23 @@ mod tests {
         #[test]
         fn test_from_llm_span_custom_attributes() {
             let mut llm_span = create_test_llm_span();
-            llm_span.attributes.insert("custom.key".to_string(), serde_json::json!("custom_value"));
+            llm_span
+                .attributes
+                .insert("custom.key".to_string(), serde_json::json!("custom_value"));
 
             let trace_span = TraceSpan::from(llm_span);
             let attrs = trace_span.attributes.as_object().unwrap();
 
-            assert_eq!(attrs.get("custom.key").unwrap().as_str().unwrap(), "custom_value");
+            assert_eq!(
+                attrs.get("custom.key").unwrap().as_str().unwrap(),
+                "custom_value"
+            );
         }
 
         #[test]
         fn test_trace_new() {
             let now = Utc::now();
-            let trace = Trace::new(
-                "trace_abc123".to_string(),
-                "test-service".to_string(),
-                now,
-            );
+            let trace = Trace::new("trace_abc123".to_string(), "test-service".to_string(), now);
 
             assert_eq!(trace.trace_id, "trace_abc123");
             assert_eq!(trace.service_name, "test-service");
