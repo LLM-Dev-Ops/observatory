@@ -186,11 +186,12 @@ async fn test_trace_writer_duplicate_handling() {
     writer.flush().await.unwrap();
 
     // Should have only one trace (updated)
-    let result: (i64, String) = sqlx::query_as("SELECT COUNT(*), status FROM traces WHERE trace_id = $1 GROUP BY status")
-        .bind("duplicate-trace")
-        .fetch_one(pool.postgres())
-        .await
-        .unwrap();
+    let result: (i64, String) =
+        sqlx::query_as("SELECT COUNT(*), status FROM traces WHERE trace_id = $1 GROUP BY status")
+            .bind("duplicate-trace")
+            .fetch_one(pool.postgres())
+            .await
+            .unwrap();
 
     assert_eq!(result.0, 1);
     assert_eq!(result.1, "error");
@@ -257,11 +258,12 @@ async fn test_metric_writer_data_point() {
     writer.flush().await.unwrap();
 
     // Verify data point was written
-    let result: (i64, f64) = sqlx::query_as("SELECT COUNT(*), SUM(value) FROM metric_data_points WHERE metric_id = $1")
-        .bind(metric.id)
-        .fetch_one(pool.postgres())
-        .await
-        .unwrap();
+    let result: (i64, f64) =
+        sqlx::query_as("SELECT COUNT(*), SUM(value) FROM metric_data_points WHERE metric_id = $1")
+            .bind(metric.id)
+            .fetch_one(pool.postgres())
+            .await
+            .unwrap();
 
     assert_eq!(result.0, 1);
     assert_eq!(result.1, 42.5);
@@ -286,11 +288,12 @@ async fn test_metric_writer_multiple_data_points() {
     writer.flush().await.unwrap();
 
     // Verify all data points were written
-    let result: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM metric_data_points WHERE metric_id = $1")
-        .bind(metric.id)
-        .fetch_one(pool.postgres())
-        .await
-        .unwrap();
+    let result: (i64,) =
+        sqlx::query_as("SELECT COUNT(*) FROM metric_data_points WHERE metric_id = $1")
+            .bind(metric.id)
+            .fetch_one(pool.postgres())
+            .await
+            .unwrap();
 
     assert_eq!(result.0, 5);
 }
@@ -313,10 +316,10 @@ async fn test_metric_writer_histogram_data_point() {
     // Verify histogram data point was written
     let result: (i64, i64, f64) =
         sqlx::query_as("SELECT COUNT(*), count, sum FROM metric_data_points WHERE metric_id = $1")
-        .bind(metric.id)
-        .fetch_one(pool.postgres())
-        .await
-        .unwrap();
+            .bind(metric.id)
+            .fetch_one(pool.postgres())
+            .await
+            .unwrap();
 
     assert_eq!(result.0, 1);
     assert_eq!(result.1, 100);
@@ -362,12 +365,13 @@ async fn test_metric_writer_upsert() {
     writer.flush().await.unwrap();
 
     // Should have only one metric with updated description
-    let result: (i64, String) =
-        sqlx::query_as("SELECT COUNT(*), description FROM metrics WHERE name = $1 GROUP BY description")
-        .bind("upsert.metric")
-        .fetch_one(pool.postgres())
-        .await
-        .unwrap();
+    let result: (i64, String) = sqlx::query_as(
+        "SELECT COUNT(*), description FROM metrics WHERE name = $1 GROUP BY description",
+    )
+    .bind("upsert.metric")
+    .fetch_one(pool.postgres())
+    .await
+    .unwrap();
 
     assert_eq!(result.0, 1);
     assert_eq!(result.1, "Updated description");
@@ -427,7 +431,12 @@ async fn test_log_writer_different_severities() {
 
     let severities = vec!["TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"];
     for severity in &severities {
-        let log = create_test_log("test-service", severity, &format!("{} message", severity), None);
+        let log = create_test_log(
+            "test-service",
+            severity,
+            &format!("{} message", severity),
+            None,
+        );
         writer.write_log(log).await.unwrap();
     }
 
@@ -448,17 +457,23 @@ async fn test_log_writer_with_trace_context() {
     cleanup_test_data(&pool).await;
 
     let writer = LogWriter::new(pool.clone());
-    let log = create_test_log("test-service", "ERROR", "Error with trace", Some("trace-123"));
+    let log = create_test_log(
+        "test-service",
+        "ERROR",
+        "Error with trace",
+        Some("trace-123"),
+    );
 
     writer.write_log(log).await.unwrap();
     writer.flush().await.unwrap();
 
     // Verify log with trace context was written
-    let result: (i64, String) =
-        sqlx::query_as("SELECT COUNT(*), trace_id FROM logs WHERE trace_id IS NOT NULL GROUP BY trace_id")
-        .fetch_one(pool.postgres())
-        .await
-        .unwrap();
+    let result: (i64, String) = sqlx::query_as(
+        "SELECT COUNT(*), trace_id FROM logs WHERE trace_id IS NOT NULL GROUP BY trace_id",
+    )
+    .fetch_one(pool.postgres())
+    .await
+    .unwrap();
 
     assert_eq!(result.0, 1);
     assert_eq!(result.1, "trace-123");

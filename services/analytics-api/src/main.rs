@@ -35,10 +35,8 @@ async fn main() -> anyhow::Result<()> {
     info!("Starting Analytics API service");
 
     // Read configuration from environment
-    let database_url =
-        std::env::var("DATABASE_READONLY_URL").unwrap_or_else(|_| {
-            std::env::var("DATABASE_URL").expect("DATABASE_URL must be set")
-        });
+    let database_url = std::env::var("DATABASE_READONLY_URL")
+        .unwrap_or_else(|_| std::env::var("DATABASE_URL").expect("DATABASE_URL must be set"));
 
     let redis_url = std::env::var("REDIS_URL").unwrap_or_else(|_| {
         let host = std::env::var("REDIS_HOST").unwrap_or_else(|_| "localhost".to_string());
@@ -191,7 +189,10 @@ fn build_router(
     // Build main router
     Router::new()
         .route("/health", get(health_check))
-        .route("/metrics", get(move || async move { prometheus_handle.render() }))
+        .route(
+            "/metrics",
+            get(move || async move { prometheus_handle.render() }),
+        )
         .merge(protected_routes)
         .merge(public_routes)
         .merge(internal_routes)
@@ -206,7 +207,9 @@ fn build_router(
 }
 
 /// Health check endpoint
-async fn health_check(State(state): State<Arc<AppState>>) -> Result<Json<HealthResponse>, StatusCode> {
+async fn health_check(
+    State(state): State<Arc<AppState>>,
+) -> Result<Json<HealthResponse>, StatusCode> {
     // Check database
     let db_status = match sqlx::query("SELECT 1").execute(&state.db_pool).await {
         Ok(_) => "healthy",
@@ -215,15 +218,10 @@ async fn health_check(State(state): State<Arc<AppState>>) -> Result<Json<HealthR
 
     // Check Redis
     let redis_status = match state.redis_client.get_multiplexed_async_connection().await {
-        Ok(mut conn) => {
-            match redis::cmd("PING")
-                .query_async::<_, String>(&mut conn)
-                .await
-            {
-                Ok(_) => "healthy",
-                Err(_) => "unhealthy",
-            }
-        }
+        Ok(mut conn) => match redis::cmd("PING").query_async::<_, String>(&mut conn).await {
+            Ok(_) => "healthy",
+            Err(_) => "unhealthy",
+        },
         Err(_) => "unhealthy",
     };
 
@@ -254,12 +252,16 @@ fn setup_metrics_recorder() -> anyhow::Result<PrometheusHandle> {
     // Configure histogram buckets for latency metrics
     let builder = builder.set_buckets_for_metric(
         Matcher::Full("http_request_duration_seconds".to_string()),
-        &[0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0],
+        &[
+            0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0,
+        ],
     )?;
 
     let builder = builder.set_buckets_for_metric(
         Matcher::Full("db_query_duration_seconds".to_string()),
-        &[0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0],
+        &[
+            0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0,
+        ],
     )?;
 
     let handle = builder.install_recorder()?;

@@ -27,14 +27,14 @@
 //! let usage = adapter.create_usage_record(&span, "org_123")?;
 //! ```
 
+use chrono::{DateTime, Utc};
 use llm_cost_ops::{
     CostAggregator, CostCalculator, CostRecord, CostSummary, Currency, IngestionSource,
-    ModelIdentifier, PricingStructure, PricingTable, Provider as CostOpsProvider,
-    TokenNormalizer, UsageRecord,
+    ModelIdentifier, PricingStructure, PricingTable, Provider as CostOpsProvider, TokenNormalizer,
+    UsageRecord,
 };
 use llm_observatory_core::span::LlmSpan;
 use llm_observatory_core::types::{Cost, Provider as ObsProvider, TokenUsage};
-use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use thiserror::Error;
@@ -331,9 +331,8 @@ impl CostAdapter {
         model: &str,
         token_usage: &TokenUsage,
     ) -> Result<CostBreakdown> {
-        let pricing = DefaultPricing::for_model(provider, model).ok_or_else(|| {
-            CostAdapterError::PricingNotFound(format!("{}:{}", provider, model))
-        })?;
+        let pricing = DefaultPricing::for_model(provider, model)
+            .ok_or_else(|| CostAdapterError::PricingNotFound(format!("{}:{}", provider, model)))?;
 
         let mut breakdown = pricing.calculate(
             token_usage.prompt_tokens as u64,
@@ -469,12 +468,7 @@ impl CostAdapter {
 
     /// Get supported currencies.
     pub fn supported_currencies() -> Vec<Currency> {
-        vec![
-            Currency::USD,
-            Currency::EUR,
-            Currency::GBP,
-            Currency::JPY,
-        ]
+        vec![Currency::USD, Currency::EUR, Currency::GBP, Currency::JPY]
     }
 }
 

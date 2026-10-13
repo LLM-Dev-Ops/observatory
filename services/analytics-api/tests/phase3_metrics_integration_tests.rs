@@ -60,17 +60,18 @@ async fn create_test_app(pool: PgPool) -> Router {
         cache_ttl: 60, // 1 minute for tests
     });
 
-    let jwt_secret =
-        std::env::var("JWT_SECRET").unwrap_or("test_secret_for_integration_tests_minimum_32_chars".to_string());
+    let jwt_secret = std::env::var("JWT_SECRET")
+        .unwrap_or("test_secret_for_integration_tests_minimum_32_chars".to_string());
     let jwt_validator = Arc::new(JwtValidator::new(&jwt_secret));
 
     // Build test router
-    let protected_routes = Router::new()
-        .merge(routes::metrics::routes())
-        .layer(middleware::from_fn_with_state(
-            jwt_validator.clone(),
-            analytics_api::middleware::auth::require_auth,
-        ));
+    let protected_routes =
+        Router::new()
+            .merge(routes::metrics::routes())
+            .layer(middleware::from_fn_with_state(
+                jwt_validator.clone(),
+                analytics_api::middleware::auth::require_auth,
+            ));
 
     Router::new()
         .route("/health", get(|| async { "OK" }))
@@ -194,7 +195,9 @@ async fn test_metrics_basic_request_count() {
         .await
         .expect("Failed to connect to test database");
 
-    setup_test_data(&pool).await.expect("Failed to setup test data");
+    setup_test_data(&pool)
+        .await
+        .expect("Failed to setup test data");
 
     let app = create_test_app(pool.clone()).await;
     let token = generate_test_jwt();
@@ -230,8 +233,7 @@ async fn test_metrics_basic_request_count() {
 #[tokio::test]
 #[ignore]
 async fn test_metrics_group_by_provider() {
-    let database_url = std::env::var("TEST_DATABASE_URL")
-        .expect("TEST_DATABASE_URL must be set");
+    let database_url = std::env::var("TEST_DATABASE_URL").expect("TEST_DATABASE_URL must be set");
 
     let pool = PgPool::connect(&database_url).await.unwrap();
     setup_test_data(&pool).await.unwrap();

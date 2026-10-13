@@ -85,8 +85,9 @@ pub fn estimate_cost(
     estimated_prompt_tokens: u32,
     estimated_completion_tokens: u32,
 ) -> Result<f64> {
-    let cost = PricingEngine::calculate_cost(model, estimated_prompt_tokens, estimated_completion_tokens)
-        .map_err(|e| Error::CostCalculation(e.to_string()))?;
+    let cost =
+        PricingEngine::calculate_cost(model, estimated_prompt_tokens, estimated_completion_tokens)
+            .map_err(|e| Error::CostCalculation(e.to_string()))?;
     Ok(cost)
 }
 

@@ -340,9 +340,7 @@ impl ExecutionSpanBuilder {
 
     /// Build the [`ExecutionSpan`]. Returns `Err` if required fields are missing.
     pub fn build(self) -> crate::Result<ExecutionSpan> {
-        let span_id = self
-            .span_id
-            .unwrap_or_else(|| Uuid::new_v4().to_string());
+        let span_id = self.span_id.unwrap_or_else(|| Uuid::new_v4().to_string());
         let execution_id = self
             .execution_id
             .ok_or_else(|| crate::Error::invalid_input("execution_id is required"))?;
@@ -455,9 +453,8 @@ impl ExecutionResult {
 
         // Rule: repo span must have a parent_span_id
         if self.repo_span.parent_span_id.is_empty() {
-            self.validation_errors.push(
-                "Repo span is missing parent_span_id from caller".to_string(),
-            );
+            self.validation_errors
+                .push("Repo span is missing parent_span_id from caller".to_string());
         }
 
         // Rule: must have at least one agent span
@@ -487,11 +484,7 @@ impl ExecutionResult {
         }
 
         self.valid = self.validation_errors.is_empty();
-        self.total_artifacts = self
-            .agent_spans
-            .iter()
-            .map(|s| s.artifacts.len())
-            .sum();
+        self.total_artifacts = self.agent_spans.iter().map(|s| s.artifacts.len()).sum();
         self.total_duration_ms = self.repo_span.duration_ms;
         self
     }
@@ -610,10 +603,7 @@ mod tests {
         let mut span = make_repo_span("parent-1");
         span.fail("something went wrong");
         assert_eq!(span.status, ExecutionSpanStatus::Failed);
-        assert_eq!(
-            span.error_message.as_deref(),
-            Some("something went wrong")
-        );
+        assert_eq!(span.error_message.as_deref(), Some("something went wrong"));
         assert!(span.end_time.is_some());
     }
 

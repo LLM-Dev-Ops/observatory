@@ -15,7 +15,6 @@
 ///! - Admin: 100,000 req/min
 ///! - Developer: 10,000 req/min
 ///! - Viewer: 1,000 req/min
-
 use crate::middleware::AuthContext;
 use crate::models::traces::*;
 use crate::models::{AdvancedSearchRequest, AppState, ErrorResponse, Filter};
@@ -297,9 +296,9 @@ async fn search_traces(
 
     // Validate filter if present
     if let Some(ref filter) = search_req.filter {
-        filter.validate().map_err(|e| {
-            ApiError::BadRequest(format!("Invalid filter: {}", e))
-        })?;
+        filter
+            .validate()
+            .map_err(|e| ApiError::BadRequest(format!("Invalid filter: {}", e)))?;
     }
 
     // Generate cache key
@@ -318,14 +317,9 @@ async fn search_traces(
     }
 
     // Build and execute query
-    let traces = execute_advanced_search(
-        &state.db_pool,
-        &search_req,
-        &auth.org_id,
-        cursor,
-        limit + 1,
-    )
-    .await?;
+    let traces =
+        execute_advanced_search(&state.db_pool, &search_req, &auth.org_id, cursor, limit + 1)
+            .await?;
 
     // Check if there are more results
     let has_more = traces.len() > limit as usize;
@@ -504,7 +498,8 @@ async fn get_trace_by_id(
     // Cache the result
     if let Ok(mut redis_conn) = state.redis_client.get_async_connection().await {
         let serialized = serde_json::to_string(&response).unwrap();
-        let _: Result<(), _> = redis_conn.set_ex(&cache_key, serialized, 300).await; // 5 min TTL
+        let _: Result<(), _> = redis_conn.set_ex(&cache_key, serialized, 300).await;
+        // 5 min TTL
     }
 
     info!(
@@ -627,10 +622,7 @@ async fn query_traces(
 
     // Project ID filter (always applied for non-admin users)
     if !project_id.is_empty() {
-        sql.push_str(&format!(
-            " AND attributes->>'project_id' = ${}",
-            bind_index
-        ));
+        sql.push_str(&format!(" AND attributes->>'project_id' = ${}", bind_index));
         bind_index += 1;
     }
 
@@ -658,7 +650,10 @@ async fn query_traces(
         sql.push_str(&format!(", ts {}", sort_order));
     }
     if sort_by != "trace_id" && sort_by != "span_id" {
-        sql.push_str(&format!(", trace_id {}, span_id {}", sort_order, sort_order));
+        sql.push_str(&format!(
+            ", trace_id {}, span_id {}",
+            sort_order, sort_order
+        ));
     }
 
     // Limit
@@ -753,15 +748,11 @@ async fn query_traces(
 /// Validate and clamp limit
 fn validate_limit(limit: i32) -> Result<i32, ApiError> {
     if limit < 1 {
-        return Err(ApiError::BadRequest(
-            "Limit must be at least 1".to_string(),
-        ));
+        return Err(ApiError::BadRequest("Limit must be at least 1".to_string()));
     }
 
     if limit > 1000 {
-        return Err(ApiError::BadRequest(
-            "Limit cannot exceed 1000".to_string(),
-        ));
+        return Err(ApiError::BadRequest("Limit cannot exceed 1000".to_string()));
     }
 
     Ok(limit)
@@ -827,8 +818,7 @@ async fn execute_advanced_search(
             "*".to_string()
         } else {
             // Always include required fields for pagination
-            let mut field_set: std::collections::HashSet<&str> =
-                valid_fields.into_iter().collect();
+            let mut field_set: std::collections::HashSet<&str> = valid_fields.into_iter().collect();
             field_set.insert("ts");
             field_set.insert("trace_id");
             field_set.insert("span_id");
@@ -839,20 +829,14 @@ async fn execute_advanced_search(
         "*".to_string()
     };
 
-    let mut sql = format!(
-        "SELECT {} FROM llm_traces WHERE 1=1",
-        select_fields
-    );
+    let mut sql = format!("SELECT {} FROM llm_traces WHERE 1=1", select_fields);
 
     let mut param_index = 1;
     let mut params: Vec<String> = Vec::new();
 
     // Add organization filter
     if !org_id.is_empty() {
-        sql.push_str(&format!(
-            " AND attributes->>'org_id' = ${}",
-            param_index
-        ));
+        sql.push_str(&format!(" AND attributes->>'org_id' = ${}", param_index));
         params.push(org_id.to_string());
         param_index += 1;
     }
@@ -882,10 +866,7 @@ async fn execute_advanced_search(
     }
 
     // Add sorting
-    let sort_by = search_req
-        .sort_by
-        .as_deref()
-        .unwrap_or("ts");
+    let sort_by = search_req.sort_by.as_deref().unwrap_or("ts");
     let sort_order = if search_req.sort_desc { "DESC" } else { "ASC" };
 
     sql.push_str(&format!(" ORDER BY {} {}", sort_by, sort_order));
@@ -895,7 +876,10 @@ async fn execute_advanced_search(
         sql.push_str(&format!(", ts {}", sort_order));
     }
     if sort_by != "trace_id" && sort_by != "span_id" {
-        sql.push_str(&format!(", trace_id {}, span_id {}", sort_order, sort_order));
+        sql.push_str(&format!(
+            ", trace_id {}, span_id {}",
+            sort_order, sort_order
+        ));
     }
 
     // Add limit
@@ -934,8 +918,7 @@ async fn execute_advanced_search(
 fn is_valid_trace_field(field: &str) -> bool {
     matches!(
         field,
-        "ts"
-            | "trace_id"
+        "ts" | "trace_id"
             | "span_id"
             | "parent_span_id"
             | "service_name"
@@ -966,8 +949,7 @@ fn is_valid_trace_field(field: &str) -> bool {
 fn is_valid_sort_field(field: &str) -> bool {
     matches!(
         field,
-        "ts"
-            | "trace_id"
+        "ts" | "trace_id"
             | "span_id"
             | "provider"
             | "model"

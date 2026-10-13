@@ -2,6 +2,10 @@
 
 This directory contains TimescaleDB migrations for the LLM Observatory storage layer.
 
+Only numbered production migrations live at this directory's top level so SQLx can
+discover them safely. Operational queries, verification scripts, and migration tests
+live in `support/` and must be run explicitly.
+
 ## Migration Files
 
 The migrations are numbered sequentially and build upon each other:

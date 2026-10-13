@@ -69,7 +69,11 @@ impl InstrumentedSpan {
     }
 
     /// Add an event to the span.
-    pub fn add_event(&mut self, name: impl Into<String>, attributes: HashMap<String, serde_json::Value>) {
+    pub fn add_event(
+        &mut self,
+        name: impl Into<String>,
+        attributes: HashMap<String, serde_json::Value>,
+    ) {
         self.events.push(SpanEvent {
             name: name.into(),
             timestamp: Utc::now(),
@@ -134,7 +138,10 @@ impl InstrumentedSpan {
         // Mark OpenTelemetry span as error
         let span = self.context.span();
         span.set_status(Status::error(error.to_string()));
-        span.add_event("llm.completion.error", vec![KeyValue::new("error", error.to_string())]);
+        span.add_event(
+            "llm.completion.error",
+            vec![KeyValue::new("error", error.to_string())],
+        );
 
         // Build LlmSpan
         let llm_span = LlmSpan::builder()
@@ -167,11 +174,7 @@ pub struct SpanBuilder {
 
 impl SpanBuilder {
     /// Create a new span builder.
-    pub fn new(
-        observatory: LLMObservatory,
-        provider: Provider,
-        model: impl Into<String>,
-    ) -> Self {
+    pub fn new(observatory: LLMObservatory, provider: Provider, model: impl Into<String>) -> Self {
         Self {
             observatory,
             operation_name: "llm.chat.completion".to_string(),
@@ -221,7 +224,10 @@ impl SpanBuilder {
             KeyValue::new("gen_ai.system", self.provider.as_str().to_string()),
             KeyValue::new("gen_ai.request.model", self.model.clone()),
             KeyValue::new("service.name", self.observatory.service_name().to_string()),
-            KeyValue::new("deployment.environment", self.observatory.environment().to_string()),
+            KeyValue::new(
+                "deployment.environment",
+                self.observatory.environment().to_string(),
+            ),
         ];
 
         // Add custom attributes

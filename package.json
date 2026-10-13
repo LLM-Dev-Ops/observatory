@@ -5,6 +5,7 @@
   "main": "functions/index.js",
   "scripts": {
     "start": "npx @google-cloud/functions-framework --target=api --port=8080",
+    "test": "node --test functions/*.test.js",
     "deploy": "gcloud functions deploy observatory-agents --runtime nodejs20 --trigger-http --allow-unauthenticated --region us-central1 --project agentics-dev --entry-point api --memory 256MB --timeout 60s"
   },
   "engines": {

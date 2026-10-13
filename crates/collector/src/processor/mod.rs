@@ -3,8 +3,8 @@
 
 //! Span processors for LLM-specific transformations.
 
-pub mod pii;
 pub mod cost;
+pub mod pii;
 
 use async_trait::async_trait;
 use llm_observatory_core::{span::LlmSpan, Result};

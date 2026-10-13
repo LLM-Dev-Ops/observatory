@@ -27,7 +27,8 @@ impl InstrumentedCopyWriter {
         let result = CopyWriter::write_traces(client, traces).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("copy", "write_traces", result.is_ok(), duration);
+        self.metrics
+            .record_write("copy", "write_traces", result.is_ok(), duration);
         self.metrics.record_batch_size("trace", "copy", count);
 
         if let Ok(rows) = result {
@@ -47,7 +48,8 @@ impl InstrumentedCopyWriter {
         let result = CopyWriter::write_spans(client, spans).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("copy", "write_spans", result.is_ok(), duration);
+        self.metrics
+            .record_write("copy", "write_spans", result.is_ok(), duration);
         self.metrics.record_batch_size("trace", "copy", count);
 
         if let Ok(rows) = result {
@@ -60,14 +62,19 @@ impl InstrumentedCopyWriter {
     }
 
     /// Write events using COPY protocol with metrics.
-    pub async fn write_events(&self, client: &Client, events: Vec<TraceEvent>) -> StorageResult<u64> {
+    pub async fn write_events(
+        &self,
+        client: &Client,
+        events: Vec<TraceEvent>,
+    ) -> StorageResult<u64> {
         let count = events.len();
         let start = Instant::now();
 
         let result = CopyWriter::write_events(client, events).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("copy", "write_events", result.is_ok(), duration);
+        self.metrics
+            .record_write("copy", "write_events", result.is_ok(), duration);
         self.metrics.record_batch_size("trace", "copy", count);
 
         if let Ok(rows) = result {
@@ -80,14 +87,19 @@ impl InstrumentedCopyWriter {
     }
 
     /// Write metrics using COPY protocol with metrics.
-    pub async fn write_metrics(&self, client: &Client, metrics_list: Vec<Metric>) -> StorageResult<u64> {
+    pub async fn write_metrics(
+        &self,
+        client: &Client,
+        metrics_list: Vec<Metric>,
+    ) -> StorageResult<u64> {
         let count = metrics_list.len();
         let start = Instant::now();
 
         let result = CopyWriter::write_metrics(client, metrics_list).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("copy", "write_metrics", result.is_ok(), duration);
+        self.metrics
+            .record_write("copy", "write_metrics", result.is_ok(), duration);
         self.metrics.record_batch_size("metric", "copy", count);
 
         if let Ok(rows) = result {
@@ -100,18 +112,24 @@ impl InstrumentedCopyWriter {
     }
 
     /// Write data points using COPY protocol with metrics.
-    pub async fn write_data_points(&self, client: &Client, data_points: Vec<MetricDataPoint>) -> StorageResult<u64> {
+    pub async fn write_data_points(
+        &self,
+        client: &Client,
+        data_points: Vec<MetricDataPoint>,
+    ) -> StorageResult<u64> {
         let count = data_points.len();
         let start = Instant::now();
 
         let result = CopyWriter::write_data_points(client, data_points).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("copy", "write_data_points", result.is_ok(), duration);
+        self.metrics
+            .record_write("copy", "write_data_points", result.is_ok(), duration);
         self.metrics.record_batch_size("metric", "copy", count);
 
         if let Ok(rows) = result {
-            self.metrics.record_items_written("copy", "data_points", rows);
+            self.metrics
+                .record_items_written("copy", "data_points", rows);
             Ok(rows)
         } else {
             self.metrics.record_error("copy", Some("write_data_points"));
@@ -127,7 +145,8 @@ impl InstrumentedCopyWriter {
         let result = CopyWriter::write_logs(client, logs).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("copy", "write_logs", result.is_ok(), duration);
+        self.metrics
+            .record_write("copy", "write_logs", result.is_ok(), duration);
         self.metrics.record_batch_size("log", "copy", count);
 
         if let Ok(rows) = result {

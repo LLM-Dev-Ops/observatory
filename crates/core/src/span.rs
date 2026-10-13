@@ -3,7 +3,7 @@
 
 //! LLM span definitions following OpenTelemetry GenAI semantic conventions.
 
-use crate::types::{Cost, Latency, Metadata, Provider, TokenUsage, TraceId, SpanId};
+use crate::types::{Cost, Latency, Metadata, Provider, SpanId, TokenUsage, TraceId};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

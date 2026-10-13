@@ -20,7 +20,6 @@
 ///!     .route("/api/v1/traces", get(list_traces))
 ///!     .layer(RateLimitLayer::new(redis_client));
 ///! ```
-
 use axum::{
     body::Body,
     extract::{Request, State},
@@ -286,9 +285,9 @@ pub async fn rate_limit_middleware(
         .get_multiplexed_async_connection()
         .await
         .map_err(|e| {
-            error!("Failed to get Redis connection: {}", e);
-            RateLimitError::Internal("Rate limit service unavailable".to_string())
-        })?;
+        error!("Failed to get Redis connection: {}", e);
+        RateLimitError::Internal("Rate limit service unavailable".to_string())
+    })?;
 
     // Create rate limiter
     let mut limiter = RateLimiter::new(redis_conn);

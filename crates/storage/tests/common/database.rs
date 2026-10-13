@@ -94,14 +94,18 @@ mod tests {
 
     #[tokio::test]
     async fn test_database_creation() {
-        let db = TestDatabase::new().await.expect("Failed to create test database");
+        let db = TestDatabase::new()
+            .await
+            .expect("Failed to create test database");
         assert!(!db.database_url.is_empty());
         assert!(db.database_url.starts_with("postgres://"));
     }
 
     #[tokio::test]
     async fn test_database_connection() {
-        let db = TestDatabase::new().await.expect("Failed to create test database");
+        let db = TestDatabase::new()
+            .await
+            .expect("Failed to create test database");
         let guard = db.get_connection().await;
 
         // Try to connect to the database

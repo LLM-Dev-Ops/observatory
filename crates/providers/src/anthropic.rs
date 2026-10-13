@@ -8,11 +8,11 @@
 //! - API health checks
 //! - Cost calculation for all Claude models
 
+use async_trait::async_trait;
 use llm_observatory_core::{
     provider::{LlmProvider, Pricing},
     Error, Result,
 };
-use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
 /// Anthropic provider configuration.
@@ -232,9 +232,18 @@ mod tests {
 
     #[test]
     fn test_model_generation() {
-        assert_eq!(AnthropicProvider::get_model_generation("claude-sonnet-4.5"), 4.0);
-        assert_eq!(AnthropicProvider::get_model_generation("claude-3-5-sonnet-20241022"), 3.5);
-        assert_eq!(AnthropicProvider::get_model_generation("claude-3-opus-20240229"), 3.0);
+        assert_eq!(
+            AnthropicProvider::get_model_generation("claude-sonnet-4.5"),
+            4.0
+        );
+        assert_eq!(
+            AnthropicProvider::get_model_generation("claude-3-5-sonnet-20241022"),
+            3.5
+        );
+        assert_eq!(
+            AnthropicProvider::get_model_generation("claude-3-opus-20240229"),
+            3.0
+        );
     }
 
     #[test]
@@ -254,7 +263,10 @@ mod tests {
     #[tokio::test]
     async fn test_get_pricing() {
         let provider = AnthropicProvider::new("test-key");
-        let pricing = provider.get_pricing("claude-3-opus-20240229").await.unwrap();
+        let pricing = provider
+            .get_pricing("claude-3-opus-20240229")
+            .await
+            .unwrap();
         assert_eq!(pricing.model, "claude-3-opus-20240229");
         assert_eq!(pricing.prompt_cost_per_1k, 0.015);
         assert_eq!(pricing.completion_cost_per_1k, 0.075);
