@@ -3,12 +3,12 @@
 //! This module defines the data structures for storing metrics
 //! (counters, gauges, histograms, etc.).
 
+use crate::error::{StorageError, StorageResult};
+use crate::validation::{validate_finite_f64, validate_not_empty, Validate};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use uuid::Uuid;
-use crate::error::{StorageError, StorageResult};
-use crate::validation::{validate_finite_f64, validate_not_empty, Validate};
 
 /// Type of metric
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, sqlx::Type)]
@@ -192,8 +192,7 @@ impl std::fmt::Display for MetricType {
 impl Validate for Metric {
     fn validate(&self) -> StorageResult<()> {
         // Validate name is not empty
-        validate_not_empty(&self.name, "name")
-            .map_err(|e| StorageError::validation(e))?;
+        validate_not_empty(&self.name, "name").map_err(|e| StorageError::validation(e))?;
 
         // Validate service_name is not empty
         validate_not_empty(&self.service_name, "service_name")
@@ -215,8 +214,7 @@ impl Validate for MetricDataPoint {
     fn validate(&self) -> StorageResult<()> {
         // Validate value if present (must be finite)
         if let Some(value) = self.value {
-            validate_finite_f64(value, "value")
-                .map_err(|e| StorageError::validation(e))?;
+            validate_finite_f64(value, "value").map_err(|e| StorageError::validation(e))?;
         }
 
         // Validate count if present (must be non-negative)
@@ -231,20 +229,17 @@ impl Validate for MetricDataPoint {
 
         // Validate sum if present (must be finite)
         if let Some(sum) = self.sum {
-            validate_finite_f64(sum, "sum")
-                .map_err(|e| StorageError::validation(e))?;
+            validate_finite_f64(sum, "sum").map_err(|e| StorageError::validation(e))?;
         }
 
         // Validate min if present (must be finite)
         if let Some(min) = self.min {
-            validate_finite_f64(min, "min")
-                .map_err(|e| StorageError::validation(e))?;
+            validate_finite_f64(min, "min").map_err(|e| StorageError::validation(e))?;
         }
 
         // Validate max if present (must be finite)
         if let Some(max) = self.max {
-            validate_finite_f64(max, "max")
-                .map_err(|e| StorageError::validation(e))?;
+            validate_finite_f64(max, "max").map_err(|e| StorageError::validation(e))?;
         }
 
         // Validate min <= max if both present
@@ -343,10 +338,7 @@ mod tests {
 
     #[test]
     fn test_parse_metric_type() {
-        assert_eq!(
-            Metric::parse_type("counter").unwrap(),
-            MetricType::Counter
-        );
+        assert_eq!(Metric::parse_type("counter").unwrap(), MetricType::Counter);
         assert_eq!(Metric::parse_type("GAUGE").unwrap(), MetricType::Gauge);
         assert!(Metric::parse_type("unknown").is_err());
     }

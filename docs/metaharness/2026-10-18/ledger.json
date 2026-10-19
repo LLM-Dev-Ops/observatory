@@ -1,0 +1,371 @@
+{
+  "date": "2026-10-18",
+  "status": "EXECUTED_COMPONENT_VALIDATED_MERGE_BLOCKED",
+  "repo": "LLM-Dev-Ops/observatory",
+  "pr": 11,
+  "prUrl": "https://github.com/LLM-Dev-Ops/observatory/pull/11",
+  "baseline": "6806b2266882c081ec05dc0ab8350b32c34caf3d",
+  "implementation": "b8d81bb349aa6e2b8a10d8c6cd5ef9eed957e1b4",
+  "main": "020f9031a2f1272d55deef0d6c715650b6647150",
+  "finalHead": "Final immutable evidence commit and its exact-head validation are recorded in PR metadata; no self-referential commit hash is embedded here.",
+  "changes": [
+    "Retarget migration 005 retention from nonexistent cost_analysis_hourly to llm_error_summary already created by 004. No relation or production persistence added.",
+    "Execute all eight migrations in independent digest-pinned, Linux-first Migration Contract CI, with real PostgreSQL catalog/data assertions and signed Flywheel replay.",
+    "Add three process-level fixture safety tests, refusing missing opt-in, remote endpoints and non-dedicated database names.",
+    "Require migration-contract and explicit security-scan success in the existing aggregate. No existing test, lint, coverage or security gate weakened.",
+    "Document deployed SQLx checksum/history hazards: never auto-repair production checksums; source revert does not restore deleted data."
+  ],
+  "coverage": {
+    "repositoryPages": [
+      58,
+      0
+    ],
+    "repositoryCount": 58,
+    "archived": 0,
+    "openPRPages": [
+      100,
+      18
+    ],
+    "openPRCount": 118,
+    "worked": [
+      "observatory"
+    ],
+    "deferred": [
+      "RuVector",
+      "agentics-cli",
+      "agentics-cli-test",
+      "agentics-contracts",
+      "agentics-deployment-exporters",
+      "agentics-deployment-intent",
+      "agentics-diligence-artifacts",
+      "agentics-dream-machine",
+      "agentics-enforcement",
+      "agentics-evolution",
+      "agentics-execution-engine",
+      "agentics-orchestration-engine",
+      "agentics-org-manifests",
+      "agentics-platform",
+      "agentics-results-index",
+      "agentics-simulation-planner",
+      "agentics-simulation-runner",
+      "agentics-usage-ledger",
+      "analytics-hub",
+      "auto-optimizer",
+      "automation-core",
+      "benchmark-exchange",
+      "config-manager",
+      "connector-hub",
+      "copilot-agent",
+      "cost-ops",
+      "data-core",
+      "data-vault",
+      "ecosystem-core",
+      "edge-agent",
+      "enterprise-roi-engine",
+      "erp-surface",
+      "forge",
+      "governance-core",
+      "governance-dashboard",
+      "incident-manager",
+      "inference-gateway",
+      "infra",
+      "integrations",
+      "intelligence-core",
+      "interface-core",
+      "latency-lens",
+      "marketplace",
+      "memory-graph",
+      "orchestrator",
+      "platform-agents",
+      "policy-engine",
+      "registry",
+      "research-core",
+      "research-lab",
+      "ruvector-service",
+      "schema-registry",
+      "security-core",
+      "sentinel",
+      "shield",
+      "simulator",
+      "test-bench"
+    ],
+    "depth": "All 58 received root instruction/manifest inventory, main/latest CI and open PR metadata. Observatory only: full relevant instructions, manifests, source/migrations, CI and prior evidence deeply inspected. Deferred repositories were not built or deeply reviewed.",
+    "rotation": "Recent memory-graph, auto-optimizer, config-manager, test-bench, forge, inference-gateway and sentinel work deferred. Resume existing Observatory PR after six days."
+  },
+  "frozen": {
+    "contractSha256": "33dad28d15badcaa0ad642bdec1e304f254f2417b72f7a810596efb157776606",
+    "probeSha256": "4b966c4a7cf02bffdd35999065dee117b1d42fbb66cb9bc82296333d43a4af9b",
+    "parentSourceSha256": "1b0b14635c5847cba4f37bfe0d97ede6f6f7576a36bdb864e29deb66a6e1738d",
+    "candidateSourceSha256": "cf3a3902c78609fc2b60de0a32c136b6aef282d9fbff120b5aa3bde154958506",
+    "baselineNative": {
+      "holdout": "0/4",
+      "anchor": "4/4",
+      "migrationsApplied": 4,
+      "firstFailure": "005: relation cost_analysis_hourly does not exist",
+      "retentionPolicies": 0,
+      "compressionPolicies": 0
+    },
+    "candidateNative": {
+      "holdout": "4/4",
+      "anchor": "4/4",
+      "migrationsApplied": 8,
+      "retentionPolicies": 7,
+      "compressionPolicies": 3
+    },
+    "oldHttpTestsRetained": 8,
+    "nodeBefore": 8,
+    "nodeAfter": 11,
+    "skips": 0,
+    "fixture": "One fresh synthetic trace inserted after 004 is preserved with exact original tested payload/token/cost fields. Existing raw hypertables and all four continuous aggregates remain."
+  },
+  "benchmark": {
+    "protocol": "Five sequential fresh ephemeral databases per revision; actual full SQL execution and catalog/data assertions, same fixture and server; no retries or discarded trials.",
+    "results": [
+      {
+        "root": "/home/ruv/work/observatory-oct18c",
+        "completeChains": 0,
+        "medianMs": 1062.7205969999995,
+        "minimumMs": 1006.2365110000001,
+        "maximumMs": 1096.1111039999998
+      },
+      {
+        "root": "/home/ruv/work/observatory-exact-oct18c",
+        "completeChains": 5,
+        "medianMs": 1301.4651290000002,
+        "minimumMs": 1224.0177469999999,
+        "maximumMs": 1334.781696
+      }
+    ],
+    "interpretation": "Functional reliability benchmark: baseline 0/5 complete chains versus candidate 5/5. Baseline stops on migration 005 and does less work, so elapsed times are incomparable and no performance improvement is claimed.",
+    "exit": 0,
+    "rejectedTrials": 0
+  },
+  "tools": {
+    "ruflo": "3.56.3",
+    "transformers": "4.3.1",
+    "metaharness": "0.4.17",
+    "darwin": "0.10.3",
+    "flywheel": "0.1.12",
+    "upstreamRevision": "e0dfd44da72b7adfb7c57fdd42d124be58ed7086",
+    "toolInstallLockSha256": "a90ad9789373ac2fe7dbb93ee44021caa8cc1af2c3e17c9ed427fd562c91270e",
+    "localNode": "24.19.0",
+    "ruosNode": "20.20.2",
+    "rust": "1.99.0 on RuOS; 1.99.1 observed hosted",
+    "cargoAudit": "0.22.2",
+    "postgresServer": "15.6",
+    "timescale": "2.14.2",
+    "psqlClient": "16.15",
+    "docker": "29.1.3",
+    "image": "timescale/timescaledb:2.14.2-pg15",
+    "imageDigest": "sha256:0698d9bf8cfd81e042f653ff3be767682b376bf0e95b431b2922e2d8a72195d1",
+    "miniLMRevision": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "offlineLauncherBlob": "287ee69d10d6e8607a39df5cb4833177e73756b9",
+    "offlinePreloadBlob": "ca6e349ae963cdbd56bde3d245d90517889ac753",
+    "note": "RuOS has metaharness 0.4.2 installed but it was NOT used for scoring. Actual score and Darwin commands used the freshly pinned local tool installation. Flywheel 0.1.12 and Ruflo 3.56.3 executed on RuOS."
+  },
+  "commands": {
+    "rufloInit": "cd /home/ruv/work/observatory-oct18c && RUFLO_DAEMON_AUTOSTART=0 node /home/ruv/.local/share/llm-dev-ops-tools/node_modules/ruflo/bin/ruflo.js swarm init --topology hierarchical --max-agents 1 --auto-scale false",
+    "rufloPre": "RUFLO_DAEMON_AUTOSTART=0 node /home/ruv/.local/share/llm-dev-ops-tools/node_modules/ruflo/bin/ruflo.js hooks pre-task --task-id observatory-migrations-20261018c --description 'Repair migration 005 stale rollup policy, freeze and execute real ephemeral TimescaleDB migration and retention contract, preserve all Rust/security merge gates' --format json",
+    "meta": "node ../cycle-tools-oct18c/node_modules/metaharness/dist/bin.js score . --json",
+    "darwin": "node ../cycle-tools-oct18c/node_modules/@metaharness/darwin/dist/cli.js evolve . --generations 1 --children 2 --concurrency 1 --seed 2026101820 --sandbox real --selection pareto",
+    "probe": "METAHARNESS_EPHEMERAL_POSTGRES=1 MIGRATION_TEST_DATABASE_URL=postgres://test_user:fixture-only-password@127.0.0.1:55434/observatory_migration_ci node scripts/probe-migrations.mjs .",
+    "flywheel": "METAHARNESS_EPHEMERAL_POSTGRES=1 MIGRATION_TEST_DATABASE_URL=postgres://test_user:fixture-only-password@127.0.0.1:55434/observatory_migration_ci node scripts/evaluate-migrations.mjs /home/ruv/work/observatory-oct18c . /home/ruv/.local/share/llm-dev-ops-tools /home/ruv/work/observatory-oct18c-flywheel.json",
+    "benchmark": "METAHARNESS_EPHEMERAL_POSTGRES=1 MIGRATION_TEST_DATABASE_URL=postgres://test_user:fixture-only-password@127.0.0.1:55434/observatory_migration_ci node scripts/benchmark-migrations.mjs /home/ruv/work/observatory-oct18c . /home/ruv/work/observatory-oct18c-benchmark.json",
+    "post": "cd /home/ruv/work/observatory-oct18c && RUFLO_DAEMON_AUTOSTART=0 RUFLO_MODEL_DIR=/home/ruv/.cache/llm-dev-ops-models python3 /home/ruv/work/research-lab-runtime-recovery-20261016/scripts/offline-exec.py node --import /home/ruv/work/research-lab-runtime-recovery-20261016/scripts/ruflo-local-model.mjs /home/ruv/.local/share/llm-dev-ops-tools/node_modules/ruflo/bin/ruflo.js hooks post-task --task-id observatory-migrations-20261018c --success false --quality 0.8 --agent codex --agent-role coordinator --task 'Published Observatory PR11 retention repair b8d81bb. Real TimescaleDB full migrations and four holdouts now pass; all four native anchors and eight original HTTP tests retained, eleven total Node tests pass. Five fresh candidate chains pass versus zero of five baseline. Flywheel component promotion and eight signed replay checks pass. Darwin variants tie and rejected. Rust resolver conflict, hosted private infra access and security license still block merge; no production schema or deployment performed.' --store-results --format json",
+    "checks": [
+      "npm ci --ignore-scripts",
+      "npm test",
+      "npm audit --omit=dev --json",
+      "cargo fmt --all -- --check",
+      "timeout 120 cargo test --workspace --all-features --locked",
+      "timeout 120 cargo clippy --all-targets --all-features --locked -- -D warnings",
+      "timeout 120 cargo build --workspace --locked",
+      "cargo +1.99.0 audit --json"
+    ]
+  },
+  "orchestration": {
+    "swarm": "swarm-1792368482425-oxjleh",
+    "task": "observatory-migrations-20261018c",
+    "maxAgents": 1,
+    "delegatedAgents": 0,
+    "meaning": "Actual Ruflo CLI coordination and hooks, not delegated implementation claims.",
+    "postExit": 0,
+    "modelProbeDimensions": 384,
+    "remoteLoadingDisabled": true,
+    "requireRealEmbeddings": true,
+    "kernelRestrictions": "Research-lab libseccomp offline launcher verified against origin/main; hook refuses execution if restrictions cannot load.",
+    "learning": {
+      "taskId": "observatory-migrations-20261018c",
+      "success": false,
+      "learningUpdates": {
+        "patternsUpdated": 2,
+        "newPatterns": null,
+        "trajectoryId": null,
+        "controller": "intelligence+bridge-store",
+        "outcomePersisted": true,
+        "available": true
+      },
+      "feedback": {
+        "recorded": true,
+        "controller": "intelligence+bridge-store",
+        "updates": 2
+      },
+      "trajectory": {
+        "recorded": true
+      }
+    },
+    "postEvidenceSha256": "ff3dd913fa04aacf8908409516135dd9f2e950ce8d1297115a5266513d58065a"
+  },
+  "optimization": {
+    "meta": {
+      "before": 71,
+      "after": 71,
+      "staticOnly": true
+    },
+    "darwin": {
+      "exit": 0,
+      "status": "NO_IMPROVEMENT",
+      "scores": [
+        0.985,
+        0.985,
+        0.985
+      ],
+      "mutations": [
+        "scorePolicy",
+        "contextBuilder"
+      ],
+      "rejectedCandidates": 2,
+      "actualNpmTestExecutions": 9,
+      "substrate": "Real npm repository tests only, not SQL or Rust. Ties rejected; root promoted=true is archive initialization, not improvement."
+    },
+    "flywheel": {
+      "exit": 0,
+      "promotions": 1,
+      "primary": "0 -> 1",
+      "anchor": "1 -> 1",
+      "gateFingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+      "replay": {
+        "pass": true,
+        "checks": {
+          "receipts": true,
+          "reachesRoot": true,
+          "contiguousParents": true,
+          "allPromoted": true,
+          "gateUnchanged": true,
+          "gateReExecutes": true,
+          "allCommitsReceipts": true,
+          "sealedFieldsAuthentic": true
+        },
+        "failures": [],
+        "chainSummary": "gen1(retention) → gen0(root)"
+      },
+      "scope": "Component migration contract, not whole-repository approval. Real database evaluations, no mocks.",
+      "inverseSourceBytesInReceipt": true
+    }
+  },
+  "actualResults": {
+    "node": {
+      "baselinePassed": 8,
+      "candidatePassed": 11,
+      "skipped": 0,
+      "exit": 0
+    },
+    "rustFmt": {
+      "exit": 0
+    },
+    "rustTest": {
+      "exit": 101,
+      "completedTests": 0
+    },
+    "rustClippy": {
+      "exit": 101
+    },
+    "rustBuild": {
+      "exit": 101
+    },
+    "rustResolver": "libsqlite3-sys ^0.28.0 from sqlx-sqlite 0.8.0 (Observatory sqlx ^0.8) conflicts with libsqlite3-sys 0.26.0 from sqlx-sqlite 0.7.0 (cost-ops sqlx ^0.7, branch revision aef76ae9). Native links=sqlite3 conflict. Baseline and candidate both reproduce it before compilation.",
+    "cargoAudit": {
+      "exit": 2,
+      "reason": "No resolvable committed Cargo.lock; cargo update --workspace fails with the same linkage conflict. No completed Rust vulnerability scan or vulnerability count is claimed."
+    },
+    "npmProductionAudit": {
+      "exit": 1,
+      "moderate": 3,
+      "high": 0,
+      "critical": 0,
+      "total": 3,
+      "lockUnchanged": true,
+      "lockSha256": "ae4f0a77e6a1b2d2827211b01612da8d30e32f6d494797a9255a6f4f5e72ee11"
+    }
+  },
+  "hosted": {
+    "sourceRun": 39179817387,
+    "sourceSha": "b8d81bb349aa6e2b8a10d8c6cd5ef9eed957e1b4",
+    "migrationJob": 117829982382,
+    "migrationConclusion": "success",
+    "steps": "All eight actual migrations and catalog assertions, existing/new Node tests, real baseline/candidate Flywheel and replay, artifact upload and fixture cleanup passed.",
+    "agentsFunctionRun": 39179817461,
+    "agentsFunctionConclusion": "success",
+    "codeQuality": "Formatting passed; Clippy failed to authenticate when downloading private infra dependency.",
+    "otherGates": "Unit/security checks were still running at evidence assembly. Prior Gitleaks failure required an organization action license; latest status must be read from exact final PR CI, never assumed green."
+  },
+  "runtime": {
+    "bootstrapExit": 0,
+    "openssl": "3.0.13",
+    "recoveryCheckout": "/home/ruv/work/research-lab-runtime-recovery-20261016",
+    "recoveryHead": "6454d374a939f2b5f94709b6909f4251b7204252",
+    "recoveryUpstream": "83c4850c04d6243c1f700ec4a6a0e406a7d7198a",
+    "testPackagesInstalled": [
+      "docker.io",
+      "postgresql-client"
+    ],
+    "fixture": "Dedicated owned Docker daemon, unix socket only, bridge/NAT disabled, pinned disposable database container, server listen_addresses=127.0.0.1 port 55434, 1 CPU / 1GB memory, Timescale telemetry disabled. No production endpoint or paid provisioning.",
+    "cleanup": "Every probe and benchmark removes only its exact created ephemeral database; fixture container/anonymous volumes and owned daemon are removed/stopped after final validation. Images/tool caches can remain."
+  },
+  "coordination": {
+    "worktrees": [
+      "local observatory-cycle-oct18c",
+      "RuOS observatory-oct18c baseline/coordination",
+      "RuOS observatory-candidate-oct18c initial isolated SQL probe",
+      "RuOS observatory-exact-oct18c immutable commit validation"
+    ],
+    "refWrites": "GitHub connected API with expected_sha and force=false; shell push credentials were not inferred or exercised.",
+    "checkpoint": "A local detached checkpoint preserves the tested benchmark runner before switching exact heads. No unrelated source or Ruflo state was discarded; runtime state is excluded from PR."
+  },
+  "conflicts": {
+    "mainUnchanged": true,
+    "mainAncestor": true,
+    "resolutions": [],
+    "mergeAttempted": false,
+    "mergedMainSha": null
+  },
+  "architecture": {
+    "coreMemory": "Task-start and risk-check returned unscreened=true, no playbook lessons or warnings. No unseen user guidance claimed.",
+    "mapping": [
+      "No Rust/TypeScript production source or dependency manifest change",
+      "No new relation: retention attaches to an existing aggregate; no production database created",
+      "All database executions are disposable, loopback-only fixtures, not service-owned persistence",
+      "No changes to GCP IAM, service state, RuVector or Cloud SQL architecture",
+      "Append-only immutable outcome recorded through authorized core-memory interface after final validation",
+      "New CI independent and pinned, aggregate explicitly requires security and migration success",
+      "No auth workaround, deployment, package publication, force push or protection bypass"
+    ]
+  },
+  "rollback": {
+    "source": "Revert the evidence commit if desired, then implementation b8d81bb349aa6e2b8a10d8c6cd5ef9eed957e1b4. Source inverse bytes are retained in the signed receipt.",
+    "patchApplicability": "Full staged inverse applicability checked after staging all owned changes; exit 0.",
+    "database": "No deployed migration rollback performed. Editing 005 changes its SQLx checksum; do not repair production history automatically. A source revert cannot restore expired data or undo already-applied retention."
+  },
+  "remaining": [
+    "Normal authorized cross-repository read credentials for hosted Rust dependency fetches",
+    "Resolve the existing sqlx/sqlite native linkage conflict and establish a pinned committed Rust graph",
+    "Run and pass full Rust tests/build/Clippy and genuine completed Rust audit",
+    "Complete required security/licensing checks, production npm advisory remediation, integration/coverage/build and approvals",
+    "Inspect any deployed migration history before a separately reviewed forward remediation; this cycle never accesses it"
+  ],
+  "sources": [
+    "https://docs.timescale.com/api/latest/data-retention/add_retention_policy/",
+    "https://docs.timescale.com/api/latest/informational-views/continuous_aggregates/",
+    "https://github.com/timescale/timescaledb-docker"
+  ]
+}

@@ -8,11 +8,11 @@
 //! - API health checks
 //! - Cost calculation for all GPT models
 
+use async_trait::async_trait;
 use llm_observatory_core::{
     provider::{LlmProvider, Pricing},
     Error, Result,
 };
-use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
 /// OpenAI provider configuration.
@@ -185,10 +185,19 @@ mod tests {
 
     #[test]
     fn test_model_tier() {
-        assert_eq!(OpenAiProvider::get_model_tier("gpt-4o"), ModelTier::Flagship);
-        assert_eq!(OpenAiProvider::get_model_tier("o1-preview"), ModelTier::Reasoning);
+        assert_eq!(
+            OpenAiProvider::get_model_tier("gpt-4o"),
+            ModelTier::Flagship
+        );
+        assert_eq!(
+            OpenAiProvider::get_model_tier("o1-preview"),
+            ModelTier::Reasoning
+        );
         assert_eq!(OpenAiProvider::get_model_tier("gpt-4"), ModelTier::Advanced);
-        assert_eq!(OpenAiProvider::get_model_tier("gpt-3.5-turbo"), ModelTier::Standard);
+        assert_eq!(
+            OpenAiProvider::get_model_tier("gpt-3.5-turbo"),
+            ModelTier::Standard
+        );
     }
 
     #[tokio::test]

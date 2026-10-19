@@ -81,9 +81,18 @@ impl TimescaleDBService {
         let rows = query_builder.fetch_all(&self.pool).await?;
 
         // Calculate totals
-        let total_cost = rows.iter().map(|r| r.total_cost_usd.unwrap_or(0.0)).sum::<f64>();
-        let prompt_cost = rows.iter().map(|r| r.prompt_cost_usd.unwrap_or(0.0)).sum::<f64>();
-        let completion_cost = rows.iter().map(|r| r.completion_cost_usd.unwrap_or(0.0)).sum::<f64>();
+        let total_cost = rows
+            .iter()
+            .map(|r| r.total_cost_usd.unwrap_or(0.0))
+            .sum::<f64>();
+        let prompt_cost = rows
+            .iter()
+            .map(|r| r.prompt_cost_usd.unwrap_or(0.0))
+            .sum::<f64>();
+        let completion_cost = rows
+            .iter()
+            .map(|r| r.completion_cost_usd.unwrap_or(0.0))
+            .sum::<f64>();
         let request_count = rows.iter().map(|r| r.request_count).sum::<i64>();
 
         let avg_cost_per_request = if request_count > 0 {
@@ -340,7 +349,8 @@ impl TimescaleDBService {
         let avg_latency_ms = if !rows.is_empty() {
             rows.iter()
                 .map(|r| r.avg_duration_ms.unwrap_or(0.0))
-                .sum::<f64>() / rows.len() as f64
+                .sum::<f64>()
+                / rows.len() as f64
         } else {
             0.0
         };
@@ -648,11 +658,10 @@ impl TimescaleDBService {
 
     /// Compare multiple models
     #[instrument(skip(self))]
-    pub async fn compare_models(
-        &self,
-        query: &ModelComparisonQuery,
-    ) -> Result<ModelComparison> {
-        let start_time = query.start_time.unwrap_or_else(|| Utc::now() - Duration::days(7));
+    pub async fn compare_models(&self, query: &ModelComparisonQuery) -> Result<ModelComparison> {
+        let start_time = query
+            .start_time
+            .unwrap_or_else(|| Utc::now() - Duration::days(7));
         let end_time = query.end_time.unwrap_or_else(Utc::now);
 
         let mut results = Vec::new();
@@ -735,11 +744,17 @@ impl TimescaleDBService {
         // Generate summary
         let summary = self.generate_comparison_summary(&results);
 
-        Ok(ModelComparison { models: results, summary })
+        Ok(ModelComparison {
+            models: results,
+            summary,
+        })
     }
 
     /// Generate comparison summary with recommendations
-    fn generate_comparison_summary(&self, results: &[ModelComparisonResult]) -> ModelComparisonSummary {
+    fn generate_comparison_summary(
+        &self,
+        results: &[ModelComparisonResult],
+    ) -> ModelComparisonSummary {
         if results.is_empty() {
             return ModelComparisonSummary {
                 fastest_model: "N/A".to_string(),
@@ -871,9 +886,21 @@ impl TimescaleDBService {
         }
 
         // Calculate overall score
-        let cost_score = if cost_analytics.avg_cost_per_request < 0.005 { 1.0 } else { 0.5 };
-        let perf_score = if performance_metrics.avg_latency_ms < 1000.0 { 1.0 } else { 0.5 };
-        let quality_score = if quality_metrics.success_rate > 0.95 { 1.0 } else { 0.5 };
+        let cost_score = if cost_analytics.avg_cost_per_request < 0.005 {
+            1.0
+        } else {
+            0.5
+        };
+        let perf_score = if performance_metrics.avg_latency_ms < 1000.0 {
+            1.0
+        } else {
+            0.5
+        };
+        let quality_score = if quality_metrics.success_rate > 0.95 {
+            1.0
+        } else {
+            0.5
+        };
         let overall_score = (cost_score + perf_score + quality_score) / 3.0;
 
         Ok(OptimizationRecommendations {

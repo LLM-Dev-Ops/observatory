@@ -69,9 +69,7 @@ impl IntoResponse for ApiError {
             ApiError::Unauthorized(msg) => (StatusCode::UNAUTHORIZED, "unauthorized", msg),
             ApiError::Forbidden(msg) => (StatusCode::FORBIDDEN, "forbidden", msg),
             ApiError::NotFound(msg) => (StatusCode::NOT_FOUND, "not_found", msg),
-            ApiError::Internal(msg) => {
-                (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", msg)
-            }
+            ApiError::Internal(msg) => (StatusCode::INTERNAL_SERVER_ERROR, "internal_error", msg),
         };
 
         let body = Json(ErrorResponse {
@@ -142,7 +140,8 @@ async fn get_cost_summary(
         .unwrap_or_else(|| end_time - Duration::days(30));
 
     // Generate cache key
-    let cache_key = generate_summary_cache_key(&request, &auth.organization_id, start_time, end_time);
+    let cache_key =
+        generate_summary_cache_key(&request, &auth.organization_id, start_time, end_time);
 
     // Try cache
     if let Ok(cached) = try_get_from_cache(&state, &cache_key).await {
@@ -151,13 +150,22 @@ async fn get_cost_summary(
     }
 
     // Execute query
-    let response =
-        execute_cost_summary(&state.db_pool, &request, &auth.organization_id, start_time, end_time).await?;
+    let response = execute_cost_summary(
+        &state.db_pool,
+        &request,
+        &auth.organization_id,
+        start_time,
+        end_time,
+    )
+    .await?;
 
     // Cache result
     cache_cost_summary(&state, &cache_key, &response).await;
 
-    info!(total_cost = response.overview.total_cost, "Cost summary completed");
+    info!(
+        total_cost = response.overview.total_cost,
+        "Cost summary completed"
+    );
 
     Ok(Json(response))
 }
@@ -174,8 +182,10 @@ async fn execute_cost_summary(
     let overview = query_cost_overview(pool, org_id, start_time, end_time, request).await?;
 
     // Query breakdowns
-    let by_provider = query_cost_breakdown(pool, org_id, start_time, end_time, "provider", request).await?;
-    let by_model = query_cost_breakdown(pool, org_id, start_time, end_time, "model", request).await?;
+    let by_provider =
+        query_cost_breakdown(pool, org_id, start_time, end_time, "provider", request).await?;
+    let by_model =
+        query_cost_breakdown(pool, org_id, start_time, end_time, "model", request).await?;
     let by_environment =
         query_cost_breakdown(pool, org_id, start_time, end_time, "environment", request).await?;
 
@@ -433,7 +443,8 @@ async fn query_cost_trends(
     let daily = query_cost_trend_data(pool, org_id, start_time, end_time, "1 day", request).await?;
 
     // Query weekly trend
-    let weekly = query_cost_trend_data(pool, org_id, start_time, end_time, "7 days", request).await?;
+    let weekly =
+        query_cost_trend_data(pool, org_id, start_time, end_time, "7 days", request).await?;
 
     // Calculate growth rates
     let growth_rate_daily = calculate_growth_rate(&daily);
@@ -894,7 +905,12 @@ async fn get_cost_forecast(
         .unwrap_or_else(|| historical_end - Duration::days(30));
 
     // Generate cache key
-    let cache_key = generate_forecast_cache_key(&request, &auth.organization_id, historical_start, historical_end);
+    let cache_key = generate_forecast_cache_key(
+        &request,
+        &auth.organization_id,
+        historical_start,
+        historical_end,
+    );
 
     // Try cache
     if let Ok(cached) = try_get_from_cache(&state, &cache_key).await {
@@ -903,15 +919,24 @@ async fn get_cost_forecast(
     }
 
     // Execute forecast
-    let response =
-        execute_cost_forecast(&state.db_pool, &request, &auth.organization_id, historical_start, historical_end)
-            .await?;
+    let response = execute_cost_forecast(
+        &state.db_pool,
+        &request,
+        &auth.organization_id,
+        historical_start,
+        historical_end,
+    )
+    .await?;
 
     // Cache result (shorter TTL for forecasts)
-    let mut redis_conn = state.redis_client.get_async_connection().await.map_err(|e| {
-        warn!(error = %e, "Redis connection error");
-        ApiError::Internal("Cache error".to_string())
-    })?;
+    let mut redis_conn = state
+        .redis_client
+        .get_async_connection()
+        .await
+        .map_err(|e| {
+            warn!(error = %e, "Redis connection error");
+            ApiError::Internal("Cache error".to_string())
+        })?;
     if let Ok(serialized) = serde_json::to_string(&response) {
         let _: Result<(), _> = redis_conn
             .set_ex(&cache_key, serialized, 1800) // 30 min cache
@@ -932,11 +957,14 @@ async fn execute_cost_forecast(
     historical_end: DateTime<Utc>,
 ) -> Result<CostForecastResponse, ApiError> {
     // Query historical data
-    let historical = query_forecast_historical_data(pool, org_id, historical_start, historical_end, request).await?;
+    let historical =
+        query_forecast_historical_data(pool, org_id, historical_start, historical_end, request)
+            .await?;
 
     if historical.len() < 2 {
         return Err(ApiError::BadRequest(
-            "Insufficient historical data for forecasting (need at least 2 data points)".to_string(),
+            "Insufficient historical data for forecasting (need at least 2 data points)"
+                .to_string(),
         ));
     }
 
@@ -979,7 +1007,10 @@ async fn execute_cost_forecast(
 
     // Calculate MAPE
     let actual: Vec<f64> = historical.iter().map(|p| p.cost).collect();
-    let predicted: Vec<f64> = data_points.iter().map(|(x, _)| intercept + slope * x).collect();
+    let predicted: Vec<f64> = data_points
+        .iter()
+        .map(|(x, _)| intercept + slope * x)
+        .collect();
     let mape = calculate_mape(&actual, &predicted);
 
     let total_forecasted_cost: f64 = forecast_points.iter().map(|p| p.forecasted_cost).sum();
@@ -1142,15 +1173,23 @@ async fn try_get_from_cache<T: serde::de::DeserializeOwned>(
     state: &Arc<AppState>,
     cache_key: &str,
 ) -> Result<T, ()> {
-    let mut redis_conn = state.redis_client.get_async_connection().await.map_err(|e| {
-        warn!(error = %e, "Redis connection error");
-    })?;
+    let mut redis_conn = state
+        .redis_client
+        .get_async_connection()
+        .await
+        .map_err(|e| {
+            warn!(error = %e, "Redis connection error");
+        })?;
 
     let cached: String = redis_conn.get(cache_key).await.map_err(|_| ())?;
     serde_json::from_str(&cached).map_err(|_| ())
 }
 
-async fn cache_cost_summary(state: &Arc<AppState>, cache_key: &str, response: &CostSummaryResponse) {
+async fn cache_cost_summary(
+    state: &Arc<AppState>,
+    cache_key: &str,
+    response: &CostSummaryResponse,
+) {
     if let Ok(serialized) = serde_json::to_string(response) {
         if let Ok(mut conn) = state.redis_client.get_async_connection().await {
             let _: Result<(), _> = conn.set_ex(cache_key, serialized, state.cache_ttl).await;
@@ -1158,7 +1197,11 @@ async fn cache_cost_summary(state: &Arc<AppState>, cache_key: &str, response: &C
     }
 }
 
-async fn cache_cost_attribution(state: &Arc<AppState>, cache_key: &str, response: &CostAttributionResponse) {
+async fn cache_cost_attribution(
+    state: &Arc<AppState>,
+    cache_key: &str,
+    response: &CostAttributionResponse,
+) {
     if let Ok(serialized) = serde_json::to_string(response) {
         if let Ok(mut conn) = state.redis_client.get_async_connection().await {
             let _: Result<(), _> = conn.set_ex(cache_key, serialized, state.cache_ttl).await;

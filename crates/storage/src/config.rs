@@ -255,20 +255,16 @@ impl StorageConfig {
                 port: std::env::var("DB_PORT")
                     .unwrap_or_else(|_| "5432".to_string())
                     .parse()
-                    .map_err(|e| {
-                        StorageError::ConfigError(format!("Invalid DB_PORT: {}", e))
-                    })?,
+                    .map_err(|e| StorageError::ConfigError(format!("Invalid DB_PORT: {}", e)))?,
                 database: std::env::var("DB_NAME")
                     .unwrap_or_else(|_| "llm_observatory".to_string()),
-                username: std::env::var("DB_USER")
-                    .unwrap_or_else(|_| "postgres".to_string()),
+                username: std::env::var("DB_USER").unwrap_or_else(|_| "postgres".to_string()),
                 password: std::env::var("DB_PASSWORD").map_err(|_| {
                     StorageError::ConfigError(
                         "DB_PASSWORD environment variable is required".to_string(),
                     )
                 })?,
-                ssl_mode: std::env::var("DB_SSL_MODE")
-                    .unwrap_or_else(|_| "prefer".to_string()),
+                ssl_mode: std::env::var("DB_SSL_MODE").unwrap_or_else(|_| "prefer".to_string()),
                 application_name: std::env::var("DB_APP_NAME")
                     .unwrap_or_else(|_| "llm-observatory".to_string()),
             }
@@ -556,7 +552,9 @@ impl PostgresConfig {
         use crate::error::StorageError;
 
         if self.host.is_empty() {
-            return Err(StorageError::ConfigError("Host cannot be empty".to_string()));
+            return Err(StorageError::ConfigError(
+                "Host cannot be empty".to_string(),
+            ));
         }
 
         if self.port == 0 {
@@ -692,9 +690,8 @@ impl RetryConfig {
             return Duration::from_millis(self.initial_delay_ms);
         }
 
-        let delay_ms = (self.initial_delay_ms as f64
-            * self.backoff_multiplier.powi(attempt as i32))
-        .min(self.max_delay_ms as f64) as u64;
+        let delay_ms = (self.initial_delay_ms as f64 * self.backoff_multiplier.powi(attempt as i32))
+            .min(self.max_delay_ms as f64) as u64;
 
         Duration::from_millis(delay_ms)
     }

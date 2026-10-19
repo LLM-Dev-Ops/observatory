@@ -7,17 +7,17 @@
 //! - **INSERT** (default): Standard batch INSERT using sqlx QueryBuilder
 //! - **COPY**: PostgreSQL COPY protocol for 10-100x faster batch inserts
 
-pub mod trace;
-pub mod metric;
-pub mod log;
 pub mod copy;
-pub mod instrumented;
 pub mod copy_instrumented;
+pub mod instrumented;
+pub mod log;
+pub mod metric;
+pub mod trace;
 
 // Re-exports
-pub use trace::{TraceWriter, WriteMethod};
-pub use metric::MetricWriter;
-pub use log::LogWriter;
 pub use copy::CopyWriter;
-pub use instrumented::{InstrumentedTraceWriter, InstrumentedMetricWriter, InstrumentedLogWriter};
 pub use copy_instrumented::InstrumentedCopyWriter;
+pub use instrumented::{InstrumentedLogWriter, InstrumentedMetricWriter, InstrumentedTraceWriter};
+pub use log::LogWriter;
+pub use metric::MetricWriter;
+pub use trace::{TraceWriter, WriteMethod};

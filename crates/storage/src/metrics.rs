@@ -95,10 +95,7 @@ impl StorageMetrics {
         );
 
         // Retry counter
-        describe_counter!(
-            "storage_retries_total",
-            "Total number of retry attempts"
-        );
+        describe_counter!("storage_retries_total", "Total number of retry attempts");
 
         // Items written counter
         describe_counter!(
@@ -127,21 +124,29 @@ impl StorageMetrics {
     /// * `operation` - Operation type (insert, copy, flush)
     /// * `success` - Whether the operation succeeded
     /// * `duration_secs` - Duration in seconds
-    pub fn record_write(&self, writer_type: &str, operation: &str, success: bool, duration_secs: f64) {
+    pub fn record_write(
+        &self,
+        writer_type: &str,
+        operation: &str,
+        success: bool,
+        duration_secs: f64,
+    ) {
         let status = if success { "success" } else { "error" };
 
         histogram!(
             "storage_write_duration_seconds",
             "writer_type" => writer_type.to_string(),
             "operation" => operation.to_string()
-        ).record(duration_secs);
+        )
+        .record(duration_secs);
 
         counter!(
             "storage_writes_total",
             "writer_type" => writer_type.to_string(),
             "operation" => operation.to_string(),
             "status" => status.to_string()
-        ).increment(1);
+        )
+        .increment(1);
     }
 
     /// Record a query operation.
@@ -156,7 +161,8 @@ impl StorageMetrics {
             "storage_query_duration_seconds",
             "repository" => repository.to_string(),
             "method" => method.to_string()
-        ).record(duration_secs);
+        )
+        .record(duration_secs);
     }
 
     /// Record query results count.
@@ -165,7 +171,8 @@ impl StorageMetrics {
             "storage_query_result_count",
             "repository" => repository.to_string(),
             "method" => method.to_string()
-        ).record(count as f64);
+        )
+        .record(count as f64);
     }
 
     /// Update connection pool metrics.
@@ -179,17 +186,20 @@ impl StorageMetrics {
         gauge!(
             "storage_pool_connections",
             "state" => "active"
-        ).set(active as f64);
+        )
+        .set(active as f64);
 
         gauge!(
             "storage_pool_connections",
             "state" => "idle"
-        ).set(idle as f64);
+        )
+        .set(idle as f64);
 
         gauge!(
             "storage_pool_connections",
             "state" => "max"
-        ).set(max as f64);
+        )
+        .set(max as f64);
     }
 
     /// Record an error.
@@ -204,12 +214,14 @@ impl StorageMetrics {
                 "storage_errors_total",
                 "error_type" => error_type.to_string(),
                 "operation" => op.to_string()
-            ).increment(1);
+            )
+            .increment(1);
         } else {
             counter!(
                 "storage_errors_total",
                 "error_type" => error_type.to_string()
-            ).increment(1);
+            )
+            .increment(1);
         }
     }
 
@@ -225,7 +237,8 @@ impl StorageMetrics {
             "storage_batch_size",
             "writer_type" => writer_type.to_string(),
             "operation" => operation.to_string()
-        ).record(size as f64);
+        )
+        .record(size as f64);
     }
 
     /// Update buffer size gauge.
@@ -240,7 +253,8 @@ impl StorageMetrics {
             "storage_buffer_size",
             "writer_type" => writer_type.to_string(),
             "buffer_type" => buffer_type.to_string()
-        ).set(size as f64);
+        )
+        .set(size as f64);
     }
 
     /// Record a buffer flush operation.
@@ -255,7 +269,8 @@ impl StorageMetrics {
             "storage_flushes_total",
             "writer_type" => writer_type.to_string(),
             "status" => status.to_string()
-        ).increment(1);
+        )
+        .increment(1);
     }
 
     /// Record a retry attempt.
@@ -267,7 +282,8 @@ impl StorageMetrics {
         counter!(
             "storage_retries_total",
             "operation" => operation.to_string()
-        ).increment(1);
+        )
+        .increment(1);
     }
 
     /// Record items written to storage.
@@ -282,14 +298,13 @@ impl StorageMetrics {
             "storage_items_written_total",
             "writer_type" => writer_type.to_string(),
             "item_type" => item_type.to_string()
-        ).increment(count);
+        )
+        .increment(count);
     }
 
     /// Record connection acquisition duration.
     pub fn record_connection_acquire(&self, duration_secs: f64) {
-        histogram!(
-            "storage_connection_acquire_duration_seconds"
-        ).record(duration_secs);
+        histogram!("storage_connection_acquire_duration_seconds").record(duration_secs);
     }
 }
 

@@ -14,7 +14,10 @@ use tracing::{error, info, instrument};
 
 /// Create performance routes
 pub fn routes() -> Router<Arc<AppState>> {
-    Router::new().route("/api/v1/analytics/performance", get(get_performance_metrics))
+    Router::new().route(
+        "/api/v1/analytics/performance",
+        get(get_performance_metrics),
+    )
 }
 
 /// GET /api/v1/analytics/performance - Get performance metrics
@@ -62,10 +65,14 @@ async fn get_performance_metrics(
     );
 
     // Try to get from cache
-    let mut redis_conn = state.redis_client.get_async_connection().await.map_err(|e| {
-        error!("Redis connection error: {}", e);
-        ApiError::Internal("Failed to connect to cache".to_string())
-    })?;
+    let mut redis_conn = state
+        .redis_client
+        .get_async_connection()
+        .await
+        .map_err(|e| {
+            error!("Redis connection error: {}", e);
+            ApiError::Internal("Failed to connect to cache".to_string())
+        })?;
 
     // Check cache
     if let Ok(cached) = redis_conn.get::<_, String>(&cache_key).await {
@@ -77,13 +84,10 @@ async fn get_performance_metrics(
 
     // Query database
     let service = TimescaleDBService::new(state.db_pool.clone());
-    let metrics = service
-        .get_performance_metrics(&query)
-        .await
-        .map_err(|e| {
-            error!("Database query error: {}", e);
-            ApiError::Internal(format!("Failed to fetch performance metrics: {}", e))
-        })?;
+    let metrics = service.get_performance_metrics(&query).await.map_err(|e| {
+        error!("Database query error: {}", e);
+        ApiError::Internal(format!("Failed to fetch performance metrics: {}", e))
+    })?;
 
     // Cache the result
     let serialized = serde_json::to_string(&metrics).unwrap();

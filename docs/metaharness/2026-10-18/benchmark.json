@@ -1,0 +1,294 @@
+{
+  "protocol": "Five sequential fresh ephemeral databases per revision; actual full SQL execution and catalog/data assertions, same fixture and server; no retries or discarded trials.",
+  "results": [
+    {
+      "root": "/home/ruv/work/observatory-oct18c",
+      "completeChains": 0,
+      "medianMs": 1062.7205969999995,
+      "minimumMs": 1006.2365110000001,
+      "maximumMs": 1096.1111039999998,
+      "trials": [
+        {
+          "trial": 1,
+          "elapsedMs": 1079.413175,
+          "fullChainPassed": false,
+          "applied": 4,
+          "holdout": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_d3019efb7e88",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 2,
+          "elapsedMs": 1096.1111039999998,
+          "fullChainPassed": false,
+          "applied": 4,
+          "holdout": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_33169d0bd70a",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 3,
+          "elapsedMs": 1030.8848360000002,
+          "fullChainPassed": false,
+          "applied": 4,
+          "holdout": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_4e7663318b20",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 4,
+          "elapsedMs": 1062.7205969999995,
+          "fullChainPassed": false,
+          "applied": 4,
+          "holdout": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_bd751124cc5a",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 5,
+          "elapsedMs": 1006.2365110000001,
+          "fullChainPassed": false,
+          "applied": 4,
+          "holdout": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_9d7f452480fe",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        }
+      ]
+    },
+    {
+      "root": "/home/ruv/work/observatory-exact-oct18c",
+      "completeChains": 5,
+      "medianMs": 1301.4651290000002,
+      "minimumMs": 1224.0177469999999,
+      "maximumMs": 1334.781696,
+      "trials": [
+        {
+          "trial": 1,
+          "elapsedMs": 1224.0177469999999,
+          "fullChainPassed": true,
+          "applied": 8,
+          "holdout": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_751e742167e2",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 2,
+          "elapsedMs": 1326.715502,
+          "fullChainPassed": true,
+          "applied": 8,
+          "holdout": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_9d0f75b71a1a",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 3,
+          "elapsedMs": 1301.4651290000002,
+          "fullChainPassed": true,
+          "applied": 8,
+          "holdout": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_da35a5294047",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 4,
+          "elapsedMs": 1262.2882829999999,
+          "fullChainPassed": true,
+          "applied": 8,
+          "holdout": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_60d2cd5a5552",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        },
+        {
+          "trial": 5,
+          "elapsedMs": 1334.781696,
+          "fullChainPassed": true,
+          "applied": 8,
+          "holdout": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "anchor": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "versions": {
+            "postgres": "15.6",
+            "timescale": "2.14.2"
+          },
+          "cleanup": {
+            "database": "mh_observatory_5474_a88449e3824e",
+            "exit": 0,
+            "disposableFixtureOnly": true
+          }
+        }
+      ]
+    }
+  ],
+  "interpretation": "Functional reliability benchmark: baseline 0/5 complete chains versus candidate 5/5. Baseline stops on migration 005 and does less work, so elapsed times are incomparable and no performance improvement is claimed."
+}

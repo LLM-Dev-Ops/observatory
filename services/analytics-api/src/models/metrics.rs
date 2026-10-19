@@ -686,9 +686,18 @@ mod tests {
 
     #[test]
     fn test_time_interval_to_aggregate_table() {
-        assert_eq!(TimeInterval::OneMinute.to_aggregate_table(), "llm_metrics_1min");
-        assert_eq!(TimeInterval::OneHour.to_aggregate_table(), "llm_metrics_1hour");
-        assert_eq!(TimeInterval::OneDay.to_aggregate_table(), "llm_metrics_1day");
+        assert_eq!(
+            TimeInterval::OneMinute.to_aggregate_table(),
+            "llm_metrics_1min"
+        );
+        assert_eq!(
+            TimeInterval::OneHour.to_aggregate_table(),
+            "llm_metrics_1hour"
+        );
+        assert_eq!(
+            TimeInterval::OneDay.to_aggregate_table(),
+            "llm_metrics_1day"
+        );
     }
 
     #[test]

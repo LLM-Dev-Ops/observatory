@@ -10,11 +10,7 @@
 
 use super::SpanProcessor;
 use async_trait::async_trait;
-use llm_observatory_core::{
-    span::LlmSpan,
-    types::Cost,
-    Result,
-};
+use llm_observatory_core::{span::LlmSpan, types::Cost, Result};
 use llm_observatory_providers::PricingEngine;
 
 /// Cost calculation processor.
@@ -90,11 +86,11 @@ impl SpanProcessor for CostCalculationProcessor {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use llm_observatory_core::{
-        span::{LlmSpan, LlmInput, SpanStatus},
-        types::{Provider, Latency, TokenUsage},
-    };
     use chrono::Utc;
+    use llm_observatory_core::{
+        span::{LlmInput, LlmSpan, SpanStatus},
+        types::{Latency, Provider, TokenUsage},
+    };
 
     #[tokio::test]
     async fn test_cost_calculation_gpt4() {

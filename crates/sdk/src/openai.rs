@@ -7,9 +7,7 @@ use crate::{
     cost::calculate_cost,
     instrument::create_span,
     observatory::LLMObservatory,
-    traits::{
-        ChatCompletionRequest, ChatCompletionResponse, InstrumentedLLM, StreamChunk,
-    },
+    traits::{ChatCompletionRequest, ChatCompletionResponse, InstrumentedLLM, StreamChunk},
     Error, Result,
 };
 use async_trait::async_trait;

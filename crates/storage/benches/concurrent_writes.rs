@@ -15,9 +15,7 @@
 //! - Lock contention: minimal under concurrent load
 //! - Write amplification: <2x baseline
 
-use criterion::{
-    black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput,
-};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use llm_observatory_storage::writers::{CopyWriter, LogWriter, MetricWriter, TraceWriter};
 use std::sync::Arc;
 use std::time::Duration;
@@ -32,10 +30,10 @@ fn bench_concurrent_trace_writes_copy(c: &mut Criterion) {
     let ctx = runtime.block_on(async { BenchmarkContext::new().await });
 
     let configs = vec![
-        (2, 500),   // 2 writers, 500 traces each
-        (4, 500),   // 4 writers, 500 traces each
-        (8, 250),   // 8 writers, 250 traces each
-        (16, 125),  // 16 writers, 125 traces each
+        (2, 500),  // 2 writers, 500 traces each
+        (4, 500),  // 4 writers, 500 traces each
+        (8, 250),  // 8 writers, 250 traces each
+        (16, 125), // 16 writers, 125 traces each
     ];
 
     let mut group = c.benchmark_group("concurrent_trace_writes_copy");
@@ -79,10 +77,10 @@ fn bench_concurrent_span_writes_copy(c: &mut Criterion) {
     let ctx = runtime.block_on(async { BenchmarkContext::new().await });
 
     let configs = vec![
-        (2, 1000),  // 2 writers, 1000 spans each
-        (4, 1000),  // 4 writers, 1000 spans each
-        (8, 500),   // 8 writers, 500 spans each
-        (16, 250),  // 16 writers, 250 spans each
+        (2, 1000), // 2 writers, 1000 spans each
+        (4, 1000), // 4 writers, 1000 spans each
+        (8, 500),  // 8 writers, 500 spans each
+        (16, 250), // 16 writers, 250 spans each
     ];
 
     let mut group = c.benchmark_group("concurrent_span_writes_copy");
@@ -126,10 +124,10 @@ fn bench_concurrent_log_writes_copy(c: &mut Criterion) {
     let ctx = runtime.block_on(async { BenchmarkContext::new().await });
 
     let configs = vec![
-        (2, 2000),  // 2 writers, 2000 logs each
-        (4, 2000),  // 4 writers, 2000 logs each
-        (8, 1000),  // 8 writers, 1000 logs each
-        (16, 500),  // 16 writers, 500 logs each
+        (2, 2000), // 2 writers, 2000 logs each
+        (4, 2000), // 4 writers, 2000 logs each
+        (8, 1000), // 8 writers, 1000 logs each
+        (16, 500), // 16 writers, 500 logs each
     ];
 
     let mut group = c.benchmark_group("concurrent_log_writes_copy");
@@ -326,7 +324,7 @@ fn bench_concurrent_scaling(c: &mut Criterion) {
 
     // Fixed total workload (4000 spans), distributed across different numbers of workers
     let configs = vec![
-        (1, 4000),   // Baseline
+        (1, 4000), // Baseline
         (2, 2000),
         (4, 1000),
         (8, 500),

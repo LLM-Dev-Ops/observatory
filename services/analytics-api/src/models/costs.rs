@@ -287,7 +287,10 @@ impl CostForecastRequest {
 
             let duration = end - start;
             if duration.num_days() < 7 {
-                return Err("Historical data must span at least 7 days for accurate forecasting".to_string());
+                return Err(
+                    "Historical data must span at least 7 days for accurate forecasting"
+                        .to_string(),
+                );
             }
 
             if duration.num_days() > 365 {
@@ -661,10 +664,7 @@ pub fn calculate_linear_regression(data: &[(f64, f64)]) -> (f64, f64, f64) {
     let mean_y: f64 = data.iter().map(|(_, y)| y).sum::<f64>() / n;
 
     // Calculate slope (b1) and intercept (b0)
-    let numerator: f64 = data
-        .iter()
-        .map(|(x, y)| (x - mean_x) * (y - mean_y))
-        .sum();
+    let numerator: f64 = data.iter().map(|(x, y)| (x - mean_x) * (y - mean_y)).sum();
     let denominator: f64 = data.iter().map(|(x, _)| (x - mean_x).powi(2)).sum();
 
     let slope = if denominator != 0.0 {

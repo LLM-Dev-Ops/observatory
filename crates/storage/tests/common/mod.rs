@@ -26,7 +26,11 @@ static TEST_DB: once_cell::sync::Lazy<Arc<Mutex<Option<TestDatabase>>>> =
 pub async fn init_test_db() -> TestDatabase {
     let mut db = TEST_DB.lock().await;
     if db.is_none() {
-        *db = Some(TestDatabase::new().await.expect("Failed to create test database"));
+        *db = Some(
+            TestDatabase::new()
+                .await
+                .expect("Failed to create test database"),
+        );
     }
     db.as_ref().unwrap().clone()
 }
@@ -268,12 +272,14 @@ pub async fn run_test_migrations(pool: &StoragePool) {
     let _ = sqlx::query("CREATE INDEX IF NOT EXISTS idx_traces_trace_id ON traces(trace_id)")
         .execute(pool.postgres())
         .await;
-    let _ = sqlx::query("CREATE INDEX IF NOT EXISTS idx_traces_service_name ON traces(service_name)")
-        .execute(pool.postgres())
-        .await;
-    let _ = sqlx::query("CREATE INDEX IF NOT EXISTS idx_trace_spans_trace_id ON trace_spans(trace_id)")
-        .execute(pool.postgres())
-        .await;
+    let _ =
+        sqlx::query("CREATE INDEX IF NOT EXISTS idx_traces_service_name ON traces(service_name)")
+            .execute(pool.postgres())
+            .await;
+    let _ =
+        sqlx::query("CREATE INDEX IF NOT EXISTS idx_trace_spans_trace_id ON trace_spans(trace_id)")
+            .execute(pool.postgres())
+            .await;
     let _ = sqlx::query("CREATE INDEX IF NOT EXISTS idx_logs_service_name ON logs(service_name)")
         .execute(pool.postgres())
         .await;
