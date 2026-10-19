@@ -63,6 +63,7 @@ jobs:
           git archive 6806b2266882c081ec05dc0ab8350b32c34caf3d | tar -x -C "$baseline"
           ln -s "$GITHUB_WORKSPACE/node_modules" "$baseline/node_modules"
           node scripts/evaluate-migrations.mjs "$baseline" "$GITHUB_WORKSPACE" "$RUNNER_TEMP/observatory-flywheel" "$RUNNER_TEMP/migration-flywheel.json"
+          node scripts/benchmark-migrations.mjs "$baseline" "$GITHUB_WORKSPACE" "$RUNNER_TEMP/migration-benchmark.json"
       - name: Retain exact execution receipts
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -71,6 +72,7 @@ jobs:
           path: |
             ${{ runner.temp }}/migration-probe.json
             ${{ runner.temp }}/migration-flywheel.json
+            ${{ runner.temp }}/migration-benchmark.json
           if-no-files-found: error
 
   # ============================================================

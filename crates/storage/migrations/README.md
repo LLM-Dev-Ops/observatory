@@ -40,6 +40,12 @@ MIGRATION_TEST_DATABASE_URL=postgres://test_user:fixture-only-password@127.0.0.1
 node scripts/probe-migrations.mjs .
 ```
 
+The same fixture can be repeated five times per revision with
+`node scripts/benchmark-migrations.mjs BASELINE CANDIDATE OUTPUT.json` under the
+same opt-in environment. It records complete-chain success and elapsed samples.
+Baseline exits at migration 005 while the candidate executes all eight, so their
+timings are not comparable speedup measurements. No latency gain is claimed.
+
 This correction changes the checksum of a previously failing migration. Do not
 apply it automatically to an existing SQLx migration history or run checksum
 repair commands against production. Back up and inspect any deployed history;
