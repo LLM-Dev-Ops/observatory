@@ -16,6 +16,36 @@ The migrations are numbered sequentially and build upon each other:
 4. **004_continuous_aggregates.sql** - ✅ **FIXED** - Create continuous aggregates for analytics
 5. **005_retention_policies.sql** - Configure data retention
 6. **006_supporting_tables.sql** - Model pricing, API keys, users, projects
+7. **007_fulltext_search.sql** - Trace search indexes and triggers
+8. **008_export_jobs.sql** - Export job tracking
+
+## Retention migration regression contract
+
+Migration 005 applies the 210-day retention policy to `llm_error_summary`, the
+fourth aggregate actually created by migration 004. Cost totals remain in the
+metrics rollups; no additional cost table or production persistence is added.
+The prior nonexistent `cost_analysis_hourly` target rolled back the entire 005
+transaction, including all compression and retention policies.
+
+`scripts/probe-migrations.mjs` executes all eight migrations on a fresh, explicitly
+opted-in loopback test fixture, verifies seven exact retention intervals and
+three seven-day compression policies, and checks that the existing hypertables,
+aggregates and a synthetic trace survive. It drops only its exact uniquely named
+test database. Never point it at a deployed database. The frozen contract and
+execution receipts are under `docs/metaharness/2026-10-18/`.
+
+```sh
+METAHARNESS_EPHEMERAL_POSTGRES=1 \
+MIGRATION_TEST_DATABASE_URL=postgres://test_user:fixture-only-password@127.0.0.1:55434/observatory_migration_ci \
+node scripts/probe-migrations.mjs .
+```
+
+This correction changes the checksum of a previously failing migration. Do not
+apply it automatically to an existing SQLx migration history or run checksum
+repair commands against production. Back up and inspect any deployed history;
+an already-applied differing migration needs a separately reviewed forward
+remediation. Reverting the source commit does not undo data retention or restore
+deleted data. This cycle applies migrations only to disposable test fixtures.
 
 ## Migration 004 Fix (November 2025)
 

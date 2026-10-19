@@ -1,0 +1,12 @@
+{
+  "id": "observatory-retention-migration-20261018-v1",
+  "baseline": "6806b2266882c081ec05dc0ab8350b32c34caf3d",
+  "holdout": ["migration 005 applies", "seven exact raw/aggregate retention intervals exist", "three seven-day compression policies exist", "all eight migrations apply"],
+  "anchor": ["migrations 001-004 apply", "all three raw hypertables remain", "all four existing continuous aggregates remain", "fresh synthetic trace survives unchanged"],
+  "retentionDays": {"llm_traces":90,"llm_metrics":37,"llm_logs":37,"llm_metrics_1min":37,"llm_metrics_1hour":210,"llm_metrics_1day":1095,"llm_error_summary":210},
+  "compressionDays":7,
+  "nodeTestsRetained":8,
+  "acceptance":"4/4 holdout, 4/4 native anchors and all eight existing Node tests; same immutable fixtures, no skipped SQL errors. Full Rust/security/CI checks remain independent merge gates.",
+  "databaseSafety":"Only an explicitly opted-in ephemeral PostgreSQL fixture at loopback, database observatory_migration_ci. Evaluator creates and drops only exact uniquely named databases it created. No deployed database, production schema, IAM or persistence-layer change is executed.",
+  "optimization":"Darwin 0.10.3 real sandbox: one generation, two children, concurrency one, seed 2026101820. Cost, latency and energy gains are not assumed."
+}
