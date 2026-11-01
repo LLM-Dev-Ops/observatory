@@ -1,0 +1,338 @@
+{
+  "date": "2026-11-01",
+  "status": "BLOCKED",
+  "worked": [
+    "observatory"
+  ],
+  "coverage": {
+    "method": "installation pagination offsets 0 and100 (100/page); 58 then0; all nonarchived; all open PR collections fully paginated; current default branch SHA, latest CI and root instructions/manifests inventory",
+    "repositories": 58,
+    "openPRs": 153,
+    "detailedInspection": [
+      "observatory"
+    ],
+    "deferred": [
+      "shield",
+      "test-bench",
+      "sentinel",
+      "memory-graph",
+      "latency-lens",
+      "forge",
+      "edge-agent",
+      "auto-optimizer",
+      "incident-manager",
+      "orchestrator",
+      "cost-ops",
+      "governance-dashboard",
+      "policy-engine",
+      "registry",
+      "marketplace",
+      "analytics-hub",
+      "config-manager",
+      "schema-registry",
+      "connector-hub",
+      "copilot-agent",
+      "simulator",
+      "benchmark-exchange",
+      "inference-gateway",
+      "data-vault",
+      "research-lab",
+      "infra",
+      "integrations",
+      "ruvector-service",
+      "intelligence-core",
+      "security-core",
+      "automation-core",
+      "governance-core",
+      "data-core",
+      "ecosystem-core",
+      "research-core",
+      "interface-core",
+      "agentics-platform",
+      "agentics-diligence-artifacts",
+      "agentics-deployment-intent",
+      "agentics-simulation-planner",
+      "agentics-simulation-runner",
+      "agentics-deployment-exporters",
+      "agentics-org-manifests",
+      "agentics-cli",
+      "erp-surface",
+      "agentics-orchestration-engine",
+      "enterprise-roi-engine",
+      "agentics-contracts",
+      "agentics-results-index",
+      "agentics-usage-ledger",
+      "agentics-execution-engine",
+      "agentics-enforcement",
+      "platform-agents",
+      "agentics-cli-test",
+      "agentics-evolution",
+      "RuVector",
+      "agentics-dream-machine"
+    ]
+  },
+  "baseline": "9ddbc93a12bfca568f3377042f11558809be9f83",
+  "candidate": "e3215c48dd37c322e33629e9091f8f4cf9382513",
+  "main": "020f9031a2f1272d55deef0d6c715650b6647150",
+  "PR": "https://github.com/LLM-Dev-Ops/observatory/pull/11",
+  "conflicts": {
+    "mergeable": true,
+    "mainIsAncestor": true,
+    "resolutions": [],
+    "mergeableState": "unstable"
+  },
+  "tools": {
+    "ruflo": "3.56.3",
+    "transformers": "4.3.1",
+    "metaharness": "0.4.2",
+    "darwin": "0.10.3",
+    "flywheel": "0.1.12",
+    "MiniLM": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "currentDocsRepository": "ruvnet/metaharness",
+    "currentDocsRevision": "2f415bf47a7beb36f6a43c24e85a509acedf9ebb",
+    "recoveryCheckout": "6454d374a939f2b5f94709b6909f4251b7204252",
+    "recoveryMain": "83c4850c04d6243c1f700ec4a6a0e406a7d7198a",
+    "helperVerification": [
+      {
+        "path": "scripts/bootstrap-ruos.sh",
+        "matches": true,
+        "sha256": "e85f54517c94899ec98f169ea7dd1f97341a7cc58eeabdbd76f3e1fa6fc09150"
+      },
+      {
+        "path": "scripts/offline-exec.py",
+        "matches": true,
+        "sha256": "e4abfedba54133eeedae7fddb1bc35308a0e93df194453ab424cd96c2dd7ee89"
+      },
+      {
+        "path": "scripts/ruflo-local-model.mjs",
+        "matches": true,
+        "sha256": "636a3717b69ef9c55b104e37fd0443adcee0e98aca712c51458ed66904cc2c80"
+      }
+    ]
+  },
+  "results": {
+    "baselineHoldout": "0/6",
+    "candidateHoldout": "6/6",
+    "anchors": "3/3 both",
+    "baselineNode": "11 pass 1 new regression failure",
+    "candidateNode": "12/12",
+    "fmt": "exit0 both",
+    "syntax": "exit0 both",
+    "RustTestBuildClippy": "exit101 both; full locked online replay also101 SQLx native-link conflict",
+    "cargoAudit": "exit2 missing Cargo.lock; no advisory count claimed",
+    "npmProductionAudit": "1high 5moderate on both",
+    "nativeDarwin": "NO_IMPROVEMENT baseline=child0.435; delta0; repo-test mode not harness-sensitive",
+    "Flywheel": "EXECUTED LIVE; promotions0; replay8/8 including unchanged gate; gen0-only lineage, no promotion receipt; inverse includes exact parent source bytes",
+    "CI": [
+      {
+        "id": 124857636840,
+        "name": "Build & Push Container",
+        "status": "completed",
+        "conclusion": "skipped",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124857636840"
+      },
+      {
+        "id": 124857635969,
+        "name": "Quality Gates",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124857635969"
+      },
+      {
+        "id": 124857546347,
+        "name": "Trivy",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/runs/124857546347"
+      },
+      {
+        "id": 124856544647,
+        "name": "Integration Tests",
+        "status": "completed",
+        "conclusion": "skipped",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124856544647"
+      },
+      {
+        "id": 124856388043,
+        "name": "Security Scanning",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124856388043"
+      },
+      {
+        "id": 124856387936,
+        "name": "Migration Contract",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124856387936"
+      },
+      {
+        "id": 124856387930,
+        "name": "Node 20 tests",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386364/job/124856387930"
+      },
+      {
+        "id": 124856387888,
+        "name": "Code Quality",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124856387888"
+      },
+      {
+        "id": 124856387861,
+        "name": "Unit Tests",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/41309386288/job/124856387861"
+      }
+    ],
+    "CIErrorExcerpts": {
+      "quality": [
+        "2026-11-01T13:04:00.9755302Z \u001b[1m\u001b[91merror\u001b[0m: failed to select a version for `libsqlite3-sys`.",
+        "2026-11-01T13:04:00.9762347Z failed to select a version for `libsqlite3-sys` which could resolve this conflict",
+        "2026-11-01T13:04:01.0098882Z ##[error]Process completed with exit code 101."
+      ],
+      "unit": [
+        "2026-11-01T13:08:30.6329127Z failed to select a version for `libsqlite3-sys` which could resolve this conflict",
+        "2026-11-01T13:08:31.6897795Z \u001b[2m2026-11-01T13:08:31.689412Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mcargo_tarpaulin::config\u001b[0m\u001b[2m:\u001b[0m Couldn't get project metadata `cargo metadata` exited with an error: \\x1b[1m\\x1b[92m    Updating\\x1b[0m crates.io index",
+        "2026-11-01T13:08:31.6912261Z \\x1b[1m\\x1b[91merror\\x1b[0m: failed to select a version for `libsqlite3-sys`.",
+        "2026-11-01T13:08:31.6923213Z failed to select a version for `libsqlite3-sys` which could resolve this conflict",
+        "2026-11-01T13:08:32.5001907Z \u001b[2m2026-11-01T13:08:32.499884Z\u001b[0m \u001b[31mERROR\u001b[0m \u001b[2mcargo_tarpaulin\u001b[0m\u001b[2m:\u001b[0m Cargo failed to run! Error: `cargo metadata` exited with an error: \\x1b[1m\\x1b[92m    Updating\\x1b[0m crates.io index",
+        "2026-11-01T13:08:32.5015754Z Error: \"Cargo failed to run! Error: `cargo metadata` exited with an error: \\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m crates.io index\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/infra.git`\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/config-manager.git`\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/cost-ops.git`\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/latency-lens.git`\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/sentinel.git`\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/schema-registry.git`\\n\\u{1b}[1m\\u{1b}[33mwarning\\u{1b}[0m: skipping duplicate package `schema-registry-core v0.1.0 (https://github.com/LLM-Dev-Ops/schema-registry.git?branch=main#d0d89f26)`:\\n  /home/runner/.cargo/git/checkouts/schema-registry-9693523527b6344b/d0d89f2/crates/core/Cargo.toml\\nin favor of /home/runner/.cargo/git/checkouts/schema-registry-9693523527b6344b/d0d89f2/crates/schema-registry-core/Cargo.toml\\n\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/infra.git`\\n\\u{1b}[1m\\u{1b}[92m    Updating\\u{1b}[0m git repository `https://github.com/LLM-Dev-Ops/config-manager`\\n\\u{1b}[1m\\u{1b}[91merror\\u{1b}[0m: failed to select a version for `libsqlite3-sys`.\\n    ... required by package `sqlx-sqlite v0.8.0`\\n    ... which satisfies dependency `sqlx-sqlite = \\\"=0.8.0\\\"` of package `sqlx v0.8.0`\\n    ... which satisfies dependency `sqlx = \\\"^0.8\\\"` of package `llm-observatory-storage v0.1.1 (/home/runner/work/observatory/observatory/crates/storage)`\\nversions that meet the requirements `^0.28.0` are: 0.28.0\\n\\npackage `libsqlite3-sys` links to the native library `sqlite3`, but it conflicts with a previous package which links to `sqlite3` as well:\\npackage `libsqlite3-sys v0.26.0`\\n    ... which satisfies dependency `libsqlite3-sys = \\\"^0.26.0\\\"` of package `sqlx-sqlite v0.7.0`\\n    ... which satisfies dependency `sqlx-sqlite = \\\"=0.7.0\\\"` of package `sqlx v0.7.0`\\n    ... which satisfies dependency `sqlx = \\\"^0.7\\\"` of package `llm-cost-ops v0.1.1 (https://github.com/LLM-Dev-Ops/cost-ops.git?branch=main#aef76ae9)`\\n    ... which satisfies git dependency `llm-cost-ops` of package `llm-observatory-adapters v0.1.1 (/home/runner/work/observatory/observatory/crates/adapters)`\\nnote: only one package in the dependency graph may specify the same links value to ensure that only one copy of a native library is linked in the final binary\\nfor more information, see https://doc.rust-lang.org/cargo/reference/resolver.html#links\\nhelp: try to adjust your dependencies so that only one package uses the `links = \\\"sqlite3\\\"` value\\n\\nfailed to select a version for `libsqlite3-sys` which could resolve this conflict\\n\"",
+        "2026-11-01T13:08:32.5035045Z \\x1b[1m\\x1b[91merror\\x1b[0m: failed to select a version for `libsqlite3-sys`.",
+        "2026-11-01T13:08:32.5044527Z failed to select a version for `libsqlite3-sys` which could resolve this conflict",
+        "2026-11-01T13:08:32.5053683Z ##[error]Process completed with exit code 1."
+      ],
+      "security": [
+        "2026-11-01T13:06:23.4468396Z \u001b[1m\u001b[91merror\u001b[0m: failed to select a version for `libsqlite3-sys`.",
+        "2026-11-01T13:06:23.4484879Z failed to select a version for `libsqlite3-sys` which could resolve this conflict",
+        "2026-11-01T13:06:23.4644401Z \u001b[0m\u001b[0m\u001b[1m\u001b[31merror:\u001b[0m I/O operation failed: non-zero exit status running `cargo update --workspace`: 101",
+        "2026-11-01T13:08:07.9249664Z ##[error]Process completed with exit code 1.",
+        "2026-11-01T13:08:07.9587641Z \u001b[36;1m    echo \"::error::The 'path' input must be a literal path. Shell variables (e.g. \\$HOME, \\$USER) and '~' are not expanded. Use a GitHub expression that is resolved before the step runs, a relative path, or leave 'path' empty to use the default (\\$HOME/.local/bin).\" >&2\u001b[0m",
+        "2026-11-01T13:08:07.9589012Z \u001b[36;1m    echo \"::error::The 'path' input must not contain newline characters.\" >&2\u001b[0m",
+        "2026-11-01T13:08:21.9626693Z [LLM-Dev-Ops] is an organization. License key is required.",
+        "2026-11-01T13:08:21.9631189Z ##[error]🛑 missing gitleaks license. Go grab one at gitleaks.io and store it as a GitHub Secret named GITLEAKS_LICENSE. For more info about the recent breaking update, see [here](https://github.com/gitleaks/gitleaks-action#-announcement)."
+      ]
+    }
+  },
+  "commands": {
+    "prefix": "/home/ruv/.local/share/llm-dev-ops-tools/node_modules",
+    "ruflo": "node PREFIX/ruflo/bin/ruflo.js swarm init --topology hierarchical --max-agents 1 --auto-scale false --strategy specialized --with-permissions strict --format json",
+    "metaharness": "PREFIX/.bin/metaharness score . --json",
+    "darwin": "timeout --kill-after=5 90 PREFIX/.bin/metaharness-darwin evolve . --generations 1 --children 1 --concurrency 1 --seed 2026110108 --risk-budget 0 --sandbox real --mutator deterministic",
+    "evaluator": "node scripts/evaluate-object-entries.cjs /tmp/observatory-nov01a-baseline /tmp/observatory-nov01a /home/ruv/.local/share/llm-dev-ops-tools /tmp/observatory-nov01a-refreshed.json",
+    "onlineRust": "timeout --kill-after=5 60 env GIT_TERMINAL_PROMPT=0 CARGO_NET_GIT_FETCH_WITH_CLI=true cargo +1.88.0 test --workspace --all-features --locked -j2",
+    "learning": "RUFLO_MODEL_DIR=/home/ruv/.cache/llm-dev-ops-models timeout --kill-after=5 90 python3 /home/ruv/work/research-lab-runtime-recovery-20261016/scripts/offline-exec.py node --import /home/ruv/work/research-lab-runtime-recovery-20261016/scripts/ruflo-local-model.mjs PREFIX/ruflo/bin/ruflo.js hooks post-task --task-id observatory-nov01a --success false --quality 0.8 --agent codex --task ACTUAL_OUTCOME --store-results --format json"
+  },
+  "limitations": [
+    "Ruflo coordinator initialized and offline learning executed, but no Ruflo agent tasks executed; not evidence of delegated implementation. Implementation and evaluator executed directly by Codex.",
+    "CLAUDE.md Claude Code Task tool unavailable; pinned tools used instead of latest/network hook.",
+    "Static MetaHarness score is not build or execution proof; estimated cost not measured spend.",
+    "Loopback HTTP not deployed IAM integration; no latency/paid cost claim.",
+    "Branch-protection read403 administrative permission, not repository write403. No review approvals; ruleset currently disabled; no bypass attempted."
+  ],
+  "learning": {
+    "real384DimModelVerified": true,
+    "remoteDisabled": true,
+    "kernelRestrictionsLoaded": true,
+    "available": true,
+    "outcomePersisted": true,
+    "feedbackRecorded": true,
+    "trajectoryRecorded": true,
+    "success": false
+  },
+  "guidance": {
+    "taskStart": "unscreened:true; empty guidance",
+    "riskCheck": "unscreened:true; no warnings",
+    "recordOutcomeAccepted": true,
+    "architecture": "Only production source functions/index.js changed in this cycle; no Rust/TS schema, deployment, persistence, IAM changes; no service-owned DB added."
+  },
+  "coordination": {
+    "oneWriter": true,
+    "claimReleased": true,
+    "ownSwarmAndDaemonStopped": true,
+    "existingDesktopLeftStarted": true,
+    "sourceBlobProofs": [
+      {
+        "path": "functions/index.js",
+        "blob": "12f15d509c1147fe79d17ce8834628440ba09871"
+      },
+      {
+        "path": "functions/index.test.js",
+        "blob": "d17a579cfa08a017b9edaae004750d5deb5285e6"
+      },
+      {
+        "path": "functions/object-entry.test.js",
+        "blob": "82c88e8dbc6f17c55d376d68423cce7a6192b075"
+      },
+      {
+        "path": "scripts/evaluate-object-entries.cjs",
+        "blob": "74888d2886a88080aef216f3374dc17c0998bda5"
+      },
+      {
+        "path": "scripts/object-entry-probe.cjs",
+        "blob": "7ad6a0c2a4fa2149d0e266f5be468b6e1f6f620b"
+      }
+    ],
+    "sourceRefUpdates": "expected_sha leases, fast-forward only"
+  },
+  "remaining": [
+    "Align SQLx dependency graph with cost-ops before generating lockfile and running full locked tests/build/strict Clippy and Rust audit.",
+    "Resolve6npm advisories and configure authorized GITLEAKS_LICENSE, no licensing bypass.",
+    "Run required full integrations/CI and revalidate latest main before any merge.",
+    "Persistent disk has460MiBfree after real dependency fetch; cache/storage maintenance needed before larger Rust jobs.",
+    "Complete real Ruflo delegated execution only with supported bounded runtime; init is not execution proof.",
+    "57repositories deferred; rotation ledger preserved."
+  ],
+  "rollback": "Restore functions/index.js from4191b86704f56091eb51d03ceabf66de5526c891; tests/evaluator are additive and no deployments/migrations changed.",
+  "merged": false,
+  "mergedMainSHA": null,
+  "rawReceiptsFileSHA256": "1abbcb61fbf0f47923fcef2c1ec69264a678407bcd8f0e12d123110f9c6d17fc",
+  "runtimeVersionTranscript": {
+    "completionVerified": true,
+    "completionVersion": 1,
+    "exitCode": 0,
+    "machineId": "8ee959f7363638",
+    "note": "Full shell access on your desktop. The ADR-043 literal filter catches obvious mistakes but is not a sandbox; the run is audited. Output is capped to the executor head; completionVerified requires executor-owned structured completion. Legacy completion, timeout, transport errors and signal termination have no verified exitCode.",
+    "status": "ok",
+    "stdout": "▶ run: rustc +1.88.0 --version; cargo +1.88.0 --version; cargo audit --version; node --version; npm --version; pkg-config --modversion openssl; df -h /home/ruv /tmp; ps -eo pid,comm,args | grep -E 'observatory-nov01a|ruflo.*daemon' | head -6\n\nrustc 1.88.0 (6b00bc388 2025-06-23)\ncargo 1.88.0 (873a06493 2025-05-10)\ncargo-audit-audit 0.22.2\nv20.20.2\n10.8.2\n3.0.13\nFilesystem      Size  Used Avail Use% Mounted on\n/dev/vdc         99G   94G  459M 100% /home/ruv\nnone            7.8G  202M  7.2G   3% /\n 6187 sh              sh -lc rustc +1.88.0 --version; cargo +1.88.0 --version; cargo audit --version; node --version; npm --version; pkg-config --modversion openssl; df -h /home/ruv /tmp; ps -eo pid,comm,args | grep -E 'observatory-nov01a|ruflo.*daemon' | head -6\n 6233 grep            grep -E observatory-nov01a|ruflo.*daemon\n\n✓ SUCCESS in 0s · 11 lines\n📝 transcript: /home/ruv/.ruos/activity/2026-11-01/run-rustc-1-88-0-version-cargo-1-88-0-version-ca-131032.log\n",
+    "timeoutSecs": 30
+  },
+  "releaseTranscript": {
+    "completionVerified": true,
+    "completionVersion": 1,
+    "exitCode": 0,
+    "machineId": "8ee959f7363638",
+    "note": "Full shell access on your desktop. The ADR-043 literal filter catches obvious mistakes but is not a sandbox; the run is audited. Output is capped to the executor head; completionVerified requires executor-owned structured completion. Legacy completion, timeout, transport errors and signal termination have no verified exitCode.",
+    "status": "ok",
+    "stdout": "▶ run: cat /tmp/observatory-nov01a-darwin/.metaharness/reports/winner.json; cat /tmp/observatory-nov01a-stop.log; rmdir /home/ruv/work/observatory-nov01a-claim; echo CLAIM_RELEASE=$?\n\n{\n  \"variant\": {\n    \"id\": \"baseline\",\n    \"parentId\": null,\n    \"generation\": 0,\n    \"dir\": \"/tmp/observatory-nov01a-darwin/.metaharness/variants/baseline\",\n    \"mutationSurface\": \"planner\",\n    \"mutationSummary\": \"baseline generated from repo profile\",\n    \"createdAt\": \"2026-11-01T13:02:16.579Z\"\n  },\n  \"score\": {\n    \"variantId\": \"baseline\",\n    \"taskSuccess\": 0,\n    \"testPassRate\": 0,\n    \"traceQuality\": 0.9,\n    \"costEfficiency\": 1,\n    \"latencyEfficiency\": 1,\n    \"safetyScore\": 1,\n    \"secretExposure\": 0,\n    \"destructiveAction\": 0,\n    \"hallucinatedFile\": 0,\n    \"toolLoop\": 0,\n    \"costOverrun\": 0,\n    \"baseScore\": 0.435,\n    \"finalScore\": 0.435,\n    \"promoted\": true,\n    \"reason\": \"promoted: finalScore 0.4350 > parent 0.0000 + delta 0.05 (safety 1.00, no test regression)\"\n  },\n  \"children\": [\n    \"g1_v0\"\n  ]\n}[INFO] Stopping swarm swarm-1793538050162-ue50ba...\n  Swarm state updated\n  MCP swarm stopped\n[OK] Swarm swarm-1793538050162-ue50ba stopped\nWorker daemon stopped\nCLAIM_RELEASE=0\n\n✓ SUCCESS in 0s · 37 lines\n📝 transcript: /home/ruv/.ruos/activity/2026-11-01/run-cat-tmp-observatory-nov01a-darwin-metaharnes-130947.log\n",
+    "timeoutSecs": 30
+  },
+  "protections": {
+    "read": {
+      "error": "GitHub API error 403: {\"message\":\"Resource not accessible by integration\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-branch-protection\",\"status\":\"403\"}",
+      "error_code": "FORBIDDEN",
+      "error_data": {
+        "message": "Resource not accessible by integration",
+        "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+        "status": "403"
+      }
+    },
+    "ruleset": {
+      "content": "{\"id\":9632599,\"name\":\"main-branch-protection\",\"target\":\"branch\",\"source_type\":\"Repository\",\"source\":\"LLM-Dev-Ops/observatory\",\"enforcement\":\"disabled\",\"conditions\":{\"ref_name\":{\"exclude\":[],\"include\":[\"refs/heads/main\",\"refs/heads/release/*\"]}},\"rules\":[{\"type\":\"deletion\"},{\"type\":\"non_fast_forward\"},{\"type\":\"update\"},{\"type\":\"pull_request\",\"parameters\":{\"required_approving_review_count\":1,\"dismiss_stale_reviews_on_push\":true,\"required_reviewers\":[],\"require_code_owner_review\":true,\"dismissal_restriction\":{\"enabled\":false,\"allowed_actors\":[]},\"require_last_push_approval\":true,\"required_review_thread_resolution\":true,\"require_extra_approval_for_unattributed_changes\":true,\"allowed_merge_methods\":[\"merge\",\"squash\",\"rebase\"]}},{\"type\":\"required_status_checks\",\"parameters\":{\"strict_required_status_checks_policy\":true,\"do_not_enforce_on_create\":false,\"required_status_checks\":[{\"context\":\"Code Coverage\",\"integration_id\":15368},{\"context\":\"Code Quality\",\"integration_id\":15368},{\"context\":\"Integration Tests\",\"integration_id\":15368},{\"context\":\"Parallel Tests (Shard 1)\",\"integration_id\":15368},{\"context\":\"Parallel Tests (Shard 2)\",\"integration_id\":15368},{\"context\":\"Parallel Tests (Shard 3)\",\"integration_id\":15368}]}}],\"node_id\":\"RRS_lACqUmVwb3NpdG9yec5A9zgvzgCS-1c\",\"created_at\":\"2025-11-08T01:39:32.651-05:00\",\"updated_at\":\"2025-11-08T01:39:32.736-05:00\",\"bypass_actors\":[],\"current_user_can_bypass\":\"never\",\"_links\":{\"self\":{\"href\":\"https://api.github.com/repos/LLM-Dev-Ops/observatory/rulesets/9632599\"},\"html\":{\"href\":\"https://github.com/LLM-Dev-Ops/observatory/rules/9632599\"}}}",
+      "title": "9632599",
+      "modified_date": null,
+      "url": "https://api.github.com/repos/LLM-Dev-Ops/observatory/rulesets/9632599",
+      "display_url": "https://api.github.com/repos/LLM-Dev-Ops/observatory/rulesets/9632599",
+      "display_title": "9632599",
+      "structuredContent": {
+        "title": "9632599",
+        "content": "{\"id\":9632599,\"name\":\"main-branch-protection\",\"target\":\"branch\",\"source_type\":\"Repository\",\"source\":\"LLM-Dev-Ops/observatory\",\"enforcement\":\"disabled\",\"conditions\":{\"ref_name\":{\"exclude\":[],\"include\":[\"refs/heads/main\",\"refs/heads/release/*\"]}},\"rules\":[{\"type\":\"deletion\"},{\"type\":\"non_fast_forward\"},{\"type\":\"update\"},{\"type\":\"pull_request\",\"parameters\":{\"required_approving_review_count\":1,\"dismiss_stale_reviews_on_push\":true,\"required_reviewers\":[],\"require_code_owner_review\":true,\"dismissal_restriction\":{\"enabled\":false,\"allowed_actors\":[]},\"require_last_push_approval\":true,\"required_review_thread_resolution\":true,\"require_extra_approval_for_unattributed_changes\":true,\"allowed_merge_methods\":[\"merge\",\"squash\",\"rebase\"]}},{\"type\":\"required_status_checks\",\"parameters\":{\"strict_required_status_checks_policy\":true,\"do_not_enforce_on_create\":false,\"required_status_checks\":[{\"context\":\"Code Coverage\",\"integration_id\":15368},{\"context\":\"Code Quality\",\"integration_id\":15368},{\"context\":\"Integration Tests\",\"integration_id\":15368},{\"context\":\"Parallel Tests (Shard 1)\",\"integration_id\":15368},{\"context\":\"Parallel Tests (Shard 2)\",\"integration_id\":15368},{\"context\":\"Parallel Tests (Shard 3)\",\"integration_id\":15368}]}}],\"node_id\":\"RRS_lACqUmVwb3NpdG9yec5A9zgvzgCS-1c\",\"created_at\":\"2025-11-08T01:39:32.651-05:00\",\"updated_at\":\"2025-11-08T01:39:32.736-05:00\",\"bypass_actors\":[],\"current_user_can_bypass\":\"never\",\"_links\":{\"self\":{\"href\":\"https://api.github.com/repos/LLM-Dev-Ops/observatory/rulesets/9632599\"},\"html\":{\"href\":\"https://github.com/LLM-Dev-Ops/observatory/rules/9632599\"}}}",
+        "display_url": "https://api.github.com/repos/LLM-Dev-Ops/observatory/rulesets/9632599"
+      }
+    },
+    "reviews": []
+  }
+}
