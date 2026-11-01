@@ -157,6 +157,24 @@ function readBoundedArray(res, value, field, { required = false } = {}) {
   return value;
 }
 
+// Only these routes dereference batch entries; telemetry/metric values remain unrestricted.
+function readObjectArray(res, value, field) {
+  const entries = readBoundedArray(res, value, field);
+  if (!entries) return null;
+  const invalidIndex = entries.findIndex(
+    (entry) => entry === null || typeof entry !== 'object' || Array.isArray(entry)
+  );
+  if (invalidIndex !== -1) {
+    res.status(400).json({
+      success: false,
+      error: { code: 'VALIDATION_FAILED', message: `${field}[${invalidIndex}] must be an object` },
+      layers_executed: ['input_validation'],
+    });
+    return null;
+  }
+  return entries;
+}
+
 function buildDecisionEvent(agentMeta, inputsHash, executionRef, outputs, confidence) {
   return {
     agent_id: agentMeta.id,
@@ -313,7 +331,7 @@ app.post('/v1/observatory/health-check', (req, res) => {
     });
   }
 
-  const targets = readBoundedArray(res, payload.targets ?? [], 'payload.targets');
+  const targets = readObjectArray(res, payload.targets ?? [], 'payload.targets');
   if (!targets) return;
   const agentMeta = AGENTS['health-check'];
   const inputsHash = hashInputs(payload);
@@ -358,7 +376,7 @@ app.post('/v1/observatory/slo', (req, res) => {
     });
   }
 
-  const sloDefinitions = readBoundedArray(
+  const sloDefinitions = readObjectArray(
     res,
     payload.slo_definitions ?? [],
     'payload.slo_definitions'
@@ -515,3 +533,4 @@ app.use((req, res) => {
 // ----------------------------------------------------------------------------
 
 exports.api = app;
+
