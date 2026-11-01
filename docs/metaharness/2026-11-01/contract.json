@@ -1,0 +1,11 @@
+{
+  "id": "observatory-object-entry-v1",
+  "baseline": "4191b86704f56091eb51d03ceabf66de5526c891",
+  "objective": "Return 400 VALIDATION_FAILED before property access for null, scalar and array entries in health targets and SLO definitions",
+  "holdoutCases": 6,
+  "anchors": 3,
+  "acceptance": "6/6 holdouts, 3/3 anchors, all original tests retained, full workspace test/build/strict Clippy/fmt and security plus required CI green; no merge otherwise",
+  "budget": {"generations": 1, "children": 1, "concurrency": 1, "riskBudget": 0},
+  "measurement": "Real loopback HTTP; case pass fraction is primary; wall times are diagnostic only, no latency optimization claim",
+  "rollback": "Restore functions/index.js from baseline; no production migration, database or architecture changes"
+}
