@@ -15,9 +15,7 @@
 //! - Simple queries: P50 <10ms
 //! - Complex queries: P95 <100ms
 
-use criterion::{
-    black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput,
-};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use llm_observatory_storage::{
     repositories::{LogRepository, MetricRepository, TraceRepository},
     writers::{LogWriter, MetricWriter, TraceWriter},
@@ -344,12 +342,7 @@ fn bench_metric_data_point_queries(c: &mut Criterion) {
     // Benchmark get latest data point
     group.bench_function("get_latest_data_point", |b| {
         b.to_async(&runtime).iter(|| async {
-            black_box(
-                repository
-                    .get_latest_data_point(metric_id)
-                    .await
-                    .unwrap(),
-            );
+            black_box(repository.get_latest_data_point(metric_id).await.unwrap());
         });
     });
 

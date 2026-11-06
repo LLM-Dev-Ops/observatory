@@ -66,7 +66,10 @@ async fn test_pool_stats_utilization() {
     let stats = pool.stats();
     let utilization = stats.utilization_percent();
 
-    assert!(utilization >= 0.0 && utilization <= 100.0, "Utilization should be a valid percentage");
+    assert!(
+        utilization >= 0.0 && utilization <= 100.0,
+        "Utilization should be a valid percentage"
+    );
 }
 
 #[tokio::test]
@@ -76,7 +79,10 @@ async fn test_pool_near_capacity_check() {
     let stats = pool.stats();
 
     // With default setup, we shouldn't be near capacity
-    assert!(!stats.is_near_capacity(), "Pool should not be near capacity with default settings");
+    assert!(
+        !stats.is_near_capacity(),
+        "Pool should not be near capacity with default settings"
+    );
 }
 
 #[tokio::test]

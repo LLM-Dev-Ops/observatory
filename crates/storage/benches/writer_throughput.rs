@@ -20,9 +20,7 @@
 //! - Batch processing: 100-10,000 records per batch
 //! - COPY protocol: 50,000-100,000 rows/sec
 
-use criterion::{
-    black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput,
-};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use llm_observatory_storage::{
     models::{LogRecord, Metric, MetricDataPoint, Trace, TraceSpan},
     writers::{CopyWriter, LogWriter, MetricWriter, TraceWriter},

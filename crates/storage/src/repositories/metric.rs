@@ -30,7 +30,7 @@ impl MetricRepository {
     /// Get a metric by name and service.
     pub async fn get_by_name(&self, name: &str, service_name: &str) -> StorageResult<Metric> {
         sqlx::query_as::<_, Metric>(
-            "SELECT * FROM metrics WHERE name = $1 AND service_name = $2 LIMIT 1"
+            "SELECT * FROM metrics WHERE name = $1 AND service_name = $2 LIMIT 1",
         )
         .bind(name)
         .bind(service_name)
@@ -109,7 +109,7 @@ impl MetricRepository {
               AND mdp.timestamp >= $2
               AND mdp.timestamp <= $3
             ORDER BY mdp.timestamp ASC
-            "#
+            "#,
         )
         .bind(name)
         .bind(start_time)
@@ -133,7 +133,7 @@ impl MetricRepository {
               AND timestamp >= $2
               AND timestamp <= $3
             ORDER BY timestamp ASC
-            "#
+            "#,
         )
         .bind(metric_id)
         .bind(start_time)
@@ -146,7 +146,7 @@ impl MetricRepository {
     /// Get latest data point for a metric.
     pub async fn get_latest_data_point(&self, metric_id: Uuid) -> StorageResult<MetricDataPoint> {
         sqlx::query_as::<_, MetricDataPoint>(
-            "SELECT * FROM metric_data_points WHERE metric_id = $1 ORDER BY timestamp DESC LIMIT 1"
+            "SELECT * FROM metric_data_points WHERE metric_id = $1 ORDER BY timestamp DESC LIMIT 1",
         )
         .bind(metric_id)
         .fetch_one(self.pool.postgres())
@@ -215,13 +215,11 @@ impl MetricRepository {
         end_time: DateTime<Utc>,
     ) -> StorageResult<Vec<TimeSeriesPoint>> {
         // First get the metric
-        let metric = sqlx::query_as::<_, Metric>(
-            "SELECT * FROM metrics WHERE name = $1 LIMIT 1"
-        )
-        .bind(name)
-        .fetch_one(self.pool.postgres())
-        .await
-        .map_err(StorageError::from)?;
+        let metric = sqlx::query_as::<_, Metric>("SELECT * FROM metrics WHERE name = $1 LIMIT 1")
+            .bind(name)
+            .fetch_one(self.pool.postgres())
+            .await
+            .map_err(StorageError::from)?;
 
         // Query with aggregation
         let query = TimeSeriesQuery {
@@ -256,7 +254,7 @@ impl MetricRepository {
               AND m.name LIKE 'cost%'
             GROUP BY m.service_name, m.name
             ORDER BY total_value DESC
-            "#
+            "#,
         )
         .bind(start_time)
         .bind(end_time)
@@ -300,7 +298,7 @@ impl MetricRepository {
               AND m.name LIKE '%latency%'
               AND mdp.timestamp >= $2
               AND mdp.timestamp <= $3
-            "#
+            "#,
         )
         .bind(service_name)
         .bind(start_time)
@@ -321,13 +319,11 @@ impl MetricRepository {
 
     /// Search metrics by name pattern.
     pub async fn search_by_name(&self, pattern: &str) -> StorageResult<Vec<Metric>> {
-        sqlx::query_as::<_, Metric>(
-            "SELECT * FROM metrics WHERE name LIKE $1 ORDER BY name ASC"
-        )
-        .bind(format!("%{}%", pattern))
-        .fetch_all(self.pool.postgres())
-        .await
-        .map_err(StorageError::from)
+        sqlx::query_as::<_, Metric>("SELECT * FROM metrics WHERE name LIKE $1 ORDER BY name ASC")
+            .bind(format!("%{}%", pattern))
+            .fetch_all(self.pool.postgres())
+            .await
+            .map_err(StorageError::from)
     }
 
     /// Get metric statistics for a time range.

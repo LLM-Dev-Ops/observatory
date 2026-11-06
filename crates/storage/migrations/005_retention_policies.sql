@@ -109,8 +109,10 @@ SELECT add_retention_policy('llm_metrics_1hour', INTERVAL '210 days');
 -- 1-day rollups: 1095 days (3 years)
 SELECT add_retention_policy('llm_metrics_1day', INTERVAL '1095 days');
 
--- Cost analysis: 210 days (7 months)
-SELECT add_retention_policy('cost_analysis_hourly', INTERVAL '210 days');
+-- Error summary created by migration 004: 210 days (7 months).
+-- Cost totals are already included in the metrics rollups; there is no separate
+-- cost_analysis_hourly relation in this migration chain.
+SELECT add_retention_policy('llm_error_summary', INTERVAL '210 days');
 
 COMMIT;
 

@@ -15,9 +15,7 @@
 //! - Read latency under write load: P95 <100ms
 //! - Write latency under read load: minimal degradation
 
-use criterion::{
-    black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput,
-};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use llm_observatory_storage::{
     repositories::{LogRepository, TraceRepository},
     writers::{CopyWriter, LogWriter, TraceWriter},

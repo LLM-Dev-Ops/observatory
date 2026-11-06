@@ -3,8 +3,8 @@
 //! This module provides functionality to read and write benchmark
 //! results to the filesystem in various formats.
 
-use crate::result::BenchmarkResult;
 use crate::markdown;
+use crate::result::BenchmarkResult;
 use std::fs;
 use std::io;
 use std::path::Path;
@@ -69,6 +69,5 @@ pub fn write_all_outputs(results: &[BenchmarkResult]) -> io::Result<()> {
 /// Read results from JSON file.
 pub fn read_results_json(path: impl AsRef<Path>) -> io::Result<Vec<BenchmarkResult>> {
     let content = fs::read_to_string(path)?;
-    serde_json::from_str(&content)
-        .map_err(|e| io::Error::new(io::ErrorKind::Other, e))
+    serde_json::from_str(&content).map_err(|e| io::Error::new(io::ErrorKind::Other, e))
 }

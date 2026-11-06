@@ -1,7 +1,6 @@
 ///! Data models for trace querying and response formatting
 ///!
 ///! This module defines the request and response structures for the trace query API.
-
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -53,7 +52,7 @@ pub struct TraceQuery {
     pub sort_order: Option<SortOrder>,
 
     // Field selection
-    pub fields: Option<String>, // Comma-separated
+    pub fields: Option<String>,  // Comma-separated
     pub include: Option<String>, // Comma-separated: children,evaluations
 }
 

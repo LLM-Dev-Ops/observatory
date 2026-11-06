@@ -4,11 +4,7 @@
 //! LLM Observatory core implementation with OpenTelemetry integration.
 
 use crate::{Error, Result};
-use opentelemetry::{
-    global,
-    trace::TracerProvider as _,
-    KeyValue,
-};
+use opentelemetry::{global, trace::TracerProvider as _, KeyValue};
 use opentelemetry_otlp::WithExportConfig;
 use opentelemetry_sdk::{
     trace::{RandomIdGenerator, Sampler, TracerProvider},
@@ -230,8 +226,8 @@ impl ObservatoryBuilder {
 
         // Setup tracing subscriber for console logging if enabled
         if self.enable_console_export {
-            let filter = EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| EnvFilter::new("info"));
+            let filter =
+                EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
 
             tracing_subscriber::registry()
                 .with(filter)

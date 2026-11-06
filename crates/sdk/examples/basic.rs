@@ -15,9 +15,7 @@
 //! cargo run --example basic --features openai
 //! ```
 
-use llm_observatory_sdk::{
-    ChatCompletionRequest, InstrumentedLLM, LLMObservatory, OpenAIClient,
-};
+use llm_observatory_sdk::{ChatCompletionRequest, InstrumentedLLM, LLMObservatory, OpenAIClient};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -27,8 +25,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("LLM Observatory SDK - Basic Example\n");
 
     // Get API key from environment
-    let api_key = std::env::var("OPENAI_API_KEY")
-        .expect("OPENAI_API_KEY environment variable not set");
+    let api_key =
+        std::env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY environment variable not set");
 
     // Initialize the observatory
     println!("Initializing observatory...");

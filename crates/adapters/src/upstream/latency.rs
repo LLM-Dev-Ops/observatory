@@ -194,7 +194,8 @@ impl ObservatoryMeasurement {
 
     /// Add a checkpoint.
     pub fn checkpoint(&mut self, label: impl Into<String>) {
-        self.checkpoints.push((label.into(), std::time::Instant::now()));
+        self.checkpoints
+            .push((label.into(), std::time::Instant::now()));
     }
 
     /// Record first token arrival.
@@ -262,7 +263,8 @@ pub struct ObservatoryTimingResult {
 impl ObservatoryTimingResult {
     /// Convert to Observatory Latency type.
     pub fn to_latency(&self, start_time: chrono::DateTime<chrono::Utc>) -> Latency {
-        let end_time = start_time + chrono::Duration::from_std(self.total_duration).unwrap_or_default();
+        let end_time =
+            start_time + chrono::Duration::from_std(self.total_duration).unwrap_or_default();
 
         let mut latency = Latency::new(start_time, end_time);
         if let Some(ttft) = self.ttft {

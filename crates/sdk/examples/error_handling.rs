@@ -27,8 +27,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("LLM Observatory SDK - Error Handling Example\n");
 
-    let api_key = std::env::var("OPENAI_API_KEY")
-        .expect("OPENAI_API_KEY environment variable not set");
+    let api_key =
+        std::env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY environment variable not set");
 
     let observatory = LLMObservatory::builder()
         .with_service_name("error-handling-example")
@@ -39,8 +39,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Example 1: Handle invalid model
     println!("=== Example 1: Invalid Model ===");
-    let request = ChatCompletionRequest::new("invalid-model-name")
-        .with_user("Hello!");
+    let request = ChatCompletionRequest::new("invalid-model-name").with_user("Hello!");
 
     match client.chat_completion(request).await {
         Ok(_) => println!("Unexpected success"),
@@ -56,8 +55,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Example 2: Handle validation errors
     println!("=== Example 2: Validation Error ===");
-    let invalid_request = ChatCompletionRequest::new("gpt-4o-mini")
-        .with_temperature(5.0); // Invalid temperature
+    let invalid_request = ChatCompletionRequest::new("gpt-4o-mini").with_temperature(5.0); // Invalid temperature
 
     match invalid_request.validate() {
         Ok(_) => println!("Unexpected validation success"),
@@ -135,7 +133,10 @@ where
             Ok(result) => return Ok(result),
             Err(e) if e.is_retryable() && retries < max_retries => {
                 retries += 1;
-                println!("  Retrying ({}/{}) after {:?}...", retries, max_retries, delay);
+                println!(
+                    "  Retrying ({}/{}) after {:?}...",
+                    retries, max_retries, delay
+                );
                 sleep(delay).await;
                 delay *= 2; // Exponential backoff
             }

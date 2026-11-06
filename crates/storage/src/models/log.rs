@@ -2,12 +2,12 @@
 //!
 //! This module defines the data structures for storing log records.
 
+use crate::error::{StorageError, StorageResult};
+use crate::validation::{validate_hex_string, validate_not_empty, validate_range, Validate};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use uuid::Uuid;
-use crate::error::{StorageError, StorageResult};
-use crate::validation::{validate_hex_string, validate_not_empty, validate_range, Validate};
 
 /// Log severity level
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]

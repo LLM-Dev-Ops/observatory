@@ -25,8 +25,7 @@ async fn main() {
     // Initialize tracing
     tracing_subscriber::registry()
         .with(
-            tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "info".into()),
+            tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()),
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
@@ -40,13 +39,17 @@ async fn main() {
     let config = match StorageConfig::from_env() {
         Ok(config) => {
             println!("✓ Configuration loaded successfully");
-            println!("  - PostgreSQL: {}:{}/{}",
-                config.postgres.host,
-                config.postgres.port,
-                config.postgres.database
+            println!(
+                "  - PostgreSQL: {}:{}/{}",
+                config.postgres.host, config.postgres.port, config.postgres.database
             );
-            println!("  - Redis: {}",
-                if config.redis.is_some() { "Configured" } else { "Not configured" }
+            println!(
+                "  - Redis: {}",
+                if config.redis.is_some() {
+                    "Configured"
+                } else {
+                    "Not configured"
+                }
             );
             println!("  - Pool Max Connections: {}", config.pool.max_connections);
             println!("  - Pool Min Connections: {}", config.pool.min_connections);
@@ -125,18 +128,29 @@ async fn main() {
     match pool.health_check().await {
         Ok(result) => {
             println!("✓ Health check completed");
-            println!("  - PostgreSQL: {}",
-                if result.postgres_healthy { "Healthy" } else { "Unhealthy" }
+            println!(
+                "  - PostgreSQL: {}",
+                if result.postgres_healthy {
+                    "Healthy"
+                } else {
+                    "Unhealthy"
+                }
             );
-            println!("  - Redis: {}",
+            println!(
+                "  - Redis: {}",
                 match result.redis_healthy {
                     Some(true) => "Healthy",
                     Some(false) => "Unhealthy",
                     None => "Not configured",
                 }
             );
-            println!("  - Overall: {}",
-                if result.is_healthy() { "Healthy" } else { "Degraded" }
+            println!(
+                "  - Overall: {}",
+                if result.is_healthy() {
+                    "Healthy"
+                } else {
+                    "Degraded"
+                }
             );
         }
         Err(e) => {
@@ -157,8 +171,13 @@ async fn main() {
     println!("  - Max connections: {}", stats.postgres_max_connections);
     println!("  - Min connections: {}", stats.postgres_min_connections);
     println!("  - Utilization: {:.1}%", stats.utilization_percent());
-    println!("  - Near capacity: {}",
-        if stats.is_near_capacity() { "Yes (>80%)" } else { "No" }
+    println!(
+        "  - Near capacity: {}",
+        if stats.is_near_capacity() {
+            "Yes (>80%)"
+        } else {
+            "No"
+        }
     );
     println!("  - Redis connected: {}", stats.redis_connected);
 

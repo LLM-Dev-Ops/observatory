@@ -14,18 +14,18 @@ use tower::ServiceExt;
 /// Helper to create test app state
 async fn create_test_state() -> Arc<AppState> {
     // In a real test environment, use test containers or a test database
-    let database_url = std::env::var("TEST_DATABASE_URL")
-        .unwrap_or_else(|_| "postgresql://postgres:postgres@localhost:5432/llm_observatory_test".to_string());
+    let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
+        "postgresql://postgres:postgres@localhost:5432/llm_observatory_test".to_string()
+    });
 
-    let redis_url = std::env::var("TEST_REDIS_URL")
-        .unwrap_or_else(|_| "redis://localhost:6379".to_string());
+    let redis_url =
+        std::env::var("TEST_REDIS_URL").unwrap_or_else(|_| "redis://localhost:6379".to_string());
 
     let db_pool = PgPool::connect(&database_url)
         .await
         .expect("Failed to connect to test database");
 
-    let redis_client = RedisClient::open(redis_url)
-        .expect("Failed to create Redis client");
+    let redis_client = RedisClient::open(redis_url).expect("Failed to create Redis client");
 
     Arc::new(AppState {
         db_pool,
@@ -290,7 +290,10 @@ fn test_cost_analytics_calculations() {
         request_count: 100,
     };
 
-    assert_eq!(data_point.total_cost, data_point.prompt_cost + data_point.completion_cost);
+    assert_eq!(
+        data_point.total_cost,
+        data_point.prompt_cost + data_point.completion_cost
+    );
 
     let avg_cost = data_point.total_cost / data_point.request_count as f64;
     assert_eq!(avg_cost, 0.1);

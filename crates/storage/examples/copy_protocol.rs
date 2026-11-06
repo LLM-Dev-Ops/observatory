@@ -27,7 +27,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Load configuration from environment
     let config = StorageConfig::from_env()?;
-    println!("Connecting to PostgreSQL at {}:{}", config.postgres.host, config.postgres.port);
+    println!(
+        "Connecting to PostgreSQL at {}:{}",
+        config.postgres.host, config.postgres.port
+    );
 
     // Create storage pool
     let pool = StoragePool::new(config).await?;
@@ -47,7 +50,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let elapsed = start.elapsed();
 
     println!("Inserted {} traces in {:?}", rows, elapsed);
-    println!("Throughput: {:.0} traces/sec\n", rows as f64 / elapsed.as_secs_f64());
+    println!(
+        "Throughput: {:.0} traces/sec\n",
+        rows as f64 / elapsed.as_secs_f64()
+    );
 
     // Example 2: Insert spans using COPY
     println!("--- Example 2: Bulk Insert Spans ---");
@@ -59,7 +65,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let elapsed = start.elapsed();
 
     println!("Inserted {} spans in {:?}", rows, elapsed);
-    println!("Throughput: {:.0} spans/sec\n", rows as f64 / elapsed.as_secs_f64());
+    println!(
+        "Throughput: {:.0} spans/sec\n",
+        rows as f64 / elapsed.as_secs_f64()
+    );
 
     // Example 3: Insert logs using COPY
     println!("--- Example 3: Bulk Insert Logs ---");
@@ -71,7 +80,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let elapsed = start.elapsed();
 
     println!("Inserted {} logs in {:?}", rows, elapsed);
-    println!("Throughput: {:.0} logs/sec\n", rows as f64 / elapsed.as_secs_f64());
+    println!(
+        "Throughput: {:.0} logs/sec\n",
+        rows as f64 / elapsed.as_secs_f64()
+    );
 
     // Example 4: Comparison with INSERT
     println!("--- Example 4: Performance Comparison ---");
@@ -246,7 +258,10 @@ async fn compare_insert_vs_copy(
     let insert_elapsed = start.elapsed();
     let insert_throughput = BATCH_SIZE as f64 / insert_elapsed.as_secs_f64();
 
-    println!("INSERT: {:?} ({:.0} rows/sec)", insert_elapsed, insert_throughput);
+    println!(
+        "INSERT: {:?} ({:.0} rows/sec)",
+        insert_elapsed, insert_throughput
+    );
 
     // Test COPY performance
     println!("Testing COPY protocol ({} rows)...", BATCH_SIZE);

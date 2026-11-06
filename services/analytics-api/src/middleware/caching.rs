@@ -19,7 +19,6 @@
 ///!     .route("/api/v1/traces", get(list_traces))
 ///!     .layer(CacheMiddleware::new(60)); // 60 second cache TTL
 ///! ```
-
 use axum::{
     body::Body,
     extract::Request,
@@ -131,7 +130,8 @@ pub async fn cache_middleware(
     };
 
     // Check if client has a valid cached version
-    let not_modified = check_not_modified(&if_none_match, &if_modified_since, &etag, &last_modified);
+    let not_modified =
+        check_not_modified(&if_none_match, &if_modified_since, &etag, &last_modified);
 
     if not_modified {
         info!("Cache hit: returning 304 Not Modified");
@@ -144,10 +144,9 @@ pub async fn cache_middleware(
 
         // Copy cache headers
         if let Some(etag_value) = etag {
-            not_modified_response.headers_mut().insert(
-                header::ETAG,
-                HeaderValue::from_str(&etag_value).unwrap(),
-            );
+            not_modified_response
+                .headers_mut()
+                .insert(header::ETAG, HeaderValue::from_str(&etag_value).unwrap());
         }
 
         if let Some(modified_time) = last_modified {
@@ -172,10 +171,9 @@ pub async fn cache_middleware(
     debug!("Cache miss: returning full response with cache headers");
 
     if let Some(etag_value) = etag {
-        parts.headers.insert(
-            header::ETAG,
-            HeaderValue::from_str(&etag_value).unwrap(),
-        );
+        parts
+            .headers
+            .insert(header::ETAG, HeaderValue::from_str(&etag_value).unwrap());
     }
 
     if let Some(modified_time) = last_modified {
@@ -321,7 +319,12 @@ mod tests {
 
         // Different ETag should indicate modified
         let different_etag = Some("\"xyz789\"".to_string());
-        assert!(!check_not_modified(&if_none_match, &None, &different_etag, &None));
+        assert!(!check_not_modified(
+            &if_none_match,
+            &None,
+            &different_etag,
+            &None
+        ));
 
         // Wildcard should match
         let wildcard = Some("*".to_string());
@@ -346,11 +349,21 @@ mod tests {
         let if_modified_since = Some(now);
 
         // Client's cached version is newer, so not modified
-        assert!(check_not_modified(&None, &if_modified_since, &None, &last_modified));
+        assert!(check_not_modified(
+            &None,
+            &if_modified_since,
+            &None,
+            &last_modified
+        ));
 
         // Client's cached version is older, so modified
         let older_cache = Some(past - std::time::Duration::from_secs(3600));
-        assert!(!check_not_modified(&None, &older_cache, &None, &last_modified));
+        assert!(!check_not_modified(
+            &None,
+            &older_cache,
+            &None,
+            &last_modified
+        ));
     }
 
     #[test]

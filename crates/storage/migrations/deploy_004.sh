@@ -210,12 +210,12 @@ deploy_migration() {
     execute_sql "$SCRIPT_DIR/004_continuous_aggregates.sql" "Creating continuous aggregates"
 
     # Optionally install percentile helper queries
-    if [ -f "$SCRIPT_DIR/percentile_queries.sql" ]; then
+    if [ -f "$SCRIPT_DIR/support/percentile_queries.sql" ]; then
         echo ""
         read -p "Install percentile helper views/functions? (y/N) " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            execute_sql "$SCRIPT_DIR/percentile_queries.sql" "Installing percentile helpers"
+            execute_sql "$SCRIPT_DIR/support/percentile_queries.sql" "Installing percentile helpers"
         fi
     fi
 
@@ -247,10 +247,10 @@ run_tests() {
 
     SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-    if [ -f "$SCRIPT_DIR/test_004_continuous_aggregates.sql" ]; then
-        execute_sql "$SCRIPT_DIR/test_004_continuous_aggregates.sql" "Running test suite"
+    if [ -f "$SCRIPT_DIR/support/test_004_continuous_aggregates.sql" ]; then
+        execute_sql "$SCRIPT_DIR/support/test_004_continuous_aggregates.sql" "Running test suite"
     else
-        echo -e "${YELLOW}⚠ Test file not found: test_004_continuous_aggregates.sql${NC}"
+        echo -e "${YELLOW}⚠ Test file not found: support/test_004_continuous_aggregates.sql${NC}"
     fi
 }
 

@@ -356,7 +356,10 @@ impl ExportJobRow {
         };
 
         let download_url = if status == ExportJobStatus::Completed && self.file_path.is_some() {
-            Some(format!("{}/api/v1/export/jobs/{}/download", base_url, self.job_id))
+            Some(format!(
+                "{}/api/v1/export/jobs/{}/download",
+                base_url, self.job_id
+            ))
         } else {
             None
         };

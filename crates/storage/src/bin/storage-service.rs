@@ -84,7 +84,10 @@ async fn main() -> StorageResult<()> {
 
     info!("Starting health and metrics servers...");
     info!("  Health endpoint: http://0.0.0.0:{}/health", health_port);
-    info!("  Metrics endpoint: http://0.0.0.0:{}/metrics", metrics_port);
+    info!(
+        "  Metrics endpoint: http://0.0.0.0:{}/metrics",
+        metrics_port
+    );
 
     let health_server = HealthServer::new(pool.clone(), metrics.clone());
 
@@ -185,10 +188,7 @@ fn log_configuration(config: &StorageConfig) {
         info!("    Max size: {}", pool_config.max_size);
         info!("    Timeout: {}s", pool_config.timeout_seconds);
         info!("    Idle timeout: {}s", pool_config.idle_timeout_seconds);
-        info!(
-            "    Max lifetime: {}s",
-            pool_config.max_lifetime_seconds
-        );
+        info!("    Max lifetime: {}s", pool_config.max_lifetime_seconds);
     }
 
     // Writer settings
@@ -206,14 +206,8 @@ fn log_configuration(config: &StorageConfig) {
     // Retention settings
     if let Some(retention) = &config.retention {
         info!("  Data Retention:");
-        info!(
-            "    Traces: {} days",
-            retention.traces_days.unwrap_or(30)
-        );
-        info!(
-            "    Metrics: {} days",
-            retention.metrics_days.unwrap_or(90)
-        );
+        info!("    Traces: {} days", retention.traces_days.unwrap_or(30));
+        info!("    Metrics: {} days", retention.metrics_days.unwrap_or(90));
         info!("    Logs: {} days", retention.logs_days.unwrap_or(7));
     }
 }

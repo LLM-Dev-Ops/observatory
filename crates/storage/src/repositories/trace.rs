@@ -1,7 +1,7 @@
 //! Trace repository for querying trace data.
 
 use crate::error::{StorageError, StorageResult};
-use crate::models::{Trace, TraceSpan, TraceEvent};
+use crate::models::{Trace, TraceEvent, TraceSpan};
 use crate::pool::StoragePool;
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
@@ -156,7 +156,7 @@ impl TraceRepository {
     /// Get all spans for a trace.
     pub async fn get_spans(&self, trace_id: Uuid) -> StorageResult<Vec<TraceSpan>> {
         sqlx::query_as::<_, TraceSpan>(
-            "SELECT * FROM trace_spans WHERE trace_id = $1 ORDER BY start_time ASC"
+            "SELECT * FROM trace_spans WHERE trace_id = $1 ORDER BY start_time ASC",
         )
         .bind(trace_id)
         .fetch_all(self.pool.postgres())
@@ -176,7 +176,7 @@ impl TraceRepository {
     /// Get all events for a span.
     pub async fn get_events(&self, span_id: Uuid) -> StorageResult<Vec<TraceEvent>> {
         sqlx::query_as::<_, TraceEvent>(
-            "SELECT * FROM trace_events WHERE span_id = $1 ORDER BY timestamp ASC"
+            "SELECT * FROM trace_events WHERE span_id = $1 ORDER BY timestamp ASC",
         )
         .bind(span_id)
         .fetch_all(self.pool.postgres())
@@ -199,7 +199,7 @@ impl TraceRepository {
               AND start_time <= $3
             ORDER BY start_time DESC
             LIMIT 100
-            "#
+            "#,
         )
         .bind(service_name)
         .bind(start_time)
@@ -235,10 +235,7 @@ impl TraceRepository {
         let total_spans = spans.len() as i64;
         let error_count = spans.iter().filter(|s| s.is_error()).count() as i64;
 
-        let durations: Vec<i64> = spans
-            .iter()
-            .filter_map(|s| s.duration_us)
-            .collect();
+        let durations: Vec<i64> = spans.iter().filter_map(|s| s.duration_us).collect();
 
         let avg_duration_us = if !durations.is_empty() {
             Some(durations.iter().sum::<i64>() as f64 / durations.len() as f64)
@@ -296,13 +293,10 @@ impl TraceRepository {
 
     /// Delete old traces (for data retention).
     pub async fn delete_before(&self, before: DateTime<Utc>) -> StorageResult<u64> {
-        let result = sqlx::query!(
-            "DELETE FROM traces WHERE start_time < $1",
-            before
-        )
-        .execute(self.pool.postgres())
-        .await
-        .map_err(StorageError::from)?;
+        let result = sqlx::query!("DELETE FROM traces WHERE start_time < $1", before)
+            .execute(self.pool.postgres())
+            .await
+            .map_err(StorageError::from)?;
 
         Ok(result.rows_affected())
     }

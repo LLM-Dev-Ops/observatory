@@ -124,7 +124,7 @@ impl LogWriter {
         let mut query_builder = sqlx::QueryBuilder::new(
             "INSERT INTO logs (id, timestamp, observed_timestamp, severity_number, severity_text, \
              body, service_name, trace_id, span_id, trace_flags, attributes, resource_attributes, \
-             scope_name, scope_version, scope_attributes, created_at) "
+             scope_name, scope_version, scope_attributes, created_at) ",
         );
 
         query_builder.push_values(logs, |mut b, log| {
@@ -146,10 +146,7 @@ impl LogWriter {
                 .push_bind(log.created_at);
         });
 
-        query_builder
-            .build()
-            .execute(self.pool.postgres())
-            .await?;
+        query_builder.build().execute(self.pool.postgres()).await?;
 
         let elapsed = start.elapsed();
         tracing::info!(

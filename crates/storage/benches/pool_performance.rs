@@ -15,9 +15,7 @@
 //! - Pool saturation handling: graceful degradation
 //! - Concurrent access: minimal contention
 
-use criterion::{
-    black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput,
-};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use llm_observatory_storage::{writers::CopyWriter, StorageConfig, StoragePool};
 use std::sync::Arc;
 use std::time::Duration;
@@ -174,9 +172,7 @@ fn bench_mixed_workload(c: &mut Criterion) {
                 let pool = ctx.pool.clone();
                 tasks.spawn(async move {
                     let (client, _handle) = pool.get_tokio_postgres_client().await.unwrap();
-                    let _ = client
-                        .query("SELECT * FROM traces LIMIT 10", &[])
-                        .await;
+                    let _ = client.query("SELECT * FROM traces LIMIT 10", &[]).await;
                 });
             }
 

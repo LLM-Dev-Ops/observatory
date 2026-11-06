@@ -1,0 +1,226 @@
+{
+  "contractSha256": "33dad28d15badcaa0ad642bdec1e304f254f2417b72f7a810596efb157776606",
+  "probeSha256": "4b966c4a7cf02bffdd35999065dee117b1d42fbb66cb9bc82296333d43a4af9b",
+  "parentHash": "1b0b14635c5847cba4f37bfe0d97ede6f6f7576a36bdb864e29deb66a6e1738d",
+  "candidateHash": "cf3a3902c78609fc2b60de0a32c136b6aef282d9fbff120b5aa3bde154958506",
+  "promotions": 1,
+  "fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+  "replay": {
+    "pass": true,
+    "checks": {
+      "receipts": true,
+      "reachesRoot": true,
+      "contiguousParents": true,
+      "allPromoted": true,
+      "gateUnchanged": true,
+      "gateReExecutes": true,
+      "allCommitsReceipts": true,
+      "sealedFieldsAuthentic": true
+    },
+    "failures": [],
+    "chainSummary": "gen1(retention) → gen0(root)"
+  },
+  "boundary": "Component migration contract only, not whole-repository approval. Actual PostgreSQL/TimescaleDB execution, no database mocks. Every evaluation creates and removes an isolated disposable database. No deployed schema or production persistence changes executed. Source rollback bytes retained; reverting source cannot restore expired data or reverse a deployed migration. Cost/latency/energy unmeasured: costPerWin=0 is a neutral gate input, not a measurement.",
+  "measurements": [
+    {
+      "source": "1b0b14635c5847cba4f37bfe0d97ede6f6f7576a36bdb864e29deb66a6e1738d",
+      "suite": "holdout",
+      "score": {
+        "primary": 0,
+        "noopRate": 1,
+        "costPerWin": 0,
+        "regressed": false,
+        "itemWins": [
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "counts": {
+        "retention": 0,
+        "compression": 0,
+        "raw": 3,
+        "aggregates": 4,
+        "preserved": 1
+      },
+      "holdout": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "anchor": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "versions": {
+        "postgres": "15.6",
+        "timescale": "2.14.2"
+      },
+      "cleanup": {
+        "database": "mh_observatory_5004_f568fae3b6b7",
+        "exit": 0,
+        "disposableFixtureOnly": true
+      }
+    },
+    {
+      "source": "1b0b14635c5847cba4f37bfe0d97ede6f6f7576a36bdb864e29deb66a6e1738d",
+      "suite": "anchor",
+      "score": {
+        "primary": 1,
+        "noopRate": 0,
+        "costPerWin": 0,
+        "regressed": false,
+        "itemWins": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "counts": {
+        "retention": 0,
+        "compression": 0,
+        "raw": 3,
+        "aggregates": 4,
+        "preserved": 1
+      },
+      "holdout": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "anchor": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "versions": {
+        "postgres": "15.6",
+        "timescale": "2.14.2"
+      },
+      "cleanup": {
+        "database": "mh_observatory_5004_45cd20263a28",
+        "exit": 0,
+        "disposableFixtureOnly": true
+      },
+      "nodeExit": 0,
+      "originalNames": [
+        "# Subtest: preserves health and valid telemetry behavior",
+        "# Subtest: rejects missing telemetry events",
+        "# Subtest: rejects non-array SLO definitions",
+        "# Subtest: rejects non-array SLO metrics",
+        "# Subtest: rejects non-array failure events",
+        "# Subtest: rejects non-array health targets",
+        "# Subtest: rejects non-array telemetry events",
+        "# Subtest: rejects oversized telemetry batches before processing"
+      ]
+    },
+    {
+      "source": "cf3a3902c78609fc2b60de0a32c136b6aef282d9fbff120b5aa3bde154958506",
+      "suite": "holdout",
+      "score": {
+        "primary": 1,
+        "noopRate": 0,
+        "costPerWin": 0,
+        "regressed": false,
+        "itemWins": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "counts": {
+        "retention": 7,
+        "compression": 3,
+        "raw": 3,
+        "aggregates": 4,
+        "preserved": 1
+      },
+      "holdout": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "anchor": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "versions": {
+        "postgres": "15.6",
+        "timescale": "2.14.2"
+      },
+      "cleanup": {
+        "database": "mh_observatory_5004_4a97ea67946c",
+        "exit": 0,
+        "disposableFixtureOnly": true
+      }
+    },
+    {
+      "source": "cf3a3902c78609fc2b60de0a32c136b6aef282d9fbff120b5aa3bde154958506",
+      "suite": "anchor",
+      "score": {
+        "primary": 1,
+        "noopRate": 0,
+        "costPerWin": 0,
+        "regressed": false,
+        "itemWins": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "counts": {
+        "retention": 7,
+        "compression": 3,
+        "raw": 3,
+        "aggregates": 4,
+        "preserved": 1
+      },
+      "holdout": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "anchor": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "versions": {
+        "postgres": "15.6",
+        "timescale": "2.14.2"
+      },
+      "cleanup": {
+        "database": "mh_observatory_5004_f2da47527e3b",
+        "exit": 0,
+        "disposableFixtureOnly": true
+      },
+      "nodeExit": 0,
+      "originalNames": [
+        "# Subtest: preserves health and valid telemetry behavior",
+        "# Subtest: rejects missing telemetry events",
+        "# Subtest: rejects non-array SLO definitions",
+        "# Subtest: rejects non-array SLO metrics",
+        "# Subtest: rejects non-array failure events",
+        "# Subtest: rejects non-array health targets",
+        "# Subtest: rejects non-array telemetry events",
+        "# Subtest: rejects oversized telemetry batches before processing"
+      ]
+    }
+  ]
+}

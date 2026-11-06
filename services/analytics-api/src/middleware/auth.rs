@@ -19,7 +19,6 @@
 ///!     .route("/traces", get(list_traces))
 ///!     .layer(RequireAuth::new(vec![Role::Admin, Role::Developer]));
 ///! ```
-
 use axum::{
     body::Body,
     extract::{FromRequestParts, Request, State},
@@ -317,8 +316,8 @@ impl JwtValidator {
 
     /// Validate and decode JWT token
     pub fn validate(&self, token: &str) -> Result<JwtClaims, AuthError> {
-        let token_data = decode::<JwtClaims>(token, &self.decoding_key, &self.validation)
-            .map_err(|e| {
+        let token_data =
+            decode::<JwtClaims>(token, &self.decoding_key, &self.validation).map_err(|e| {
                 error!("JWT validation error: {}", e);
                 AuthError::InvalidToken
             })?;

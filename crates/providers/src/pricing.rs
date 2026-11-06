@@ -63,8 +63,8 @@ impl PricingDatabase {
             "gpt-4o".to_string(),
             Pricing {
                 model: "gpt-4o".to_string(),
-                prompt_cost_per_1k: 0.0025,      // $2.50 per 1M input tokens
-                completion_cost_per_1k: 0.010,   // $10.00 per 1M output tokens
+                prompt_cost_per_1k: 0.0025,    // $2.50 per 1M input tokens
+                completion_cost_per_1k: 0.010, // $10.00 per 1M output tokens
             },
         );
 
@@ -73,8 +73,8 @@ impl PricingDatabase {
             "gpt-4o-mini".to_string(),
             Pricing {
                 model: "gpt-4o-mini".to_string(),
-                prompt_cost_per_1k: 0.00015,     // $0.15 per 1M input tokens
-                completion_cost_per_1k: 0.0006,  // $0.60 per 1M output tokens
+                prompt_cost_per_1k: 0.00015, // $0.15 per 1M input tokens
+                completion_cost_per_1k: 0.0006, // $0.60 per 1M output tokens
             },
         );
 
@@ -83,8 +83,8 @@ impl PricingDatabase {
             "gpt-4-turbo".to_string(),
             Pricing {
                 model: "gpt-4-turbo".to_string(),
-                prompt_cost_per_1k: 0.01,        // $10 per 1M input tokens
-                completion_cost_per_1k: 0.03,    // $30 per 1M output tokens
+                prompt_cost_per_1k: 0.01,     // $10 per 1M input tokens
+                completion_cost_per_1k: 0.03, // $30 per 1M output tokens
             },
         );
 
@@ -93,8 +93,8 @@ impl PricingDatabase {
             "gpt-4".to_string(),
             Pricing {
                 model: "gpt-4".to_string(),
-                prompt_cost_per_1k: 0.03,        // $30 per 1M input tokens
-                completion_cost_per_1k: 0.06,    // $60 per 1M output tokens
+                prompt_cost_per_1k: 0.03,     // $30 per 1M input tokens
+                completion_cost_per_1k: 0.06, // $60 per 1M output tokens
             },
         );
 
@@ -103,8 +103,8 @@ impl PricingDatabase {
             "gpt-3.5-turbo".to_string(),
             Pricing {
                 model: "gpt-3.5-turbo".to_string(),
-                prompt_cost_per_1k: 0.0005,      // $0.50 per 1M input tokens
-                completion_cost_per_1k: 0.0015,  // $1.50 per 1M output tokens
+                prompt_cost_per_1k: 0.0005, // $0.50 per 1M input tokens
+                completion_cost_per_1k: 0.0015, // $1.50 per 1M output tokens
             },
         );
 
@@ -113,8 +113,8 @@ impl PricingDatabase {
             "o1-preview".to_string(),
             Pricing {
                 model: "o1-preview".to_string(),
-                prompt_cost_per_1k: 0.015,       // $15 per 1M input tokens
-                completion_cost_per_1k: 0.06,    // $60 per 1M output tokens
+                prompt_cost_per_1k: 0.015,    // $15 per 1M input tokens
+                completion_cost_per_1k: 0.06, // $60 per 1M output tokens
             },
         );
 
@@ -123,8 +123,8 @@ impl PricingDatabase {
             "o1-mini".to_string(),
             Pricing {
                 model: "o1-mini".to_string(),
-                prompt_cost_per_1k: 0.003,       // $3 per 1M input tokens
-                completion_cost_per_1k: 0.012,   // $12 per 1M output tokens
+                prompt_cost_per_1k: 0.003,     // $3 per 1M input tokens
+                completion_cost_per_1k: 0.012, // $12 per 1M output tokens
             },
         );
     }
@@ -137,8 +137,8 @@ impl PricingDatabase {
             "claude-sonnet-4.5".to_string(),
             Pricing {
                 model: "claude-sonnet-4.5".to_string(),
-                prompt_cost_per_1k: 0.003,       // $3 per 1M input tokens
-                completion_cost_per_1k: 0.015,   // $15 per 1M output tokens
+                prompt_cost_per_1k: 0.003,     // $3 per 1M input tokens
+                completion_cost_per_1k: 0.015, // $15 per 1M output tokens
             },
         );
 
@@ -147,8 +147,8 @@ impl PricingDatabase {
             "claude-3-5-sonnet-20241022".to_string(),
             Pricing {
                 model: "claude-3-5-sonnet-20241022".to_string(),
-                prompt_cost_per_1k: 0.003,       // $3 per 1M input tokens
-                completion_cost_per_1k: 0.015,   // $15 per 1M output tokens
+                prompt_cost_per_1k: 0.003,     // $3 per 1M input tokens
+                completion_cost_per_1k: 0.015, // $15 per 1M output tokens
             },
         );
 
@@ -157,8 +157,8 @@ impl PricingDatabase {
             "claude-3-5-haiku-20241022".to_string(),
             Pricing {
                 model: "claude-3-5-haiku-20241022".to_string(),
-                prompt_cost_per_1k: 0.001,       // $1 per 1M input tokens
-                completion_cost_per_1k: 0.005,   // $5 per 1M output tokens
+                prompt_cost_per_1k: 0.001,     // $1 per 1M input tokens
+                completion_cost_per_1k: 0.005, // $5 per 1M output tokens
             },
         );
 
@@ -167,8 +167,8 @@ impl PricingDatabase {
             "claude-3-opus-20240229".to_string(),
             Pricing {
                 model: "claude-3-opus-20240229".to_string(),
-                prompt_cost_per_1k: 0.015,       // $15 per 1M input tokens
-                completion_cost_per_1k: 0.075,   // $75 per 1M output tokens
+                prompt_cost_per_1k: 0.015,     // $15 per 1M input tokens
+                completion_cost_per_1k: 0.075, // $75 per 1M output tokens
             },
         );
 
@@ -177,8 +177,8 @@ impl PricingDatabase {
             "claude-3-sonnet-20240229".to_string(),
             Pricing {
                 model: "claude-3-sonnet-20240229".to_string(),
-                prompt_cost_per_1k: 0.003,       // $3 per 1M input tokens
-                completion_cost_per_1k: 0.015,   // $15 per 1M output tokens
+                prompt_cost_per_1k: 0.003,     // $3 per 1M input tokens
+                completion_cost_per_1k: 0.015, // $15 per 1M output tokens
             },
         );
 
@@ -187,7 +187,7 @@ impl PricingDatabase {
             "claude-3-haiku-20240307".to_string(),
             Pricing {
                 model: "claude-3-haiku-20240307".to_string(),
-                prompt_cost_per_1k: 0.00025,     // $0.25 per 1M input tokens
+                prompt_cost_per_1k: 0.00025, // $0.25 per 1M input tokens
                 completion_cost_per_1k: 0.00125, // $1.25 per 1M output tokens
             },
         );
@@ -201,8 +201,8 @@ impl PricingDatabase {
             "gemini-2.5-pro".to_string(),
             Pricing {
                 model: "gemini-2.5-pro".to_string(),
-                prompt_cost_per_1k: 0.00125,     // $1.25 per 1M input tokens
-                completion_cost_per_1k: 0.005,   // $5 per 1M output tokens
+                prompt_cost_per_1k: 0.00125, // $1.25 per 1M input tokens
+                completion_cost_per_1k: 0.005, // $5 per 1M output tokens
             },
         );
 
@@ -211,8 +211,8 @@ impl PricingDatabase {
             "gemini-2.5-flash".to_string(),
             Pricing {
                 model: "gemini-2.5-flash".to_string(),
-                prompt_cost_per_1k: 0.000075,    // $0.075 per 1M input tokens
-                completion_cost_per_1k: 0.0003,  // $0.30 per 1M output tokens
+                prompt_cost_per_1k: 0.000075, // $0.075 per 1M input tokens
+                completion_cost_per_1k: 0.0003, // $0.30 per 1M output tokens
             },
         );
 
@@ -221,8 +221,8 @@ impl PricingDatabase {
             "gemini-1.5-pro".to_string(),
             Pricing {
                 model: "gemini-1.5-pro".to_string(),
-                prompt_cost_per_1k: 0.00125,     // $1.25 per 1M input tokens
-                completion_cost_per_1k: 0.005,   // $5 per 1M output tokens
+                prompt_cost_per_1k: 0.00125, // $1.25 per 1M input tokens
+                completion_cost_per_1k: 0.005, // $5 per 1M output tokens
             },
         );
 
@@ -231,8 +231,8 @@ impl PricingDatabase {
             "gemini-1.5-flash".to_string(),
             Pricing {
                 model: "gemini-1.5-flash".to_string(),
-                prompt_cost_per_1k: 0.000075,    // $0.075 per 1M input tokens
-                completion_cost_per_1k: 0.0003,  // $0.30 per 1M output tokens
+                prompt_cost_per_1k: 0.000075, // $0.075 per 1M input tokens
+                completion_cost_per_1k: 0.0003, // $0.30 per 1M output tokens
             },
         );
     }
@@ -245,8 +245,8 @@ impl PricingDatabase {
             "mistral-large-latest".to_string(),
             Pricing {
                 model: "mistral-large-latest".to_string(),
-                prompt_cost_per_1k: 0.002,       // $2 per 1M input tokens
-                completion_cost_per_1k: 0.006,   // $6 per 1M output tokens
+                prompt_cost_per_1k: 0.002,     // $2 per 1M input tokens
+                completion_cost_per_1k: 0.006, // $6 per 1M output tokens
             },
         );
 
@@ -255,8 +255,8 @@ impl PricingDatabase {
             "mistral-small-latest".to_string(),
             Pricing {
                 model: "mistral-small-latest".to_string(),
-                prompt_cost_per_1k: 0.0002,      // $0.20 per 1M input tokens
-                completion_cost_per_1k: 0.0006,  // $0.60 per 1M output tokens
+                prompt_cost_per_1k: 0.0002, // $0.20 per 1M input tokens
+                completion_cost_per_1k: 0.0006, // $0.60 per 1M output tokens
             },
         );
 
@@ -265,7 +265,7 @@ impl PricingDatabase {
             "mistral-7b".to_string(),
             Pricing {
                 model: "mistral-7b".to_string(),
-                prompt_cost_per_1k: 0.0,         // Free (self-hosted)
+                prompt_cost_per_1k: 0.0, // Free (self-hosted)
                 completion_cost_per_1k: 0.0,
             },
         );
@@ -291,11 +291,7 @@ impl PricingEngine {
     ///
     /// # Returns
     /// Total cost in USD
-    pub fn calculate_cost(
-        model: &str,
-        prompt_tokens: u32,
-        completion_tokens: u32,
-    ) -> Result<f64> {
+    pub fn calculate_cost(model: &str, prompt_tokens: u32, completion_tokens: u32) -> Result<f64> {
         let pricing = PRICING_DB.get_pricing(model)?;
         Ok(pricing.calculate_cost(prompt_tokens, completion_tokens))
     }

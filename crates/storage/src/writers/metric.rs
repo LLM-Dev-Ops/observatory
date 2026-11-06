@@ -161,7 +161,7 @@ impl MetricWriter {
 
         let mut query_builder = sqlx::QueryBuilder::new(
             "INSERT INTO metrics (id, name, description, unit, metric_type, service_name, \
-             attributes, resource_attributes, created_at, updated_at) "
+             attributes, resource_attributes, created_at, updated_at) ",
         );
 
         query_builder.push_values(metrics, |mut b, metric| {
@@ -185,13 +185,10 @@ impl MetricWriter {
              metric_type = EXCLUDED.metric_type, \
              attributes = EXCLUDED.attributes, \
              resource_attributes = EXCLUDED.resource_attributes, \
-             updated_at = EXCLUDED.updated_at"
+             updated_at = EXCLUDED.updated_at",
         );
 
-        query_builder
-            .build()
-            .execute(self.pool.postgres())
-            .await?;
+        query_builder.build().execute(self.pool.postgres()).await?;
 
         let elapsed = start.elapsed();
         tracing::info!(
@@ -215,7 +212,7 @@ impl MetricWriter {
 
         let mut query_builder = sqlx::QueryBuilder::new(
             "INSERT INTO metric_data_points (id, metric_id, timestamp, value, count, sum, \
-             min, max, buckets, quantiles, exemplars, attributes, created_at) "
+             min, max, buckets, quantiles, exemplars, attributes, created_at) ",
         );
 
         query_builder.push_values(data_points, |mut b, dp| {
@@ -234,10 +231,7 @@ impl MetricWriter {
                 .push_bind(dp.created_at);
         });
 
-        query_builder
-            .build()
-            .execute(self.pool.postgres())
-            .await?;
+        query_builder.build().execute(self.pool.postgres()).await?;
 
         let elapsed = start.elapsed();
         tracing::info!(

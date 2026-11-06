@@ -224,7 +224,11 @@ async fn list_export_jobs(
     }
 
     sql.push_str(" ORDER BY created_at DESC");
-    sql.push_str(&format!(" LIMIT ${} OFFSET ${}", param_index, param_index + 1));
+    sql.push_str(&format!(
+        " LIMIT ${} OFFSET ${}",
+        param_index,
+        param_index + 1
+    ));
 
     let mut query_builder = sqlx::query_as::<_, ExportJobRow>(&sql).bind(&auth.organization_id);
 
@@ -237,7 +241,8 @@ async fn list_export_jobs(
     let jobs = query_builder.fetch_all(&state.db_pool).await?;
 
     // Convert to response format
-    let base_url = std::env::var("API_BASE_URL").unwrap_or_else(|_| "http://localhost:8080".to_string());
+    let base_url =
+        std::env::var("API_BASE_URL").unwrap_or_else(|_| "http://localhost:8080".to_string());
 
     let job_responses: Vec<ExportJob> = jobs
         .iter()
@@ -315,7 +320,8 @@ async fn get_export_job_status(
 
     let job_row = job_row.ok_or_else(|| ApiError::NotFound("Export job not found".to_string()))?;
 
-    let base_url = std::env::var("API_BASE_URL").unwrap_or_else(|_| "http://localhost:8080".to_string());
+    let base_url =
+        std::env::var("API_BASE_URL").unwrap_or_else(|_| "http://localhost:8080".to_string());
     let job = job_row.to_export_job(&base_url);
 
     // Build metadata
@@ -448,9 +454,9 @@ async fn download_export(
     }
 
     // Get file path
-    let file_path = job_row.file_path.ok_or_else(|| {
-        ApiError::Internal("Export file path not available".to_string())
-    })?;
+    let file_path = job_row
+        .file_path
+        .ok_or_else(|| ApiError::Internal("Export file path not available".to_string()))?;
 
     // In a real implementation, this would:
     // 1. Read the file from storage (S3, local filesystem, etc.)
@@ -477,10 +483,7 @@ async fn download_export(
 
 /// Process an export job (would be called by background worker)
 #[allow(dead_code)]
-async fn process_export_job(
-    pool: &PgPool,
-    job_id: Uuid,
-) -> Result<(), Box<dyn std::error::Error>> {
+async fn process_export_job(pool: &PgPool, job_id: Uuid) -> Result<(), Box<dyn std::error::Error>> {
     // Update status to processing
     sqlx::query(
         r#"

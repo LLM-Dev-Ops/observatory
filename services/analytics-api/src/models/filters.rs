@@ -7,7 +7,6 @@
 ///! - Full-text search support
 ///! - SQL injection prevention
 ///! - Filter validation
-
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::fmt;
@@ -92,7 +91,10 @@ impl FilterValue {
             FilterValue::Bool(b) => b.to_string(),
             FilterValue::DateTime(dt) => format!("'{}'", dt.to_rfc3339()),
             FilterValue::Array(arr) => {
-                let values: Vec<String> = arr.iter().map(|s| format!("'{}'", s.replace('\'', "''"))).collect();
+                let values: Vec<String> = arr
+                    .iter()
+                    .map(|s| format!("'{}'", s.replace('\'', "''")))
+                    .collect();
                 format!("({})", values.join(", "))
             }
             FilterValue::IntArray(arr) => {
@@ -111,13 +113,24 @@ impl FilterValue {
     pub fn is_valid_for_operator(&self, operator: &FilterOperator) -> bool {
         match operator {
             FilterOperator::In | FilterOperator::NotIn => {
-                matches!(self, FilterValue::Array(_) | FilterValue::IntArray(_) | FilterValue::FloatArray(_))
+                matches!(
+                    self,
+                    FilterValue::Array(_) | FilterValue::IntArray(_) | FilterValue::FloatArray(_)
+                )
             }
-            FilterOperator::Contains | FilterOperator::NotContains | FilterOperator::StartsWith | FilterOperator::EndsWith | FilterOperator::Regex | FilterOperator::Search => {
+            FilterOperator::Contains
+            | FilterOperator::NotContains
+            | FilterOperator::StartsWith
+            | FilterOperator::EndsWith
+            | FilterOperator::Regex
+            | FilterOperator::Search => {
                 matches!(self, FilterValue::String(_))
             }
             FilterOperator::Gt | FilterOperator::Gte | FilterOperator::Lt | FilterOperator::Lte => {
-                matches!(self, FilterValue::Int(_) | FilterValue::Float(_) | FilterValue::DateTime(_))
+                matches!(
+                    self,
+                    FilterValue::Int(_) | FilterValue::Float(_) | FilterValue::DateTime(_)
+                )
             }
             FilterOperator::Eq | FilterOperator::Ne => true,
         }
@@ -158,8 +171,7 @@ impl FieldFilter {
     fn is_valid_field_name(&self, field: &str) -> bool {
         matches!(
             field,
-            "ts"
-                | "trace_id"
+            "ts" | "trace_id"
                 | "span_id"
                 | "parent_span_id"
                 | "project_id"
@@ -306,7 +318,10 @@ impl FieldFilter {
 
                     // Use plainto_tsquery for simple query parsing (handles multi-word queries)
                     // The GIN index on the tsvector column makes this very fast
-                    format!("{} @@ plainto_tsquery('english', ${})", search_column, param_index)
+                    format!(
+                        "{} @@ plainto_tsquery('english', ${})",
+                        search_column, param_index
+                    )
                 } else {
                     return Err("SEARCH operator requires string value".to_string());
                 }
@@ -424,7 +439,10 @@ impl AdvancedSearchRequest {
     pub fn validate(&self) -> Result<(), String> {
         // Validate limit
         if self.limit < 1 || self.limit > 1000 {
-            return Err(format!("Limit must be between 1 and 1000, got {}", self.limit));
+            return Err(format!(
+                "Limit must be between 1 and 1000, got {}",
+                self.limit
+            ));
         }
 
         // Validate filter if present
@@ -461,8 +479,7 @@ impl AdvancedSearchRequest {
     fn is_valid_field_name(&self, field: &str) -> bool {
         matches!(
             field,
-            "ts"
-                | "trace_id"
+            "ts" | "trace_id"
                 | "span_id"
                 | "provider"
                 | "model"

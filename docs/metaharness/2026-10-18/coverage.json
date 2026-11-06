@@ -1,0 +1,2428 @@
+[
+  {
+    "repo": "LLM-Dev-Ops/agentics-cli",
+    "main": "a6fa67a40fe3d08d51ff2c66d0f96e43a89ff9a6",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "f823f66d8b639c414aa7a170f988718c92d6fa21"
+      },
+      {
+        "path": "README.md",
+        "sha": "05a9028ffede5f96a067b2ea86557f2995ad0225"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "ba06ef81dbae649f52e9636522f19c1d609ea6df"
+      },
+      {
+        "path": "package.json",
+        "sha": "23a2787213ac85552c348250e39ea26065e2d91a"
+      }
+    ],
+    "ci": {
+      "id": 28767269473,
+      "sha": "a6fa67a40fe3d08d51ff2c66d0f96e43a89ff9a6",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/agentics-cli/actions/runs/28767269473"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-cli-test",
+    "main": "fb73fe95db97bd35cfe378291004f09f2929675d",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "58fb969e72d167ecf11d4cdd889ec026fad8c187"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "bbfd859234f2bb89250c35ce32acd8fa54dad882"
+      },
+      {
+        "path": "package.json",
+        "sha": "99a67f6068678f23b662baa2e14f3126b93e68e3"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-contracts",
+    "main": "716a33348721f78a7a14bd98e6717e3b40470730",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "104c24eecfc2b83dcf21c44922c2c57f818b3169"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "c4b8c0f3e92d0dd5602c4cc99ef4186cab980f8f"
+      },
+      {
+        "path": "package.json",
+        "sha": "ac77c588a0c8c0351d9a0e4f3854f0947b9a6df8"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-deployment-exporters",
+    "main": "ea60a265f6fb9a89e0b2012ed7d0441cb6637168",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "0bced0e00e8abc6db5d71f6c3ba0a211717db120"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "b28ad4616dd43932c614f2c1ed0acebdd4a75ac0"
+      },
+      {
+        "path": "package.json",
+        "sha": "e0e1a207d1a65c0ea2f3fb667f65eb2d5ad725fa"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-deployment-intent",
+    "main": "95111d9f55c7aba9c392b2eab08540b3a67e1d51",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "fac19ae42bd9a7fb46d9c13248d0568ad43c109f"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "ec41f4073badc233b287b5422a0da0b5db19f9b9"
+      },
+      {
+        "path": "package.json",
+        "sha": "c176d0b16791b73ea33b6cb7be1b312b98b79914"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-diligence-artifacts",
+    "main": "131b0aaa8d316655d7d860bc9ffa38fea4767447",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "9b5243291496c883eac257612765ebfc459a1847"
+      },
+      {
+        "path": "README.md",
+        "sha": "d0c5b7944be671ffc3fa14515dfa092c45e44bbd"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "eefed396cb7796c47055fa23cf9104c13b0fe161"
+      },
+      {
+        "path": "package.json",
+        "sha": "cc6766a467635b12b73e51443211078d1f66a053"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-dream-machine",
+    "main": "2fba2550182d81b36423447221823e98e227482a",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "db0a6f0064eda5b85719198609c37cf4bb7292c2"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "629909e9cb1dd26e2fd196c710cf7458cb6c4c88"
+      },
+      {
+        "path": "package.json",
+        "sha": "eb48c81d080d161bdb61b8fd99f35ae785eaa7c0"
+      }
+    ],
+    "ci": {
+      "id": 39114634947,
+      "sha": "8e116361aeb3079bb9c55d6d4d6855a5c5891bad",
+      "branch": "dream/2026-10-18-security-adversarial",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/actions/runs/39114634947"
+    },
+    "openPRs": [
+      {
+        "number": 83,
+        "title": "fix(ci): close automerge guard protected-path bypasses (nested manifests, alt lockfiles, case-sensitive keywords)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/83",
+        "updated": "2026-10-18T09:18:05Z"
+      },
+      {
+        "number": 81,
+        "title": "dream-cycle 2026-10-17: darwin stale-run-id collision classifier (evaluation-adapters)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/81",
+        "updated": "2026-10-17T09:27:55Z"
+      },
+      {
+        "number": 79,
+        "title": "dream-cycle 2026-10-16: conflictRisks() — real git-merge conflicts confirmed between PR #12/#16/#58 (ledger-signals)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/79",
+        "updated": "2026-10-16T09:28:36Z"
+      },
+      {
+        "number": 76,
+        "title": "dream-cycle 2026-10-15: compiler-parity confirmed clean; darwin-arg duplicate of #18 withheld (docs/ledger only)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/76",
+        "updated": "2026-10-15T10:18:25Z"
+      },
+      {
+        "number": 75,
+        "title": "dream-cycle 2026-10-14: verdictColor --no-color bug independently rediscovered, duplicate of open PR #65 (developer-experience)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/75",
+        "updated": "2026-10-14T09:25:01Z"
+      },
+      {
+        "number": 73,
+        "title": "dream-cycle 2026-10-13: non-breaking npm audit fix, 21→7 advisories (security-adversarial)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/73",
+        "updated": "2026-10-13T09:21:28Z"
+      },
+      {
+        "number": 71,
+        "title": "dream-cycle 2026-10-12: evaluation-adapters reconfirmed, no new candidate (69 open PRs)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/71",
+        "updated": "2026-10-12T09:24:13Z"
+      },
+      {
+        "number": 69,
+        "title": "dream-cycle 2026-10-11: automerge guard re-fires on ready_for_review (ledger-signals)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/69",
+        "updated": "2026-10-11T09:25:53Z"
+      },
+      {
+        "number": 67,
+        "title": "dream-cycle 2026-10-10: compiler-parity reconfirmed, 29-PR backlog audit (no new candidate — duplicate of #14)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/67",
+        "updated": "2026-10-10T18:21:02Z"
+      },
+      {
+        "number": 65,
+        "title": "dream-cycle 2026-10-09: consolidate #39+#49+#55, fix #49/#55 merge conflict (developer-experience)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/65",
+        "updated": "2026-10-09T09:22:11Z"
+      },
+      {
+        "number": 63,
+        "title": "dream-cycle 2026-10-08: pin darwin evaluatorEntrypoints (security-adversarial, 6th night, 1st fix)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/63",
+        "updated": "2026-10-08T09:22:19Z"
+      },
+      {
+        "number": 61,
+        "title": "dream-cycle 2026-10-07: evaluation-adapters reconfirmed, no new candidate (26 open PRs)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/61",
+        "updated": "2026-10-07T09:24:20Z"
+      },
+      {
+        "number": 58,
+        "title": "dream-cycle 2026-10-06: backlogSaturated learning signal (ledger-signals)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/58",
+        "updated": "2026-10-06T09:27:47Z"
+      },
+      {
+        "number": 57,
+        "title": "dream-cycle 2026-10-05: golden-snapshot coverage for CLI machine-readable outputs (compiler-parity)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/57",
+        "updated": "2026-10-05T09:23:35Z"
+      },
+      {
+        "number": 55,
+        "title": "dream-cycle 2026-10-04: tui honors NO_COLOR env var (developer-experience)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/55",
+        "updated": "2026-10-04T09:21:39Z"
+      },
+      {
+        "number": 53,
+        "title": "dream-cycle 2026-10-01: ledger-signals rotated to evaluation-adapters, backlog reconfirmed (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/53",
+        "updated": "2026-10-01T09:17:57Z"
+      },
+      {
+        "number": 51,
+        "title": "dream-cycle 2026-09-30: dream.config.json JSON Schema (compiler-parity, closes PR #14's deferred gap)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/51",
+        "updated": "2026-09-30T09:25:28Z"
+      },
+      {
+        "number": 49,
+        "title": "dream-cycle 2026-09-29: --no-color flag ignores =true/space-value forms (developer-experience)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/49",
+        "updated": "2026-09-29T09:16:33Z"
+      },
+      {
+        "number": 47,
+        "title": "dream-cycle 2026-09-28: security-adversarial reconfirmed, backlog crisis escalated (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/47",
+        "updated": "2026-09-28T09:15:13Z"
+      },
+      {
+        "number": 45,
+        "title": "dream-cycle 2026-09-27: extract entrypointExitCode shared helper (evaluation-adapters)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/45",
+        "updated": "2026-09-27T09:21:01Z"
+      },
+      {
+        "number": 43,
+        "title": "dream-cycle 2026-09-26: ledger-signals backlog reconfirmed (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/43",
+        "updated": "2026-09-26T09:35:45Z"
+      },
+      {
+        "number": 41,
+        "title": "dream-cycle 2026-09-25: compiler-parity re-confirmed 4th time, rotated to ledger-signals backlog audit (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/41",
+        "updated": "2026-09-25T09:20:15Z"
+      },
+      {
+        "number": 39,
+        "title": "dream-cycle 2026-09-24: verdictColor honors --no-color (developer-experience)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/39",
+        "updated": "2026-09-24T09:18:16Z"
+      },
+      {
+        "number": 37,
+        "title": "dream-cycle 2026-09-23: compiler stops claiming auto-merge ENABLED when structurally unreachable (developer-experience)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/37",
+        "updated": "2026-09-23T09:19:45Z"
+      },
+      {
+        "number": 35,
+        "title": "dream-cycle 2026-09-22: detect darwin entrypoint non-idempotency (evaluation-adapters)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/35",
+        "updated": "2026-09-22T09:22:25Z"
+      },
+      {
+        "number": 33,
+        "title": "dream-cycle 2026-09-21 (ledger-signals): quarantine contaminated ledger rows + CI gate",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/33",
+        "updated": "2026-09-21T09:26:38Z"
+      },
+      {
+        "number": 31,
+        "title": "dream-cycle 2026-09-20: compiler-parity re-confirmed 3rd time, PR #14 CI-status finding (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/31",
+        "updated": "2026-09-20T09:19:15Z"
+      },
+      {
+        "number": 30,
+        "title": "dream-cycle 2026-09-19: reconcile LEDGER.md + witness self-reference bug (6/10 nights)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/30",
+        "updated": "2026-09-19T09:29:15Z"
+      },
+      {
+        "number": 28,
+        "title": "dream-cycle 2026-09-18: security-adversarial — CodeQL 0/30 runs ever green",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/28",
+        "updated": "2026-09-18T09:21:49Z"
+      },
+      {
+        "number": 26,
+        "title": "dream-cycle 2026-09-17: instruct classifying evaluator-entrypoint liveness in compiled STEP 5-9",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/26",
+        "updated": "2026-09-17T09:18:33Z"
+      },
+      {
+        "number": 24,
+        "title": "dream-cycle 2026-09-16: ledger-signals backlog escalation (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/24",
+        "updated": "2026-09-16T09:17:25Z"
+      },
+      {
+        "number": 23,
+        "title": "dream-cycle 2026-09-15: compiler-parity re-confirmed, backlog escalation (no new candidate)",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/23",
+        "updated": "2026-09-19T12:51:29Z"
+      },
+      {
+        "number": 22,
+        "title": "dream-cycle 2026-09-14: validate ledger append rows before writing",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/22",
+        "updated": "2026-09-14T09:18:48Z"
+      },
+      {
+        "number": 20,
+        "title": "dream-cycle 2026-09-13: static supply-chain pin check for unpinned npx evaluatorEntrypoints",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/20",
+        "updated": "2026-09-13T09:25:54Z"
+      },
+      {
+        "number": 18,
+        "title": "dream-cycle 2026-09-12: fix darwin/flywheel evaluatorEntrypoints + ADR-0003",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/18",
+        "updated": "2026-10-15T09:20:43Z"
+      },
+      {
+        "number": 16,
+        "title": "dream-cycle 2026-09-11: add nightsSinceLastRow ledger-staleness signal",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/16",
+        "updated": "2026-09-11T09:27:18Z"
+      },
+      {
+        "number": 14,
+        "title": "dream-cycle 2026-09-10: self-referential compiler-parity golden snapshot",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/14",
+        "updated": "2026-09-10T09:18:30Z"
+      },
+      {
+        "number": 12,
+        "title": "dream-cycle 2026-09-09: fix zeroMergeStreak false-positive in learningSignals",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/12",
+        "updated": "2026-09-09T09:23:41Z"
+      },
+      {
+        "number": 6,
+        "title": "chore(deps): bump actions/checkout from 4 to 7",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/6",
+        "updated": "2026-09-03T20:38:18Z"
+      },
+      {
+        "number": 5,
+        "title": "chore(deps): bump actions/setup-node from 4 to 7",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/5",
+        "updated": "2026-09-03T20:38:14Z"
+      },
+      {
+        "number": 4,
+        "title": "chore(deps): bump actions/configure-pages from 5 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/4",
+        "updated": "2026-09-03T20:38:07Z"
+      },
+      {
+        "number": 3,
+        "title": "chore(deps): bump actions/upload-pages-artifact from 3 to 5",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/3",
+        "updated": "2026-09-03T20:38:04Z"
+      },
+      {
+        "number": 2,
+        "title": "chore(deps): bump github/codeql-action from 3 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/2",
+        "updated": "2026-09-03T20:38:00Z"
+      },
+      {
+        "number": 1,
+        "title": "chore(deps-dev): bump the dev-dependencies group across 1 directory with 7 updates",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-dream-machine/pull/1",
+        "updated": "2026-10-15T18:15:38Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-enforcement",
+    "main": "45277702166465be82fe2fa255aaa0dec0893994",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "fde0c1c8728c274579cfb52e3b5ab4bff01abfa2"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "eb2c351ddbfb63484a8caa7059e428bf0c7f19f2"
+      },
+      {
+        "path": "package.json",
+        "sha": "0e3feebf39da21f657a96d134460d83ab817d72d"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-evolution",
+    "main": "855c0b2e9a53ade5ab2f06d4185b7c3c8fff0369",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "AGENTS.md",
+        "sha": "75347e9a650afaf95429c808473feb4529b4d157"
+      },
+      {
+        "path": "README.md",
+        "sha": "5a3b42722b0684c01f6318f7f832e5ca70a32120"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "e358d265bc18545f948b0332a8c134aba24a5ed5"
+      },
+      {
+        "path": "package.json",
+        "sha": "4c4e096e25a9043e9c3f3b4775bd53df417f659a"
+      }
+    ],
+    "ci": {
+      "id": 31585157853,
+      "sha": "e1d5f3236b4c938e1febb9cdd8ab0c2d4b1655d0",
+      "branch": "prompt/06-private-ruvector-brain",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/agentics-evolution/actions/runs/31585157853"
+    },
+    "openPRs": [
+      {
+        "number": 27,
+        "title": "Prompt 06: deploy private RuVector Brain development substrate",
+        "url": "https://github.com/LLM-Dev-Ops/agentics-evolution/pull/27",
+        "updated": "2026-08-12T09:56:03Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-execution-engine",
+    "main": "accaf090c78cb0dfe439c771b2ecba868cdfbeac",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "27c6e8f7141d7f56ad9ea40a6f8a9780bda61549"
+      },
+      {
+        "path": "README.md",
+        "sha": "2d19cf471dbdd7bd4314be5da863ba8f4f244e46"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "59a95ed81f2c2d1f1f4f94e439437bd05454bc42"
+      },
+      {
+        "path": "package.json",
+        "sha": "75a4fa0b809d8418a6f25f86f18a34276dbb0251"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-orchestration-engine",
+    "main": "a365c1a6f954041aefef67678fc3fe1b0b4eba7d",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "114680f38c303712bd4113eed2c10d974e374fbc"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "1231f5898b680514422dca2fd520744e4995f837"
+      },
+      {
+        "path": "package.json",
+        "sha": "0840c78ebd4c8ec12130851d115a59e01f637195"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-org-manifests",
+    "main": "a52b61eea0e6b60883e436c982abc55bb9030edd",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "f6954400a75cf35abffce7364a2329c3614e3ec9"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "a415254527b65dad96534052d445f2205c3b314a"
+      },
+      {
+        "path": "package.json",
+        "sha": "1cb9a91d682a619e205b37a82630a447e47d0d66"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-platform",
+    "main": "9b3fa8d3faeda67230e953355eee1ab87112fcaf",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "cd07d15b812a2cb77b20782f9cf0dc7849ab4757"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "83233fb8789d44ef73613d0a8be16db500f2e129"
+      },
+      {
+        "path": "package.json",
+        "sha": "edd200ccb4021207663a2475e156c18536f7fb98"
+      }
+    ],
+    "ci": {
+      "id": 30359780578,
+      "sha": "9b3fa8d3faeda67230e953355eee1ab87112fcaf",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/agentics-platform/actions/runs/30359780578"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-results-index",
+    "main": "876cd8cf38eb9e5687c92b73e8d3b8ac7e34e57c",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "e13a73de1f33496d02b79785fb3b0e03c97bd57b"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "20229298977865e3a3412aacf326ec7233dc1648"
+      },
+      {
+        "path": "package.json",
+        "sha": "378f5583b371a1909be30846bfc7f5cf2aa2418b"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-simulation-planner",
+    "main": "144a6c41b8532cfc0ae8bffe7e2f1676cb5068fe",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "4146ec0097774e2017bce97f4cad0388a009ab24"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "d0250c2e12db52d7a1bd010524a253a8a8dd3475"
+      },
+      {
+        "path": "package.json",
+        "sha": "d48b23e726c3c8257d7b44c4dba1f221bd9070a4"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-simulation-runner",
+    "main": "ead6a0f0b2f0af389c1cae6dc7b001ecfe7a90f8",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "aa03f1f63d64ccbe746d15f65e30220707bbcc11"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "d915877779d6ddf1cc73dfde0dc7d04bc5cbfec5"
+      },
+      {
+        "path": "package.json",
+        "sha": "3c4c2770e2e86696b672482d306f1d39794ce6bf"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/agentics-usage-ledger",
+    "main": "dbd63a6ae35a45f889170fc2ca3e611907506c45",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "ba51603203d1b35a815982b6ebeb07df78a442f9"
+      },
+      {
+        "path": "README.md",
+        "sha": "d1beaf774d0ebb57ea4286b9c1f549778562924e"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "32967cbb2103dae6badcd162b236d84efd7e538e"
+      },
+      {
+        "path": "package.json",
+        "sha": "5e76a3cc9e2f0ad4e86491b2522f485585b85dd5"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/analytics-hub",
+    "main": "88f4ffa94afd4a14ec94c9b4b3dc723badc7fac1",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "354f36e29b5b07dcd2a7f383d7754b48af0256e6"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "e2d0f8ce62e934210b43132bbd9a9621197508a4"
+      },
+      {
+        "path": "README.md",
+        "sha": "68d5609278d58ae45224dc296fc6f8efc0ff0dac"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "79d68d91026e4dad4e4080f3f97380402d81775c"
+      },
+      {
+        "path": "package.json",
+        "sha": "004c721bbf44ea58b644588e2bf9ce2927b2be34"
+      }
+    ],
+    "ci": {
+      "id": 38188081580,
+      "sha": "0021e2d7504db3046128bc2e6144983194f802fa",
+      "branch": "metaharness/analytics-auth-hardening-2026-10-11",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/analytics-hub/actions/runs/38188081580"
+    },
+    "openPRs": [
+      {
+        "number": 2,
+        "title": "Harden API authentication and restore tests",
+        "url": "https://github.com/LLM-Dev-Ops/analytics-hub/pull/2",
+        "updated": "2026-10-12T00:27:39Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/auto-optimizer",
+    "main": "114865b4c3beb78b9fbeacbfc19ef93ab4501f97",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "c6bee5824c75d64d8a0609bb6b046dec00a3b815"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "7e10afc48dd2b7fe9af64b95d2d29a8c478ec835"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "4cc8559dcccbfeb62397e4698856a01d19c22f89"
+      },
+      {
+        "path": "README.md",
+        "sha": "14b3983bed5a3c90103d79a898e24333d0867f83"
+      },
+      {
+        "path": "package.json",
+        "sha": "35a0c22264fe8142b9b46b34d0a14f7545a48ae6"
+      }
+    ],
+    "ci": {
+      "id": 39032697977,
+      "sha": "e544ac4cb47f1cc9db15c76002c66f00f04f9b53",
+      "branch": "metaharness/auto-optimizer-webhook-security-20261014",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/auto-optimizer/actions/runs/39032697977"
+    },
+    "openPRs": [
+      {
+        "number": 3,
+        "title": "fix(integrations): secure webhooks and bound GitHub HTTP requests",
+        "url": "https://github.com/LLM-Dev-Ops/auto-optimizer/pull/3",
+        "updated": "2026-10-17T12:31:47Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/automation-core",
+    "main": "7833fc66f12a4233e73db81dc060e1482a4ea771",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "7ad99028c057ebfab5d5048536a6cf26f814cca0"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "b9e56a148399f13a42761014daba5785d9dfcaf4"
+      },
+      {
+        "path": "package.json",
+        "sha": "e11b342b0ff705d8712707cb17dff5369e34e5a4"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/benchmark-exchange",
+    "main": "09236748843306e9cc5f33cd91b0c9182c7b18e1",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.toml",
+        "sha": "37cbf10f8d2c31cb87618ca78f0298d8c51508aa"
+      },
+      {
+        "path": "README.md",
+        "sha": "6d72d1da56681fd1c4be042dd28aa923f2300b56"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "32fc1e6273447e2d7e8db180d1959cff80cc574b"
+      },
+      {
+        "path": "package.json",
+        "sha": "4f7ed9dcde7b4afd1310751c1673c582e1976880"
+      }
+    ],
+    "ci": {
+      "id": 30302631143,
+      "sha": "09236748843306e9cc5f33cd91b0c9182c7b18e1",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/benchmark-exchange/actions/runs/30302631143"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/config-manager",
+    "main": "02b463c3cbf088183f14b2ec951389f797863ac7",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.toml",
+        "sha": "480de0d469cb4d1d7935e6d4f0f82ee1a9c248f7"
+      },
+      {
+        "path": "README.md",
+        "sha": "e2f905d192287b64d858b765189b50a3ab36142c"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "c7de3fc761b9bed180795bfbc6eabf62cc0fc7a8"
+      },
+      {
+        "path": "package.json",
+        "sha": "c20ec90fd4f96b139d56846e9c435ccd0d383e03"
+      }
+    ],
+    "ci": {
+      "id": 39034597763,
+      "sha": "2d4649c8defecc32442252672950b1729a2c46a7",
+      "branch": "metaharness/config-manager-2026-10-15",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/config-manager/actions/runs/39034597763"
+    },
+    "openPRs": [
+      {
+        "number": 2,
+        "title": "fix: enforce config request policies and restore real Rust security validation",
+        "url": "https://github.com/LLM-Dev-Ops/config-manager/pull/2",
+        "updated": "2026-10-17T12:59:00Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/connector-hub",
+    "main": "b25fcb3bd9a06ae9e7d73c7acd677607123d081d",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "5d4b662ab52479ea0d388ddffadbaa45ba033069"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "0634e7da35f83160a2884d88d3f773e035473d24"
+      },
+      {
+        "path": "README.md",
+        "sha": "3bd32e3ffb93104bda2997509396f2d04a47d0a2"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "4d7b2ed6f95d1ed67e366368bfe7bf941e9ceb52"
+      },
+      {
+        "path": "package.json",
+        "sha": "921e297bece1fca026ca4312332c5cd2b2a76b10"
+      }
+    ],
+    "ci": {
+      "id": 30302596307,
+      "sha": "b25fcb3bd9a06ae9e7d73c7acd677607123d081d",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/connector-hub/actions/runs/30302596307"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/copilot-agent",
+    "main": "756402a87e39419efa90a2accfe34b46083af945",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.toml",
+        "sha": "049ef1517ce1c3aa610b3310013a88bdaf7446e8"
+      },
+      {
+        "path": "README.md",
+        "sha": "d4a9a89c6b5e7a68ebca99520c949d64d1a086ca"
+      },
+      {
+        "path": "package.json",
+        "sha": "8bfa146265c055ebf43e3824d624a329ceb5408e"
+      }
+    ],
+    "ci": {
+      "id": 30302673145,
+      "sha": "756402a87e39419efa90a2accfe34b46083af945",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/copilot-agent/actions/runs/30302673145"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/cost-ops",
+    "main": "aef76ae9c264b888abc60aace3dd6948f2422906",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "3f4e1c20831b404da7b55a24026032d4c85b8605"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "07bd0221a27abca308ef65f644b715fc38e728e8"
+      },
+      {
+        "path": "README.md",
+        "sha": "e67aff9735c0f60e159ee7defcba12ddcab91e6a"
+      },
+      {
+        "path": "package.json",
+        "sha": "7f01a7a4b96bfc83ff6f52341069b5d7ddcc6cf9"
+      }
+    ],
+    "ci": {
+      "id": 39152465160,
+      "sha": "aef76ae9c264b888abc60aace3dd6948f2422906",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/cost-ops/actions/runs/39152465160"
+    },
+    "openPRs": [
+      {
+        "number": 100,
+        "title": "ci(deps)(deps): Bump madrapps/jacoco-report from 1.3 to 1.8",
+        "url": "https://github.com/LLM-Dev-Ops/cost-ops/pull/100",
+        "updated": "2026-10-05T16:27:28Z"
+      },
+      {
+        "number": 99,
+        "title": "ci(deps)(deps): Bump nwtgck/actions-netlify from 3.0 to 4.0",
+        "url": "https://github.com/LLM-Dev-Ops/cost-ops/pull/99",
+        "updated": "2026-10-05T16:25:41Z"
+      },
+      {
+        "number": 98,
+        "title": "ci(deps)(deps): Bump actions/labeler from 5 to 7",
+        "url": "https://github.com/LLM-Dev-Ops/cost-ops/pull/98",
+        "updated": "2026-10-05T16:25:19Z"
+      },
+      {
+        "number": 97,
+        "title": "ci(deps)(deps): Bump peter-evans/create-pull-request from 5 to 8",
+        "url": "https://github.com/LLM-Dev-Ops/cost-ops/pull/97",
+        "updated": "2026-10-05T16:25:04Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/data-core",
+    "main": "d8a4d82b3918f2cf8aaf5fe003b5c351f184a9a9",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "cb8c85770124798fc5a274a53b73c6d6d7ff60ed"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "ee5f583161ea6345dc06a35935b1bddd188173df"
+      },
+      {
+        "path": "package.json",
+        "sha": "f12aaf81c69ad33f7a2d05d931c7b10bc99cb51f"
+      }
+    ],
+    "ci": {
+      "id": 38734205492,
+      "sha": "d8a4d82b3918f2cf8aaf5fe003b5c351f184a9a9",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/data-core/actions/runs/38734205492"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/data-vault",
+    "main": "01c0240871f03f0cbc0f497bff47360940bcb637",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "498ece87acce7becbf8c5a0c7d23fa7d290839f4"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "106bb187689917cf64380674ab6d8d65dc71284f"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "014c9c1793959f84f201ed56e10d465b86f76d5e"
+      },
+      {
+        "path": "README.md",
+        "sha": "77761c51cb93786873d9422d5c700fb754f768d3"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "f27fa1ece4b573a55b17024daf78873670ae80fa"
+      },
+      {
+        "path": "package.json",
+        "sha": "911d90579b247dafab4c3afa76e84ae08d6e5fcc"
+      }
+    ],
+    "ci": {
+      "id": 30302592934,
+      "sha": "01c0240871f03f0cbc0f497bff47360940bcb637",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/data-vault/actions/runs/30302592934"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/ecosystem-core",
+    "main": "af3c7e8999c7b8d8891995994a0bd0958c445099",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "c069616b871d8cc15f2e2d8b75199e645ac29298"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "16735d909a8d89373bc15a8c409edec5c22a1f1e"
+      },
+      {
+        "path": "package.json",
+        "sha": "ed44764cf79c0c623de6fd2edef6253997af28ff"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/edge-agent",
+    "main": "483c8a353855d8d54a1b1dee181f12376b5f592a",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "e3a57a458ce307079a0c747830264332d291505f"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "e69eb7e1d691a4241823bb3ee665aae19d62783a"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "60a5e43ebc1399e99835e90d704db5d77c8b322c"
+      },
+      {
+        "path": "README.md",
+        "sha": "4fb337cce01792ddac7146926682fdfe6e6079d6"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "07706641768bf999f5a817818d4f07a7cf56180b"
+      },
+      {
+        "path": "package.json",
+        "sha": "19f55612c47872ef32642b2c27b04a313508ec40"
+      }
+    ],
+    "ci": {
+      "id": 38562684113,
+      "sha": "11da64cb7e409beac9b3c3647767715d6f0b7101",
+      "branch": "metaharness/edge-agent-cors-security-20261014",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/edge-agent/actions/runs/38562684113"
+    },
+    "openPRs": [
+      {
+        "number": 1,
+        "title": "fix(security): enforce edge origin policy",
+        "url": "https://github.com/LLM-Dev-Ops/edge-agent/pull/1",
+        "updated": "2026-10-14T12:21:58Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/enterprise-roi-engine",
+    "main": "1f4d33cc057740f9f96e75e6c11b0dfd44cd35e7",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "b0aa49163e0ab30a813a5c909a81a64b6bca7b3d"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "d11d096f56aa899a762c7c9dd90de4275fcc8c71"
+      },
+      {
+        "path": "package.json",
+        "sha": "d1eaf10197cf6923ef8e250636b7affa2a16d6e2"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/erp-surface",
+    "main": "188099d51ff1f1d4af944401d5fef18666317643",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "523aeebef5ba7ca94c8f5de8b0f34a9d5f5d8119"
+      },
+      {
+        "path": "README.md",
+        "sha": "74f089a3bdee3b809513f20148cc16245a3580fd"
+      },
+      {
+        "path": "package.json",
+        "sha": "dcf1e178c555835d7cf47063c3652ef6d2f6ebbb"
+      }
+    ],
+    "ci": {
+      "id": 22001663894,
+      "sha": "188099d51ff1f1d4af944401d5fef18666317643",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/erp-surface/actions/runs/22001663894"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/forge",
+    "main": "4b5e43618b8fd1b8f63bddd24ff524510d9514bc",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "498ece87acce7becbf8c5a0c7d23fa7d290839f4"
+      },
+      {
+        "path": "README.md",
+        "sha": "d06972d7b892ac0ba7e6da8cb5c0003af2e3a146"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "a87beb7d05f22bef89e6e0197036ebef59c02965"
+      },
+      {
+        "path": "package.json",
+        "sha": "e10b8e5dea4e53fe841b95d7221a614cd662e306"
+      }
+    ],
+    "ci": {
+      "id": 39092600263,
+      "sha": "4b5e43618b8fd1b8f63bddd24ff524510d9514bc",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/forge/actions/runs/39092600263"
+    },
+    "openPRs": [
+      {
+        "number": 103,
+        "title": "fix: restore Forge validation and classify invalid CLI JSON",
+        "url": "https://github.com/LLM-Dev-Ops/forge/pull/103",
+        "updated": "2026-10-18T00:11:13Z"
+      },
+      {
+        "number": 102,
+        "title": "chore(deps)(deps): bump the production-dependencies group across 1 directory with 88 updates",
+        "url": "https://github.com/LLM-Dev-Ops/forge/pull/102",
+        "updated": "2026-10-13T02:18:56Z"
+      },
+      {
+        "number": 101,
+        "title": "chore(deps)(deps-dev): bump the development-dependencies group across 1 directory with 35 updates",
+        "url": "https://github.com/LLM-Dev-Ops/forge/pull/101",
+        "updated": "2026-10-13T02:13:43Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/governance-core",
+    "main": "a537d4a6cfe5081667415192cfb30b91c37a9e56",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "827ac21774db399c5db5b289e3588f85e765da2e"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "88cb510237435257355e7e5e74a12713b0ada143"
+      },
+      {
+        "path": "package.json",
+        "sha": "6f04392c765727374975508d2bc25df9cc735ba0"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/governance-dashboard",
+    "main": "53047917da900f397a5045cfc7ddf5e32e735872",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "57b0224faf1d7883ca3cb016653bd895061893ff"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "f2f42e2358ad5bdcb2ddc4fe3d0830c84df6cbda"
+      },
+      {
+        "path": "README.md",
+        "sha": "07192e6869e3b502f2c889611fa84f7ca13b820d"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "1c71f5c26ed63cb949c16d41eeb84452359f8179"
+      },
+      {
+        "path": "package.json",
+        "sha": "9e0659084c93a39237e76c07894157c2bf8f72d2"
+      }
+    ],
+    "ci": {
+      "id": 30302815912,
+      "sha": "53047917da900f397a5045cfc7ddf5e32e735872",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/governance-dashboard/actions/runs/30302815912"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/incident-manager",
+    "main": "bcb8c8d027997c3363a9fd0ebd0ddc9c086227c6",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "6e242694feae28797d2eb38fbba70fd55cc4109c"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "b2a221d2830e8b80c924c0ff67fb2c0df84de383"
+      },
+      {
+        "path": "README.md",
+        "sha": "b7497ec15903167d5d8095b11dae8a93ed819c94"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "9bd2c0400035ff9c1e95fffe97b4f5edf44ea45f"
+      },
+      {
+        "path": "package.json",
+        "sha": "604cc641bcb99d198021d13ce4b443b1707b1dac"
+      }
+    ],
+    "ci": {
+      "id": 38052159946,
+      "sha": "834452bad11f38fd70cf73bb9991f83d9d19c299",
+      "branch": "metaharness/incident-manager-2026-10-10",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/incident-manager/actions/runs/38052159946"
+    },
+    "openPRs": [
+      {
+        "number": 2,
+        "title": "Restore the Node workspace quality gate",
+        "url": "https://github.com/LLM-Dev-Ops/incident-manager/pull/2",
+        "updated": "2026-10-10T12:31:33Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/inference-gateway",
+    "main": "a07a604dc14a3eeb2b9a07e85e9c41212156de9a",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "f74ae42ad0106a80526e7e342477c0d81ce34c70"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "1e7130031cac51fd1de51a45088ee4607f834528"
+      },
+      {
+        "path": "README.md",
+        "sha": "3c6242225c212520bd72a976f804f268a3b37325"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "0e09a5d818486845648df0a2c6f416fdd583c433"
+      },
+      {
+        "path": "package.json",
+        "sha": "99f3e11d2944208f1893b41cba788c5822ffea9b"
+      }
+    ],
+    "ci": {
+      "id": 39127362661,
+      "sha": "ba6f9786737778a7361ee433d3244f20d7375c8a",
+      "branch": "metaharness/inference-gateway-2026-10-10",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/inference-gateway/actions/runs/39127362661"
+    },
+    "openPRs": [
+      {
+        "number": 1,
+        "title": "fix: harden proxy and isolate Phase7 configuration validation",
+        "url": "https://github.com/LLM-Dev-Ops/inference-gateway/pull/1",
+        "updated": "2026-10-18T12:32:27Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/infra",
+    "main": "a8bc89c190f63b139812f30a54e21a25b8f70e81",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "cfb2a6666fdcd60cbde18c1367c610c76a975a4b"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "fdd34bc53d5a09e027fc7993af62469e99d04f78"
+      },
+      {
+        "path": "README.md",
+        "sha": "a7f289da929598c892cebb60b02e2b3a1b9e1e43"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "0a99201120a852f51df073468465764d4e063be7"
+      },
+      {
+        "path": "package.json",
+        "sha": "b84679abdc3ae33c0139db0b710d7c4bb77fdba4"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/integrations",
+    "main": "6c9b05037db6445a460e2446c2df7e01acb7b11f",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "869d56afd71f5609fdb437e3f1ffa81bd6fd2727"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "b45cd35856d4aaff0856b9527716ef15f0d480e4"
+      },
+      {
+        "path": "package.json",
+        "sha": "97bbefba91b7682d7a586bd45e48f31f215e5f21"
+      }
+    ],
+    "ci": {
+      "id": 20294303478,
+      "sha": "6c9b05037db6445a460e2446c2df7e01acb7b11f",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/integrations/actions/runs/20294303478"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/intelligence-core",
+    "main": "69aa70372e45279c22942fcee248884e753d8d93",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "82913cf85dac97ff5784721c46ea2e4cfe6cc314"
+      },
+      {
+        "path": "package.json",
+        "sha": "2bf20e71d1b403af5c1b2eadd5a2d094aefe8d5f"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/interface-core",
+    "main": "d4185560cf74b52fd44e515238cebeec88241371",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "a8b2614edc2ffc51f7116d007304cc89d6795f98"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "243c171806a3386ef594a4ba9cdabb95bf0f7585"
+      },
+      {
+        "path": "package.json",
+        "sha": "52505810220cfd2c96e5ed4f8fb98cc83ddca39c"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/latency-lens",
+    "main": "8370e90fa788959a0b80e3f9c4140422f3eccd69",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "c44f79b9ea095ce4f4a673dd3987c4e796904038"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "9ecabfb15d12e57d4afde3a61b2edf9dea5b6a08"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "ebf225a633fbd2cdaf9ad5989e55d1ec60aae084"
+      },
+      {
+        "path": "README.md",
+        "sha": "13405348b689ed1686707da26db766b2de85b4cf"
+      },
+      {
+        "path": "package.json",
+        "sha": "8bfa146265c055ebf43e3824d624a329ceb5408e"
+      }
+    ],
+    "ci": {
+      "id": 22300475883,
+      "sha": "ea8a15eb987f18e59f8d448f0bf48c2ef0891e7e",
+      "branch": "dependabot/cargo/observability-7aa51c3566",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/latency-lens/actions/runs/22300475883"
+    },
+    "openPRs": [
+      {
+        "number": 25,
+        "title": "chore(docker)(deps): bump rust from 1.85-slim-bookworm to 1.93-slim-bookworm",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/25",
+        "updated": "2026-01-26T09:53:49Z"
+      },
+      {
+        "number": 24,
+        "title": "chore(deps)(deps): bump clap_complete from 4.5.60 to 4.5.62",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/24",
+        "updated": "2026-01-25T05:19:16Z"
+      },
+      {
+        "number": 23,
+        "title": "chore(deps)(deps): bump reqwest from 0.12.24 to 0.12.26 in the http group",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/23",
+        "updated": "2026-02-23T09:37:29Z"
+      },
+      {
+        "number": 21,
+        "title": "chore(deps)(deps): bump the observability group across 1 directory with 2 updates",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/21",
+        "updated": "2026-02-23T09:38:10Z"
+      },
+      {
+        "number": 18,
+        "title": "chore(deps)(deps): bump bytes from 1.10.1 to 1.11.0",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/18",
+        "updated": "2025-12-29T09:32:11Z"
+      },
+      {
+        "number": 17,
+        "title": "chore(deps)(deps): bump governor from 0.8.1 to 0.10.2",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/17",
+        "updated": "2025-12-29T09:32:10Z"
+      },
+      {
+        "number": 16,
+        "title": "chore(deps)(deps): bump indicatif from 0.17.11 to 0.18.3",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/16",
+        "updated": "2025-12-29T09:32:11Z"
+      },
+      {
+        "number": 15,
+        "title": "chore(deps)(deps): bump config from 0.14.1 to 0.15.19",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/15",
+        "updated": "2025-12-29T09:32:10Z"
+      },
+      {
+        "number": 14,
+        "title": "chore(deps)(deps): bump criterion from 0.5.1 to 0.7.0",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/14",
+        "updated": "2025-12-08T10:32:39Z"
+      },
+      {
+        "number": 13,
+        "title": "chore(deps)(deps): bump console from 0.15.11 to 0.16.1",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/13",
+        "updated": "2025-12-08T10:32:39Z"
+      },
+      {
+        "number": 12,
+        "title": "chore(deps)(deps): bump tabled from 0.16.0 to 0.20.0",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/12",
+        "updated": "2025-12-08T10:32:39Z"
+      },
+      {
+        "number": 5,
+        "title": "chore(ci)(deps): bump github/codeql-action from 2 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/5",
+        "updated": "2025-12-08T10:32:42Z"
+      },
+      {
+        "number": 6,
+        "title": "chore(ci)(deps): bump docker/build-push-action from 5 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/6",
+        "updated": "2025-12-08T10:32:42Z"
+      },
+      {
+        "number": 4,
+        "title": "chore(ci)(deps): bump slackapi/slack-github-action from 1.24.0 to 2.1.1",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/4",
+        "updated": "2025-12-08T10:32:42Z"
+      },
+      {
+        "number": 3,
+        "title": "chore(ci)(deps): bump actions/download-artifact from 4 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/3",
+        "updated": "2025-12-08T10:32:42Z"
+      },
+      {
+        "number": 2,
+        "title": "chore(ci)(deps): bump slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml from 1.9.0 to 2.1.0",
+        "url": "https://github.com/LLM-Dev-Ops/latency-lens/pull/2",
+        "updated": "2025-12-08T10:32:42Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/marketplace",
+    "main": "70071f0eda8e8bf76574488f74779ed7f1229b47",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.toml",
+        "sha": "2477e5232b6ea2112dba71b7c4ffd64c678d6125"
+      },
+      {
+        "path": "README.md",
+        "sha": "c76208c3774c95e1248184996083e16fe59a1e0e"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "06a14d56475f1aeb7dedde1798006fd5ff6d2bae"
+      },
+      {
+        "path": "package.json",
+        "sha": "84d131054a237b566c6a4c361d8e11d4fc3df73e"
+      }
+    ],
+    "ci": {
+      "id": 30302618197,
+      "sha": "70071f0eda8e8bf76574488f74779ed7f1229b47",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/marketplace/actions/runs/30302618197"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/memory-graph",
+    "main": "d9b9dc5eb7ac313eedc2831dce6af46641bfaaa7",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "498ece87acce7becbf8c5a0c7d23fa7d290839f4"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "0841e07be3341a927d8ff839a2b08c0a8c784eb7"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "bc47681399692f9e5f8e6830a9b161bfd885ee64"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "a73854e17c54fc9dcd574cffaacbb17b91ca74bf"
+      },
+      {
+        "path": "README.md",
+        "sha": "2a1ec9b5403dc4869f125996007e13f938634548"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "b4ba46f20114bda773ab6b039cfcd0693e56a5ae"
+      },
+      {
+        "path": "package.json",
+        "sha": "1230fcb2ba6e66c4780442f45fd932449a2b3f72"
+      }
+    ],
+    "ci": {
+      "id": 38985101510,
+      "sha": "a1268650619d3ee7b58d833fa9a7ea727206d66f",
+      "branch": "metaharness/memory-graph-2026-10-16",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/memory-graph/actions/runs/38985101510"
+    },
+    "openPRs": [
+      {
+        "number": 3,
+        "title": "Protect memory HTTP integrity and repair Rust validation root causes",
+        "url": "https://github.com/LLM-Dev-Ops/memory-graph/pull/3",
+        "updated": "2026-10-17T00:12:26Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/observatory",
+    "main": "020f9031a2f1272d55deef0d6c715650b6647150",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "498ece87acce7becbf8c5a0c7d23fa7d290839f4"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "adfefb1687630331781b1366cf5e3fff28dfeff6"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "8a7ea6dfe3466dc84302b3da1cbd1ede64f9cd0a"
+      },
+      {
+        "path": "README.md",
+        "sha": "5e7ad08027b9ffd5b92dc18abd6466e1e7ad1406"
+      },
+      {
+        "path": "package.json",
+        "sha": "e9d91116c9d30266869b296b268ad3aa37811790"
+      }
+    ],
+    "ci": {
+      "id": 38326924256,
+      "sha": "6806b2266882c081ec05dc0ab8350b32c34caf3d",
+      "branch": "metaharness/observatory-input-validation-2026-10-12",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/observatory/actions/runs/38326924256"
+    },
+    "openPRs": [
+      {
+        "number": 11,
+        "title": "fix(functions/storage): harden inputs and repair CI migrations",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/11",
+        "updated": "2026-10-13T00:30:08Z"
+      },
+      {
+        "number": 9,
+        "title": "chore(docker)(deps): bump rust from 1.82-slim-bookworm to 1.93-slim-bookworm in /services/analytics-api",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/9",
+        "updated": "2026-01-26T03:14:32Z"
+      },
+      {
+        "number": 7,
+        "title": "chore(ci)(deps): bump actions/checkout from 4 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/7",
+        "updated": "2025-12-29T03:24:58Z"
+      },
+      {
+        "number": 4,
+        "title": "chore(ci)(deps): bump github/codeql-action from 3 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/4",
+        "updated": "2025-12-08T03:26:43Z"
+      },
+      {
+        "number": 5,
+        "title": "chore(ci)(deps): bump codecov/codecov-action from 4 to 5",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/5",
+        "updated": "2025-12-08T03:26:43Z"
+      },
+      {
+        "number": 3,
+        "title": "chore(ci)(deps): bump actions/download-artifact from 4 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/3",
+        "updated": "2025-12-08T03:26:43Z"
+      },
+      {
+        "number": 2,
+        "title": "chore(ci)(deps): bump azure/setup-kubectl from 3 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/observatory/pull/2",
+        "updated": "2025-12-08T03:26:43Z"
+      }
+    ],
+    "scope": "WORKED: instructions, manifests, source/migration/CI/prior evidence inspected deeply"
+  },
+  {
+    "repo": "LLM-Dev-Ops/orchestrator",
+    "main": "24b373c41cbac1d946fda31b7c86a5ff26037375",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "7c23829cb64f4d0383afa30273a95777515b73c3"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "f0ab5d7993129b8bdb7b55bcc62d6cdce459f8e2"
+      },
+      {
+        "path": "README.md",
+        "sha": "06a0f86adc43fa3f36ce22feb62c99e5cc66d1ad"
+      },
+      {
+        "path": "package.json",
+        "sha": "6ef357b4fe534ddd04d9230f79f928b3b5b04012"
+      }
+    ],
+    "ci": {
+      "id": 30310547202,
+      "sha": "24b373c41cbac1d946fda31b7c86a5ff26037375",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/orchestrator/actions/runs/30310547202"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/platform-agents",
+    "main": "94fbbc82db9cc10f66093df428560ef01aa2b322",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "337f786dbc9856ba97f24399dd49181dd360a74e"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "d61e6115879c51d37bc2ef378003b8e16c1a9751"
+      },
+      {
+        "path": "package.json",
+        "sha": "7c78ee56549cb496db8de7e99cb91bd654db7e17"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/policy-engine",
+    "main": "c44b699eadc6b8dbbd26fa35d7cf82d61275979b",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.toml",
+        "sha": "3c4bd0987024d70be2958278da6bfbc99ee28e62"
+      },
+      {
+        "path": "README.md",
+        "sha": "feb46e6809b7cf1ee469edf98ee2333bf1156a1a"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "580702d3ce3f18880106df75628376ec649826a9"
+      },
+      {
+        "path": "package.json",
+        "sha": "758e356920ada0d076dfb4ea8df02c1dfc523949"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/registry",
+    "main": "322d9c90806a433b0363dffaac92c84ea50af886",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "af9a4f812078d051632a25568197dd577adb204a"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "a3e5b5fd1c107ed8daa14383a494633fd56f236b"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "e9379a55800bf09cee7712d985f8938abc4af27b"
+      },
+      {
+        "path": "README.md",
+        "sha": "59170865788143f01310bb143842801a475687e0"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "b3601199aad65e02e207b6d88ee868bbc5e7e984"
+      },
+      {
+        "path": "package.json",
+        "sha": "3575ceb4def3824a6a54351706f34fd567439aea"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/research-core",
+    "main": "5c86396ac8cf14a17517134ac811c6ea9fc347b7",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "3e2bdafe69f548fb399b3e1af9c61204c90f81a3"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "96e218418c9547f0cc1aab9295f804eca3cbee33"
+      },
+      {
+        "path": "package.json",
+        "sha": "ca938baf20e65abb1b183c4907bec39f44637314"
+      }
+    ],
+    "ci": {
+      "id": 38659306826,
+      "sha": "5c86396ac8cf14a17517134ac811c6ea9fc347b7",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/research-core/actions/runs/38659306826"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/research-lab",
+    "main": "83c4850c04d6243c1f700ec4a6a0e406a7d7198a",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "3374dc17879143b21d91c4c13f2f353a1a108d91"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "96cafa2b9e880831dac38909fb653547f0fbeb2c"
+      },
+      {
+        "path": "README.md",
+        "sha": "99b8c89140a8c01b4f9002829d88891fbadb9bc0"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "319904091ac0c50db324830174afe90231591b2a"
+      },
+      {
+        "path": "package.json",
+        "sha": "91f24aa97284d442eb2058bb9926652183e8c15e"
+      }
+    ],
+    "ci": {
+      "id": 38920009861,
+      "sha": "83c4850c04d6243c1f700ec4a6a0e406a7d7198a",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/research-lab/actions/runs/38920009861"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/RuVector",
+    "main": "9e12078ae2af74d0613ae604266cf22fb1113b10",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "0785a567c24755b624beeb33767f351f67c8f25d"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "721693aed7e2bbaf72b7979bd0c67a5777f558d0"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "52e7ea8c0ef208c29225f265ded74d76941e5a18"
+      },
+      {
+        "path": "README.md",
+        "sha": "3591b17a554daf730734993416636da57dcb426a"
+      },
+      {
+        "path": "package.json",
+        "sha": "657720d1af7178e004fdcbdf570ec3eaaa8c94e2"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/ruvector-service",
+    "main": "9f030fd5939c2eb85cd9bd0b9618de84165bddda",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "f166f8c76b11a2e0f7541fb247cc4b458d99f1b9"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "d4279ad411c59e269d9ed6bb10017d7ab7c464fb"
+      },
+      {
+        "path": "package.json",
+        "sha": "f5839bd22fb4e6dd6953d7a0139ec7ba62dac570"
+      }
+    ],
+    "ci": {
+      "id": 38164317697,
+      "sha": "9f030fd5939c2eb85cd9bd0b9618de84165bddda",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/ruvector-service/actions/runs/38164317697"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/schema-registry",
+    "main": "d0d89f267c32a2d31b622ad112836435c2534f39",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "977303b4ed60147788e8b51c58ae516720fa47be"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "3316f791e6e9cb43df1a4b54485e8957b744c5df"
+      },
+      {
+        "path": "README.md",
+        "sha": "529ab7bf8efe701c7924d4a1ac13b5ef05144f1e"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "6845c7b2864605e40bdc61d4bcbd5bca1f2d64f1"
+      },
+      {
+        "path": "package.json",
+        "sha": "d8541f705dad71be13a3e617057cf92c62b1bf4f"
+      }
+    ],
+    "ci": {
+      "id": 30302600641,
+      "sha": "d0d89f267c32a2d31b622ad112836435c2534f39",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/schema-registry/actions/runs/30302600641"
+    },
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/security-core",
+    "main": "e37520508c0eab91faf8977b80661dc68ac3826f",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "README.md",
+        "sha": "3ccf72d03f4020615a9cd8125f4824984381f032"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "69f6f3271df857b159f9beafe144e4acaa7feb8a"
+      },
+      {
+        "path": "package.json",
+        "sha": "203210ca167f9bf0e4a0018e3f7933383a57f6de"
+      }
+    ],
+    "ci": null,
+    "openPRs": [],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/sentinel",
+    "main": "504b0ea466620ffacfd7ea19993d5a62b71babdd",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "b9e4d15a0d1007dc6fa4493b724074d394b767dd"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "06954d5ad7214af5d7f77f648b70e04c6a10e961"
+      },
+      {
+        "path": "README.md",
+        "sha": "2fd8c16d4d9033a00dd74369fc0b6de8de7900e7"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "a053bcdeaa4aa6dcd5a04e70d2d97ec46a5d9da1"
+      },
+      {
+        "path": "package.json",
+        "sha": "6e8bffc3488518d9f8844afa36fed61ecd49c99e"
+      }
+    ],
+    "ci": {
+      "id": 39153243348,
+      "sha": "acd7ab14f7749158d7f63b59e79e0cf3fbe3820e",
+      "branch": "metaharness/sentinel-http-boundary-2026-10-13",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/sentinel/actions/runs/39153243348"
+    },
+    "openPRs": [
+      {
+        "number": 22,
+        "title": "fix(ci): harden Sentinel boundary and require healthy integration gates",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/22",
+        "updated": "2026-10-18T18:17:39Z"
+      },
+      {
+        "number": 21,
+        "title": "docker: bump rust from 1.85-slim-bookworm to 1.93-slim-bookworm",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/21",
+        "updated": "2026-01-26T09:53:24Z"
+      },
+      {
+        "number": 19,
+        "title": "deps(deps): update metrics-exporter-prometheus requirement from 0.16 to 0.18",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/19",
+        "updated": "2025-12-29T09:31:44Z"
+      },
+      {
+        "number": 18,
+        "title": "ci: bump actions/checkout from 4 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/18",
+        "updated": "2025-12-29T09:31:44Z"
+      },
+      {
+        "number": 17,
+        "title": "deps(deps): update nalgebra requirement from 0.33 to 0.34",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/17",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 16,
+        "title": "deps(deps): update validator requirement from 0.18 to 0.20",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/16",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 15,
+        "title": "deps(deps): update prost requirement from 0.13 to 0.14",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/15",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 14,
+        "title": "deps(deps): update ndarray requirement from 0.16 to 0.17",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/14",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 13,
+        "title": "deps(deps): update statrs requirement from 0.17 to 0.18",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/13",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 12,
+        "title": "deps(deps): update rdkafka requirement from 0.36 to 0.38",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/12",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 11,
+        "title": "deps(deps): update axum requirement from 0.7 to 0.8",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/11",
+        "updated": "2025-12-06T20:57:09Z"
+      },
+      {
+        "number": 9,
+        "title": "deps(deps): update lapin requirement from 2.5 to 3.7",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/9",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 8,
+        "title": "deps(deps): update tonic-build requirement from 0.12 to 0.14",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/8",
+        "updated": "2025-12-15T09:45:18Z"
+      },
+      {
+        "number": 6,
+        "title": "ci: Bump actions/upload-artifact from 4 to 5",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/6",
+        "updated": "2025-12-08T10:31:48Z"
+      },
+      {
+        "number": 7,
+        "title": "ci: Bump github/codeql-action from 3 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/7",
+        "updated": "2025-12-08T10:31:48Z"
+      },
+      {
+        "number": 5,
+        "title": "ci: Bump codecov/codecov-action from 4 to 5",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/5",
+        "updated": "2025-12-08T10:31:48Z"
+      },
+      {
+        "number": 4,
+        "title": "ci: Bump EmbarkStudios/cargo-deny-action from 1 to 2",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/4",
+        "updated": "2025-12-08T10:31:48Z"
+      },
+      {
+        "number": 2,
+        "title": "ci: Bump azure/setup-kubectl from 3 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/sentinel/pull/2",
+        "updated": "2025-12-08T10:31:48Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/shield",
+    "main": "1c46282495b94bb1fcae2d9e63cf34f495226699",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "e90967774fe55c2308c5573a15d5ba97618c8534"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "ff1433e14cb85606f00124baeda64646804ac61a"
+      },
+      {
+        "path": "README.md",
+        "sha": "2c1ddc8e1d80a0f5d4809f71a7366983642758f8"
+      },
+      {
+        "path": "package.json",
+        "sha": "fd7b063e3bdd9e8e95f7dacfe8534659245c486b"
+      }
+    ],
+    "ci": {
+      "id": 38398421866,
+      "sha": "60bcd3c463228ee8c8ccadc4c7c560502d73e273",
+      "branch": "metaharness/shield-security-hardening-2026-10-12",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/LLM-Dev-Ops/shield/actions/runs/38398421866"
+    },
+    "openPRs": [
+      {
+        "number": 3,
+        "title": "Harden agent CORS and restore deterministic core validation",
+        "url": "https://github.com/LLM-Dev-Ops/shield/pull/3",
+        "updated": "2026-10-13T12:39:08Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/simulator",
+    "main": "96091398ad2cb1189774d2581fb26c2bebe1abd9",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "Cargo.lock",
+        "sha": "d26145f9a1d5559bb702c49f93c298130499420f"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "9cc6d2e3d5d535b72ab4b5e90d2eae1d73c7aff3"
+      },
+      {
+        "path": "README.md",
+        "sha": "4af6bcf801db6f82c32ba03a85f64bd4e5dfff9a"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "0a6689e827ffc8e24c2b0fcc00355fa0c0bd7651"
+      },
+      {
+        "path": "package.json",
+        "sha": "6e156d345a0b8697a6bd0f82cd54c943bb27d69d"
+      }
+    ],
+    "ci": {
+      "id": 37978961653,
+      "sha": "8c8d01c419cd0df3006601a83c8846f3ebff40d8",
+      "branch": "metaharness/cors-supply-chain-2026-10-09",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/simulator/actions/runs/37978961653"
+    },
+    "openPRs": [
+      {
+        "number": 1,
+        "title": "fix: harden simulator CORS and dependencies",
+        "url": "https://github.com/LLM-Dev-Ops/simulator/pull/1",
+        "updated": "2026-10-09T19:15:28Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  },
+  {
+    "repo": "LLM-Dev-Ops/test-bench",
+    "main": "4d58c46426fe085d25fef3fcb35fa5e2cce83b30",
+    "rootInstructionsAndManifests": [
+      {
+        "path": "CLAUDE.md",
+        "sha": "498ece87acce7becbf8c5a0c7d23fa7d290839f4"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "sha": "26e36238457e59517cadaa39a5df477b9232b2d0"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha": "ecc69bb8139b9e71930f4a0eb8a184c13b4f88a7"
+      },
+      {
+        "path": "Cargo.toml",
+        "sha": "1a04f0ae36fe3c56cb239152d55ba3e9bd5814c0"
+      },
+      {
+        "path": "README.md",
+        "sha": "20bfd6e4a13b7c0e03ccb9dfb4bff525cb0653d1"
+      },
+      {
+        "path": "package-lock.json",
+        "sha": "ecbcd52fc6ee2b22f42bd2a30a60687be2a9b326"
+      },
+      {
+        "path": "package.json",
+        "sha": "f5797ef54278dee0721830e1ada70bd67fec1879"
+      }
+    ],
+    "ci": {
+      "id": 39057164377,
+      "sha": "75797aa19adb133d2bbd8317a6af73fa33a36261",
+      "branch": "metaharness/test-bench-cli-discovery-2026-10-10",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/LLM-Dev-Ops/test-bench/actions/runs/39057164377"
+    },
+    "openPRs": [
+      {
+        "number": 24,
+        "title": "fix: restore validation and patch dependency trust boundary",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/24",
+        "updated": "2026-10-17T18:15:43Z"
+      },
+      {
+        "number": 23,
+        "title": "chore(deps)(deps): bump ajv from 8.17.1 to 8.18.0",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/23",
+        "updated": "2026-02-21T04:44:05Z"
+      },
+      {
+        "number": 21,
+        "title": "chore(deps)(deps): bump yaml from 2.8.1 to 2.8.2",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/21",
+        "updated": "2026-01-19T01:19:26Z"
+      },
+      {
+        "number": 18,
+        "title": "chore(deps)(deps): Bump actions/checkout from 4 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/18",
+        "updated": "2025-12-29T09:31:21Z"
+      },
+      {
+        "number": 19,
+        "title": "chore(deps)(deps-dev): Bump prettier from 3.6.2 to 3.7.2 in the linting group",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/19",
+        "updated": "2026-02-23T09:37:42Z"
+      },
+      {
+        "number": 17,
+        "title": "chore(deps)(deps): Bump glob from 10.4.5 to 10.5.0",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/17",
+        "updated": "2025-12-29T09:31:21Z"
+      },
+      {
+        "number": 16,
+        "title": "chore(deps)(deps-dev): Bump tsup from 8.5.0 to 8.5.1 in the build group",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/16",
+        "updated": "2026-02-23T09:37:34Z"
+      },
+      {
+        "number": 15,
+        "title": "chore(deps)(deps-dev): Bump @types/node from 20.19.24 to 20.19.25 in the typescript group",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/15",
+        "updated": "2026-02-23T09:37:52Z"
+      },
+      {
+        "number": 13,
+        "title": "chore(deps)(deps-dev): update @typescript-eslint/eslint-plugin requirement from ^6.15.0 to ^6.21.0",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/13",
+        "updated": "2025-11-04T17:57:34Z"
+      },
+      {
+        "number": 12,
+        "title": "chore(deps)(deps-dev): update lint-staged requirement from ^15.2.0 to ^15.5.2",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/12",
+        "updated": "2025-11-04T17:57:34Z"
+      },
+      {
+        "number": 11,
+        "title": "chore(deps)(deps-dev): update @typescript-eslint/parser requirement from ^6.15.0 to ^6.21.0",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/11",
+        "updated": "2025-11-04T17:57:31Z"
+      },
+      {
+        "number": 10,
+        "title": "chore(deps)(deps): update openai requirement from ^4.20.1 to ^4.104.0",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/10",
+        "updated": "2025-11-04T17:57:32Z"
+      },
+      {
+        "number": 5,
+        "title": "chore(deps)(deps): bump actions/setup-node from 4 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/5",
+        "updated": "2025-12-08T10:36:59Z"
+      },
+      {
+        "number": 4,
+        "title": "chore(deps)(deps): bump docker/build-push-action from 5 to 6",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/4",
+        "updated": "2025-12-08T10:36:59Z"
+      },
+      {
+        "number": 3,
+        "title": "chore(deps)(deps): bump actions/upload-artifact from 4 to 5",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/3",
+        "updated": "2025-12-08T10:36:59Z"
+      },
+      {
+        "number": 2,
+        "title": "chore(deps)(deps): bump github/codeql-action from 3 to 4",
+        "url": "https://github.com/LLM-Dev-Ops/test-bench/pull/2",
+        "updated": "2025-12-08T10:36:59Z"
+      }
+    ],
+    "scope": "DEFERRED: root instruction/manifest inventory, main/latest CI and open-PR metadata refreshed; no build or deep-source claim"
+  }
+]

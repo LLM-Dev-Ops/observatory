@@ -431,9 +431,8 @@ impl ConnectionState {
 
     /// Remove subscriptions for specific event types
     pub fn remove_subscriptions(&mut self, event_types: &[EventType]) {
-        self.subscriptions.retain(|sub| {
-            !sub.event_types.iter().any(|et| event_types.contains(et))
-        });
+        self.subscriptions
+            .retain(|sub| !sub.event_types.iter().any(|et| event_types.contains(et)));
     }
 
     /// Get all subscriptions matching an event

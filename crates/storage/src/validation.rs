@@ -29,7 +29,11 @@ pub trait Validate {
 /// # Returns
 ///
 /// `Ok(())` if valid, `Err` with a descriptive message if invalid
-pub fn validate_hex_string(value: &str, expected_len: usize, field_name: &str) -> Result<(), String> {
+pub fn validate_hex_string(
+    value: &str,
+    expected_len: usize,
+    field_name: &str,
+) -> Result<(), String> {
     if value.is_empty() {
         return Err(format!("{} cannot be empty", field_name));
     }
@@ -155,7 +159,11 @@ pub fn validate_ordering<T: PartialOrd + std::fmt::Display>(
 /// # Returns
 ///
 /// `Ok(())` if valid, `Err` with a descriptive message if invalid
-pub fn validate_status(status: &str, allowed_values: &[&str], field_name: &str) -> Result<(), String> {
+pub fn validate_status(
+    status: &str,
+    allowed_values: &[&str],
+    field_name: &str,
+) -> Result<(), String> {
     if !allowed_values.contains(&status) {
         return Err(format!(
             "{} must be one of [{}], got: {}",

@@ -1,0 +1,7 @@
+{
+  "frozen": "2026-11-06",
+  "baseline": "e3215c48dd37c322e33629e9091f8f4cf9382513",
+  "holdout": 6,
+  "anchors": 6,
+  "criteria": "Malformed JSON/scalars return400 INVALID_JSON; >10MiB returns413 PAYLOAD_TOO_LARGE; bounded public messages exclude input;metadata/CORS preserved. Existing application errors and valid responses retained. No performance/cost claim; all broad repo gates required for promotion."
+}

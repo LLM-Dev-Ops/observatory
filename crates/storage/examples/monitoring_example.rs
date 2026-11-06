@@ -17,15 +17,15 @@
 //! - Liveness: http://localhost:9090/health/live
 //! - Readiness: http://localhost:9090/health/ready
 
+use chrono::Utc;
 use llm_observatory_storage::{
-    HealthServer, StorageConfig, StorageMetrics, StoragePool,
     models::{Trace, TraceSpan},
     repositories::InstrumentedTraceRepository,
     writers::InstrumentedTraceWriter,
+    HealthServer, StorageConfig, StorageMetrics, StoragePool,
 };
 use std::sync::Arc;
 use tokio::time::{interval, Duration};
-use chrono::Utc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -144,9 +144,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Check health
     println!("🏥 Health Check:");
     let health = pool.health_check().await?;
-    println!("   PostgreSQL: {}", if health.postgres_healthy { "✅ Healthy" } else { "❌ Unhealthy" });
+    println!(
+        "   PostgreSQL: {}",
+        if health.postgres_healthy {
+            "✅ Healthy"
+        } else {
+            "❌ Unhealthy"
+        }
+    );
     if let Some(redis_healthy) = health.redis_healthy {
-        println!("   Redis: {}", if redis_healthy { "✅ Healthy" } else { "❌ Unhealthy" });
+        println!(
+            "   Redis: {}",
+            if redis_healthy {
+                "✅ Healthy"
+            } else {
+                "❌ Unhealthy"
+            }
+        );
     }
     println!();
 

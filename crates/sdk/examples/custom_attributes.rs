@@ -15,9 +15,7 @@
 //! cargo run --example custom_attributes --features openai
 //! ```
 
-use llm_observatory_sdk::{
-    ChatCompletionRequest, InstrumentedLLM, LLMObservatory, OpenAIClient,
-};
+use llm_observatory_sdk::{ChatCompletionRequest, InstrumentedLLM, LLMObservatory, OpenAIClient};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -25,8 +23,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("LLM Observatory SDK - Custom Attributes Example\n");
 
-    let api_key = std::env::var("OPENAI_API_KEY")
-        .expect("OPENAI_API_KEY environment variable not set");
+    let api_key =
+        std::env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY environment variable not set");
 
     // Initialize observatory with custom attributes
     let observatory = LLMObservatory::builder()
@@ -63,7 +61,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         match client.chat_completion(request).await {
             Ok(response) => {
-                println!("  Response: {}", &response.content[..50.min(response.content.len())]);
+                println!(
+                    "  Response: {}",
+                    &response.content[..50.min(response.content.len())]
+                );
                 println!("  Cost: ${:.6}", response.cost_usd);
                 println!("  Trace ID: {}", response.trace_id);
 

@@ -19,13 +19,13 @@
 //! - COPY: 50,000-100,000 rows/sec
 //! - Speedup: 10-100x depending on data complexity
 
+use chrono::Utc;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use llm_observatory_storage::{
     models::{LogRecord, Metric, MetricDataPoint, Trace, TraceEvent, TraceSpan},
     writers::CopyWriter,
     StorageConfig, StoragePool,
 };
-use chrono::Utc;
 use std::time::Duration;
 use uuid::Uuid;
 
@@ -134,7 +134,9 @@ fn bench_copy_traces(c: &mut Criterion) {
     };
 
     let pool = runtime.block_on(async {
-        StoragePool::new(config).await.expect("Failed to create pool")
+        StoragePool::new(config)
+            .await
+            .expect("Failed to create pool")
     });
 
     let batch_sizes = vec![100, 1000, 5000, 10000];
@@ -171,7 +173,9 @@ fn bench_copy_spans(c: &mut Criterion) {
     };
 
     let pool = runtime.block_on(async {
-        StoragePool::new(config).await.expect("Failed to create pool")
+        StoragePool::new(config)
+            .await
+            .expect("Failed to create pool")
     });
 
     let batch_sizes = vec![100, 1000, 5000, 10000];
@@ -208,7 +212,9 @@ fn bench_copy_logs(c: &mut Criterion) {
     };
 
     let pool = runtime.block_on(async {
-        StoragePool::new(config).await.expect("Failed to create pool")
+        StoragePool::new(config)
+            .await
+            .expect("Failed to create pool")
     });
 
     let batch_sizes = vec![100, 1000, 5000, 10000];
@@ -245,7 +251,9 @@ fn bench_insert_traces(c: &mut Criterion) {
     };
 
     let pool = runtime.block_on(async {
-        StoragePool::new(config).await.expect("Failed to create pool")
+        StoragePool::new(config)
+            .await
+            .expect("Failed to create pool")
     });
 
     let batch_sizes = vec![100, 1000, 5000];

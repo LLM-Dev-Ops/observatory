@@ -43,7 +43,8 @@ impl InstrumentedTraceWriter {
         let result = self.inner.write_trace(trace).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("trace", "write_trace", result.is_ok(), duration);
+        self.metrics
+            .record_write("trace", "write_trace", result.is_ok(), duration);
         if result.is_ok() {
             self.metrics.record_items_written("trace", "traces", 1);
         } else {
@@ -52,9 +53,12 @@ impl InstrumentedTraceWriter {
 
         // Update buffer metrics
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("trace", "traces", stats.traces_buffered);
-        self.metrics.update_buffer_size("trace", "spans", stats.spans_buffered);
-        self.metrics.update_buffer_size("trace", "events", stats.events_buffered);
+        self.metrics
+            .update_buffer_size("trace", "traces", stats.traces_buffered);
+        self.metrics
+            .update_buffer_size("trace", "spans", stats.spans_buffered);
+        self.metrics
+            .update_buffer_size("trace", "events", stats.events_buffered);
 
         result
     }
@@ -66,16 +70,19 @@ impl InstrumentedTraceWriter {
         let result = self.inner.write_traces(traces).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("trace", "write_traces", result.is_ok(), duration);
+        self.metrics
+            .record_write("trace", "write_traces", result.is_ok(), duration);
         if result.is_ok() {
-            self.metrics.record_items_written("trace", "traces", count as u64);
+            self.metrics
+                .record_items_written("trace", "traces", count as u64);
         } else {
             self.metrics.record_error("write", Some("write_traces"));
         }
 
         // Update buffer metrics
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("trace", "traces", stats.traces_buffered);
+        self.metrics
+            .update_buffer_size("trace", "traces", stats.traces_buffered);
 
         result
     }
@@ -86,7 +93,8 @@ impl InstrumentedTraceWriter {
         let result = self.inner.write_span(span).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("trace", "write_span", result.is_ok(), duration);
+        self.metrics
+            .record_write("trace", "write_span", result.is_ok(), duration);
         if result.is_ok() {
             self.metrics.record_items_written("trace", "spans", 1);
         } else {
@@ -94,7 +102,8 @@ impl InstrumentedTraceWriter {
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("trace", "spans", stats.spans_buffered);
+        self.metrics
+            .update_buffer_size("trace", "spans", stats.spans_buffered);
 
         result
     }
@@ -106,15 +115,18 @@ impl InstrumentedTraceWriter {
         let result = self.inner.write_spans(spans).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("trace", "write_spans", result.is_ok(), duration);
+        self.metrics
+            .record_write("trace", "write_spans", result.is_ok(), duration);
         if result.is_ok() {
-            self.metrics.record_items_written("trace", "spans", count as u64);
+            self.metrics
+                .record_items_written("trace", "spans", count as u64);
         } else {
             self.metrics.record_error("write", Some("write_spans"));
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("trace", "spans", stats.spans_buffered);
+        self.metrics
+            .update_buffer_size("trace", "spans", stats.spans_buffered);
 
         result
     }
@@ -125,7 +137,8 @@ impl InstrumentedTraceWriter {
         let result = self.inner.write_event(event).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("trace", "write_event", result.is_ok(), duration);
+        self.metrics
+            .record_write("trace", "write_event", result.is_ok(), duration);
         if result.is_ok() {
             self.metrics.record_items_written("trace", "events", 1);
         } else {
@@ -133,7 +146,8 @@ impl InstrumentedTraceWriter {
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("trace", "events", stats.events_buffered);
+        self.metrics
+            .update_buffer_size("trace", "events", stats.events_buffered);
 
         result
     }
@@ -141,17 +155,21 @@ impl InstrumentedTraceWriter {
     /// Flush with metrics.
     pub async fn flush(&self) -> StorageResult<()> {
         let stats_before = self.inner.buffer_stats().await;
-        let total_items = stats_before.traces_buffered + stats_before.spans_buffered + stats_before.events_buffered;
+        let total_items = stats_before.traces_buffered
+            + stats_before.spans_buffered
+            + stats_before.events_buffered;
 
         let start = Instant::now();
         let result = self.inner.flush().await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("trace", "flush", result.is_ok(), duration);
+        self.metrics
+            .record_write("trace", "flush", result.is_ok(), duration);
         self.metrics.record_flush("trace", result.is_ok());
 
         if total_items > 0 {
-            self.metrics.record_batch_size("trace", "flush", total_items);
+            self.metrics
+                .record_batch_size("trace", "flush", total_items);
         }
 
         if result.is_err() {
@@ -160,9 +178,12 @@ impl InstrumentedTraceWriter {
 
         // Update buffer metrics after flush
         let stats_after = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("trace", "traces", stats_after.traces_buffered);
-        self.metrics.update_buffer_size("trace", "spans", stats_after.spans_buffered);
-        self.metrics.update_buffer_size("trace", "events", stats_after.events_buffered);
+        self.metrics
+            .update_buffer_size("trace", "traces", stats_after.traces_buffered);
+        self.metrics
+            .update_buffer_size("trace", "spans", stats_after.spans_buffered);
+        self.metrics
+            .update_buffer_size("trace", "events", stats_after.events_buffered);
 
         result
     }
@@ -201,7 +222,8 @@ impl InstrumentedMetricWriter {
         let result = self.inner.write_metric(metric).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("metric", "write_metric", result.is_ok(), duration);
+        self.metrics
+            .record_write("metric", "write_metric", result.is_ok(), duration);
         if result.is_ok() {
             self.metrics.record_items_written("metric", "metrics", 1);
         } else {
@@ -209,7 +231,8 @@ impl InstrumentedMetricWriter {
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("metric", "metrics", stats.metrics_buffered);
+        self.metrics
+            .update_buffer_size("metric", "metrics", stats.metrics_buffered);
 
         result
     }
@@ -221,15 +244,18 @@ impl InstrumentedMetricWriter {
         let result = self.inner.write_metrics(metrics_list).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("metric", "write_metrics", result.is_ok(), duration);
+        self.metrics
+            .record_write("metric", "write_metrics", result.is_ok(), duration);
         if result.is_ok() {
-            self.metrics.record_items_written("metric", "metrics", count as u64);
+            self.metrics
+                .record_items_written("metric", "metrics", count as u64);
         } else {
             self.metrics.record_error("write", Some("write_metrics"));
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("metric", "metrics", stats.metrics_buffered);
+        self.metrics
+            .update_buffer_size("metric", "metrics", stats.metrics_buffered);
 
         result
     }
@@ -240,15 +266,18 @@ impl InstrumentedMetricWriter {
         let result = self.inner.write_data_point(data_point).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("metric", "write_data_point", result.is_ok(), duration);
+        self.metrics
+            .record_write("metric", "write_data_point", result.is_ok(), duration);
         if result.is_ok() {
-            self.metrics.record_items_written("metric", "data_points", 1);
+            self.metrics
+                .record_items_written("metric", "data_points", 1);
         } else {
             self.metrics.record_error("write", Some("write_data_point"));
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("metric", "data_points", stats.data_points_buffered);
+        self.metrics
+            .update_buffer_size("metric", "data_points", stats.data_points_buffered);
 
         result
     }
@@ -260,15 +289,19 @@ impl InstrumentedMetricWriter {
         let result = self.inner.write_data_points(data_points).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("metric", "write_data_points", result.is_ok(), duration);
+        self.metrics
+            .record_write("metric", "write_data_points", result.is_ok(), duration);
         if result.is_ok() {
-            self.metrics.record_items_written("metric", "data_points", count as u64);
+            self.metrics
+                .record_items_written("metric", "data_points", count as u64);
         } else {
-            self.metrics.record_error("write", Some("write_data_points"));
+            self.metrics
+                .record_error("write", Some("write_data_points"));
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("metric", "data_points", stats.data_points_buffered);
+        self.metrics
+            .update_buffer_size("metric", "data_points", stats.data_points_buffered);
 
         result
     }
@@ -282,11 +315,13 @@ impl InstrumentedMetricWriter {
         let result = self.inner.flush().await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("metric", "flush", result.is_ok(), duration);
+        self.metrics
+            .record_write("metric", "flush", result.is_ok(), duration);
         self.metrics.record_flush("metric", result.is_ok());
 
         if total_items > 0 {
-            self.metrics.record_batch_size("metric", "flush", total_items);
+            self.metrics
+                .record_batch_size("metric", "flush", total_items);
         }
 
         if result.is_err() {
@@ -294,8 +329,10 @@ impl InstrumentedMetricWriter {
         }
 
         let stats_after = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("metric", "metrics", stats_after.metrics_buffered);
-        self.metrics.update_buffer_size("metric", "data_points", stats_after.data_points_buffered);
+        self.metrics
+            .update_buffer_size("metric", "metrics", stats_after.metrics_buffered);
+        self.metrics
+            .update_buffer_size("metric", "data_points", stats_after.data_points_buffered);
 
         result
     }
@@ -334,7 +371,8 @@ impl InstrumentedLogWriter {
         let result = self.inner.write_log(log).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("log", "write_log", result.is_ok(), duration);
+        self.metrics
+            .record_write("log", "write_log", result.is_ok(), duration);
         if result.is_ok() {
             self.metrics.record_items_written("log", "logs", 1);
         } else {
@@ -342,7 +380,8 @@ impl InstrumentedLogWriter {
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("log", "logs", stats.logs_buffered);
+        self.metrics
+            .update_buffer_size("log", "logs", stats.logs_buffered);
 
         result
     }
@@ -354,15 +393,18 @@ impl InstrumentedLogWriter {
         let result = self.inner.write_logs(logs).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("log", "write_logs", result.is_ok(), duration);
+        self.metrics
+            .record_write("log", "write_logs", result.is_ok(), duration);
         if result.is_ok() {
-            self.metrics.record_items_written("log", "logs", count as u64);
+            self.metrics
+                .record_items_written("log", "logs", count as u64);
         } else {
             self.metrics.record_error("write", Some("write_logs"));
         }
 
         let stats = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("log", "logs", stats.logs_buffered);
+        self.metrics
+            .update_buffer_size("log", "logs", stats.logs_buffered);
 
         result
     }
@@ -376,7 +418,8 @@ impl InstrumentedLogWriter {
         let result = self.inner.flush().await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_write("log", "flush", result.is_ok(), duration);
+        self.metrics
+            .record_write("log", "flush", result.is_ok(), duration);
         self.metrics.record_flush("log", result.is_ok());
 
         if total_items > 0 {
@@ -388,7 +431,8 @@ impl InstrumentedLogWriter {
         }
 
         let stats_after = self.inner.buffer_stats().await;
-        self.metrics.update_buffer_size("log", "logs", stats_after.logs_buffered);
+        self.metrics
+            .update_buffer_size("log", "logs", stats_after.logs_buffered);
 
         result
     }

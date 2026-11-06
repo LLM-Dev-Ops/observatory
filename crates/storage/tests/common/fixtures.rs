@@ -38,7 +38,12 @@ pub fn create_test_traces(count: usize, service_name: &str) -> Vec<Trace> {
 }
 
 /// Create a test span with default values
-pub fn create_test_span(trace_id: Uuid, span_id: &str, name: &str, service_name: &str) -> TraceSpan {
+pub fn create_test_span(
+    trace_id: Uuid,
+    span_id: &str,
+    name: &str,
+    service_name: &str,
+) -> TraceSpan {
     let now = Utc::now();
     TraceSpan {
         id: Uuid::new_v4(),
@@ -63,7 +68,14 @@ pub fn create_test_span(trace_id: Uuid, span_id: &str, name: &str, service_name:
 /// Create multiple test spans
 pub fn create_test_spans(count: usize, trace_id: Uuid, service_name: &str) -> Vec<TraceSpan> {
     (0..count)
-        .map(|i| create_test_span(trace_id, &format!("span_{}", i), &format!("operation_{}", i), service_name))
+        .map(|i| {
+            create_test_span(
+                trace_id,
+                &format!("span_{}", i),
+                &format!("operation_{}", i),
+                service_name,
+            )
+        })
         .collect()
 }
 
@@ -308,7 +320,12 @@ mod tests {
 
     #[test]
     fn test_create_test_log() {
-        let log = create_test_log("test-service", "ERROR", "Test error message", Some("trace-123"));
+        let log = create_test_log(
+            "test-service",
+            "ERROR",
+            "Test error message",
+            Some("trace-123"),
+        );
         assert_eq!(log.service_name, "test-service");
         assert_eq!(log.severity_text, "ERROR");
         assert_eq!(log.body, "Test error message");

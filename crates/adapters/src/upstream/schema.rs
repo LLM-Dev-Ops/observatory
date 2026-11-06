@@ -28,8 +28,8 @@
 //! ```
 
 use schema_registry_core::{
-    CompatibilityMode, RegisteredSchema, SchemaInput, SchemaMetadata, SchemaState,
-    SemanticVersion, SerializationFormat,
+    CompatibilityMode, RegisteredSchema, SchemaInput, SchemaMetadata, SchemaState, SemanticVersion,
+    SerializationFormat,
 };
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -205,7 +205,11 @@ impl SchemaAdapter {
             }
         }"#;
 
-        self.create_schema_input("LlmSpan", schema_content, "Schema for LLM Observatory spans")
+        self.create_schema_input(
+            "LlmSpan",
+            schema_content,
+            "Schema for LLM Observatory spans",
+        )
     }
 
     /// Validate JSON data against a simple schema structure.
@@ -216,7 +220,9 @@ impl SchemaAdapter {
         let mut errors = Vec::new();
 
         // Check required fields
-        let required_fields = ["span_id", "trace_id", "name", "provider", "model", "input", "latency"];
+        let required_fields = [
+            "span_id", "trace_id", "name", "provider", "model", "input", "latency",
+        ];
 
         for field in required_fields {
             if json_data.get(field).is_none() {
@@ -246,7 +252,8 @@ impl SchemaAdapter {
                     if let Some(total_val) = total.as_i64() {
                         if total_val < 0 {
                             errors.push(ValidationError {
-                                message: "token_usage.total_tokens must be non-negative".to_string(),
+                                message: "token_usage.total_tokens must be non-negative"
+                                    .to_string(),
                                 field_path: Some("token_usage.total_tokens".to_string()),
                                 code: "INVALID_VALUE".to_string(),
                             });

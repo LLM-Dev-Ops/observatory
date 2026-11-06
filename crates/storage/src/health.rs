@@ -202,7 +202,9 @@ impl From<PoolStats> for PoolStatsResponse {
 ///
 /// Returns comprehensive health information including database status,
 /// pool statistics, and latency measurements.
-async fn health_handler(State(state): State<Arc<AppState>>) -> Result<Json<HealthResponse>, AppError> {
+async fn health_handler(
+    State(state): State<Arc<AppState>>,
+) -> Result<Json<HealthResponse>, AppError> {
     let start = Instant::now();
 
     // Check PostgreSQL
@@ -250,7 +252,10 @@ async fn health_handler(State(state): State<Arc<AppState>>) -> Result<Json<Healt
 
     // Determine overall status
     let overall_healthy = postgres.status == "healthy"
-        && redis.as_ref().map(|r| r.status == "healthy").unwrap_or(true);
+        && redis
+            .as_ref()
+            .map(|r| r.status == "healthy")
+            .unwrap_or(true);
 
     let status = if overall_healthy {
         "healthy".to_string()
@@ -287,9 +292,14 @@ async fn liveness_handler() -> impl IntoResponse {
 ///
 /// Returns 200 OK if the service is ready to accept traffic.
 /// Checks database connectivity.
-async fn readiness_handler(State(state): State<Arc<AppState>>) -> Result<impl IntoResponse, AppError> {
+async fn readiness_handler(
+    State(state): State<Arc<AppState>>,
+) -> Result<impl IntoResponse, AppError> {
     // Quick health check
-    state.pool.health_check_postgres().await
+    state
+        .pool
+        .health_check_postgres()
+        .await
         .map_err(|_| AppError::NotReady)?;
 
     Ok((StatusCode::OK, "ready"))
@@ -300,7 +310,11 @@ async fn metrics_handler(State(state): State<Arc<AppState>>) -> impl IntoRespons
     // Update pool metrics before rendering
     let stats = state.pool.stats();
     let metrics = crate::metrics::StorageMetrics::new();
-    metrics.update_pool_connections(stats.postgres_active, stats.postgres_idle, stats.postgres_max_connections);
+    metrics.update_pool_connections(
+        stats.postgres_active,
+        stats.postgres_idle,
+        stats.postgres_max_connections,
+    );
 
     // Render Prometheus metrics
     state.prometheus_handle.render()
@@ -319,9 +333,7 @@ impl IntoResponse for AppError {
             AppError::Unhealthy(health) => {
                 (StatusCode::SERVICE_UNAVAILABLE, Json(health)).into_response()
             }
-            AppError::NotReady => {
-                (StatusCode::SERVICE_UNAVAILABLE, "not ready").into_response()
-            }
+            AppError::NotReady => (StatusCode::SERVICE_UNAVAILABLE, "not ready").into_response(),
         }
     }
 }

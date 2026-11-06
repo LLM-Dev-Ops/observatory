@@ -91,7 +91,10 @@ async fn test_cost_tracking() {
             .with_user(prompt)
             .with_max_tokens(10);
 
-        let response = client.chat_completion(request).await.expect("Request failed");
+        let response = client
+            .chat_completion(request)
+            .await
+            .expect("Request failed");
 
         let cost = llm_observatory_sdk::Cost::new(response.cost_usd);
         tracker.record("gpt-4o-mini", &cost, &response.usage);
@@ -109,8 +112,7 @@ async fn test_error_handling_invalid_model() {
 
     let client = OpenAIClient::new(api_key);
 
-    let request = ChatCompletionRequest::new("invalid-model-12345")
-        .with_user("Hello");
+    let request = ChatCompletionRequest::new("invalid-model-12345").with_user("Hello");
 
     let result = client.chat_completion(request).await;
     assert!(result.is_err());

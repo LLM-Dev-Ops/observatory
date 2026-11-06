@@ -38,9 +38,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_by_id(id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_by_id", duration);
+        self.metrics
+            .record_query("trace_repository", "get_by_id", duration);
         if result.is_ok() {
-            self.metrics.record_query_result_count("trace_repository", "get_by_id", 1);
+            self.metrics
+                .record_query_result_count("trace_repository", "get_by_id", 1);
         } else {
             self.metrics.record_error("query", Some("get_by_id"));
         }
@@ -54,9 +56,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_by_trace_id(trace_id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_by_trace_id", duration);
+        self.metrics
+            .record_query("trace_repository", "get_by_trace_id", duration);
         if result.is_ok() {
-            self.metrics.record_query_result_count("trace_repository", "get_by_trace_id", 1);
+            self.metrics
+                .record_query_result_count("trace_repository", "get_by_trace_id", 1);
         } else {
             self.metrics.record_error("query", Some("get_by_trace_id"));
         }
@@ -70,9 +74,14 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_trace_by_id(trace_id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_trace_by_id", duration);
+        self.metrics
+            .record_query("trace_repository", "get_trace_by_id", duration);
         if let Ok((_, ref spans)) = result {
-            self.metrics.record_query_result_count("trace_repository", "get_trace_by_id", 1 + spans.len());
+            self.metrics.record_query_result_count(
+                "trace_repository",
+                "get_trace_by_id",
+                1 + spans.len(),
+            );
         } else {
             self.metrics.record_error("query", Some("get_trace_by_id"));
         }
@@ -86,9 +95,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.list(filters).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "list", duration);
+        self.metrics
+            .record_query("trace_repository", "list", duration);
         if let Ok(ref traces) = result {
-            self.metrics.record_query_result_count("trace_repository", "list", traces.len());
+            self.metrics
+                .record_query_result_count("trace_repository", "list", traces.len());
         } else {
             self.metrics.record_error("query", Some("list"));
         }
@@ -105,12 +116,17 @@ impl InstrumentedTraceRepository {
         filters: TraceFilters,
     ) -> StorageResult<Vec<Trace>> {
         let start = Instant::now();
-        let result = self.inner.get_traces(start_time, end_time, limit, filters).await;
+        let result = self
+            .inner
+            .get_traces(start_time, end_time, limit, filters)
+            .await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_traces", duration);
+        self.metrics
+            .record_query("trace_repository", "get_traces", duration);
         if let Ok(ref traces) = result {
-            self.metrics.record_query_result_count("trace_repository", "get_traces", traces.len());
+            self.metrics
+                .record_query_result_count("trace_repository", "get_traces", traces.len());
         } else {
             self.metrics.record_error("query", Some("get_traces"));
         }
@@ -124,9 +140,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_spans(trace_id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_spans", duration);
+        self.metrics
+            .record_query("trace_repository", "get_spans", duration);
         if let Ok(ref spans) = result {
-            self.metrics.record_query_result_count("trace_repository", "get_spans", spans.len());
+            self.metrics
+                .record_query_result_count("trace_repository", "get_spans", spans.len());
         } else {
             self.metrics.record_error("query", Some("get_spans"));
         }
@@ -140,9 +158,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_span_by_id(span_id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_span_by_id", duration);
+        self.metrics
+            .record_query("trace_repository", "get_span_by_id", duration);
         if result.is_ok() {
-            self.metrics.record_query_result_count("trace_repository", "get_span_by_id", 1);
+            self.metrics
+                .record_query_result_count("trace_repository", "get_span_by_id", 1);
         } else {
             self.metrics.record_error("query", Some("get_span_by_id"));
         }
@@ -156,9 +176,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_events(span_id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_events", duration);
+        self.metrics
+            .record_query("trace_repository", "get_events", duration);
         if let Ok(ref events) = result {
-            self.metrics.record_query_result_count("trace_repository", "get_events", events.len());
+            self.metrics
+                .record_query_result_count("trace_repository", "get_events", events.len());
         } else {
             self.metrics.record_error("query", Some("get_events"));
         }
@@ -174,14 +196,23 @@ impl InstrumentedTraceRepository {
         end_time: DateTime<Utc>,
     ) -> StorageResult<Vec<Trace>> {
         let start = Instant::now();
-        let result = self.inner.search_by_service(service_name, start_time, end_time).await;
+        let result = self
+            .inner
+            .search_by_service(service_name, start_time, end_time)
+            .await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "search_by_service", duration);
+        self.metrics
+            .record_query("trace_repository", "search_by_service", duration);
         if let Ok(ref traces) = result {
-            self.metrics.record_query_result_count("trace_repository", "search_by_service", traces.len());
+            self.metrics.record_query_result_count(
+                "trace_repository",
+                "search_by_service",
+                traces.len(),
+            );
         } else {
-            self.metrics.record_error("query", Some("search_by_service"));
+            self.metrics
+                .record_error("query", Some("search_by_service"));
         }
 
         result
@@ -193,9 +224,14 @@ impl InstrumentedTraceRepository {
         let result = self.inner.search_errors(filters).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "search_errors", duration);
+        self.metrics
+            .record_query("trace_repository", "search_errors", duration);
         if let Ok(ref traces) = result {
-            self.metrics.record_query_result_count("trace_repository", "search_errors", traces.len());
+            self.metrics.record_query_result_count(
+                "trace_repository",
+                "search_errors",
+                traces.len(),
+            );
         } else {
             self.metrics.record_error("query", Some("search_errors"));
         }
@@ -209,9 +245,11 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_trace_statistics(trace_id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_trace_statistics", duration);
+        self.metrics
+            .record_query("trace_repository", "get_trace_statistics", duration);
         if result.is_err() {
-            self.metrics.record_error("query", Some("get_trace_statistics"));
+            self.metrics
+                .record_error("query", Some("get_trace_statistics"));
         }
 
         result
@@ -227,7 +265,8 @@ impl InstrumentedTraceRepository {
         let result = self.inner.get_stats(start_time, end_time).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "get_stats", duration);
+        self.metrics
+            .record_query("trace_repository", "get_stats", duration);
         if result.is_err() {
             self.metrics.record_error("query", Some("get_stats"));
         }
@@ -241,7 +280,8 @@ impl InstrumentedTraceRepository {
         let result = self.inner.delete_before(before).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("trace_repository", "delete_before", duration);
+        self.metrics
+            .record_query("trace_repository", "delete_before", duration);
         if result.is_err() {
             self.metrics.record_error("query", Some("delete_before"));
         }
@@ -271,9 +311,11 @@ impl InstrumentedMetricRepository {
         let result = self.inner.get_by_id(id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("metric_repository", "get_by_id", duration);
+        self.metrics
+            .record_query("metric_repository", "get_by_id", duration);
         if result.is_ok() {
-            self.metrics.record_query_result_count("metric_repository", "get_by_id", 1);
+            self.metrics
+                .record_query_result_count("metric_repository", "get_by_id", 1);
         } else {
             self.metrics.record_error("query", Some("get_by_id"));
         }
@@ -287,9 +329,11 @@ impl InstrumentedMetricRepository {
         let result = self.inner.list(filters).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("metric_repository", "list", duration);
+        self.metrics
+            .record_query("metric_repository", "list", duration);
         if let Ok(ref metrics_list) = result {
-            self.metrics.record_query_result_count("metric_repository", "list", metrics_list.len());
+            self.metrics
+                .record_query_result_count("metric_repository", "list", metrics_list.len());
         } else {
             self.metrics.record_error("query", Some("list"));
         }
@@ -305,12 +349,20 @@ impl InstrumentedMetricRepository {
         end_time: DateTime<Utc>,
     ) -> StorageResult<Vec<MetricDataPoint>> {
         let start = Instant::now();
-        let result = self.inner.get_data_points(metric_id, start_time, end_time).await;
+        let result = self
+            .inner
+            .get_data_points(metric_id, start_time, end_time)
+            .await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("metric_repository", "get_data_points", duration);
+        self.metrics
+            .record_query("metric_repository", "get_data_points", duration);
         if let Ok(ref data_points) = result {
-            self.metrics.record_query_result_count("metric_repository", "get_data_points", data_points.len());
+            self.metrics.record_query_result_count(
+                "metric_repository",
+                "get_data_points",
+                data_points.len(),
+            );
         } else {
             self.metrics.record_error("query", Some("get_data_points"));
         }
@@ -340,9 +392,11 @@ impl InstrumentedLogRepository {
         let result = self.inner.get_by_id(id).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("log_repository", "get_by_id", duration);
+        self.metrics
+            .record_query("log_repository", "get_by_id", duration);
         if result.is_ok() {
-            self.metrics.record_query_result_count("log_repository", "get_by_id", 1);
+            self.metrics
+                .record_query_result_count("log_repository", "get_by_id", 1);
         } else {
             self.metrics.record_error("query", Some("get_by_id"));
         }
@@ -356,9 +410,11 @@ impl InstrumentedLogRepository {
         let result = self.inner.list(filters).await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("log_repository", "list", duration);
+        self.metrics
+            .record_query("log_repository", "list", duration);
         if let Ok(ref logs) = result {
-            self.metrics.record_query_result_count("log_repository", "list", logs.len());
+            self.metrics
+                .record_query_result_count("log_repository", "list", logs.len());
         } else {
             self.metrics.record_error("query", Some("list"));
         }
@@ -375,12 +431,17 @@ impl InstrumentedLogRepository {
         filters: LogFilters,
     ) -> StorageResult<Vec<LogRecord>> {
         let start = Instant::now();
-        let result = self.inner.get_logs(start_time, end_time, limit, filters).await;
+        let result = self
+            .inner
+            .get_logs(start_time, end_time, limit, filters)
+            .await;
         let duration = start.elapsed().as_secs_f64();
 
-        self.metrics.record_query("log_repository", "get_logs", duration);
+        self.metrics
+            .record_query("log_repository", "get_logs", duration);
         if let Ok(ref logs) = result {
-            self.metrics.record_query_result_count("log_repository", "get_logs", logs.len());
+            self.metrics
+                .record_query_result_count("log_repository", "get_logs", logs.len());
         } else {
             self.metrics.record_error("query", Some("get_logs"));
         }

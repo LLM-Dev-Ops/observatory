@@ -6,7 +6,6 @@
 ///! - HTTP status code mapping
 ///! - Error categories for better client handling
 ///! - Structured error responses
-
 use axum::{
     http::StatusCode,
     response::{IntoResponse, Response},
@@ -323,10 +322,7 @@ impl ApiError {
     // Convenience constructors for common errors
 
     pub fn missing_auth() -> Self {
-        Self::new(
-            ErrorCode::MissingAuth,
-            "Authorization header is required",
-        )
+        Self::new(ErrorCode::MissingAuth, "Authorization header is required")
     }
 
     pub fn invalid_token() -> Self {
@@ -387,8 +383,7 @@ impl ApiError {
     }
 
     pub fn database_error(details: impl Into<String>) -> Self {
-        Self::new(ErrorCode::DatabaseError, "Database operation failed")
-            .with_details(details)
+        Self::new(ErrorCode::DatabaseError, "Database operation failed").with_details(details)
     }
 
     pub fn internal_error() -> Self {
@@ -420,8 +415,9 @@ impl ApiError {
     }
 
     pub fn execution_validation_failed(reason: impl Into<String>) -> Self {
-        Self::new(ErrorCode::ExecutionValidationFailed, reason)
-            .with_details("Execution context validation failed. Ensure valid execution headers are provided.")
+        Self::new(ErrorCode::ExecutionValidationFailed, reason).with_details(
+            "Execution context validation failed. Ensure valid execution headers are provided.",
+        )
     }
 }
 
@@ -559,10 +555,7 @@ mod tests {
             ErrorCode::ResourceNotFound.category(),
             ErrorCategory::NotFound
         );
-        assert_eq!(
-            ErrorCode::DuplicateKey.category(),
-            ErrorCategory::Conflict
-        );
+        assert_eq!(ErrorCode::DuplicateKey.category(), ErrorCategory::Conflict);
         assert_eq!(
             ErrorCode::RateLimitExceeded.category(),
             ErrorCategory::RateLimit
@@ -571,7 +564,10 @@ mod tests {
 
     #[test]
     fn test_status_codes() {
-        assert_eq!(ErrorCode::InvalidToken.status_code(), StatusCode::UNAUTHORIZED);
+        assert_eq!(
+            ErrorCode::InvalidToken.status_code(),
+            StatusCode::UNAUTHORIZED
+        );
         assert_eq!(
             ErrorCode::InsufficientPermissions.status_code(),
             StatusCode::FORBIDDEN

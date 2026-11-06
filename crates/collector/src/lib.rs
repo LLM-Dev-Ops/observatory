@@ -17,7 +17,7 @@ pub mod receiver;
 pub mod sampler;
 
 pub use config::CollectorConfig;
-pub use processor::pii::PiiRedactionProcessor;
 pub use processor::cost::CostCalculationProcessor;
+pub use processor::pii::PiiRedactionProcessor;
 pub use receiver::otlp::OtlpReceiver;
-pub use sampler::{SamplingStrategy, HeadSampler, TailSampler};
+pub use sampler::{HeadSampler, SamplingStrategy, TailSampler};

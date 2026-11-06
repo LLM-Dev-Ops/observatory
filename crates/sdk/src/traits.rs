@@ -6,10 +6,7 @@
 use crate::{Error, Result};
 use async_trait::async_trait;
 use futures::Stream;
-use llm_observatory_core::{
-    span::ChatMessage,
-    types::TokenUsage,
-};
+use llm_observatory_core::{span::ChatMessage, types::TokenUsage};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::pin::Pin;
@@ -263,7 +260,9 @@ impl ChatCompletionRequest {
         }
         if let Some(temp) = self.temperature {
             if !(0.0..=2.0).contains(&temp) {
-                return Err(Error::invalid_input("temperature must be between 0.0 and 2.0"));
+                return Err(Error::invalid_input(
+                    "temperature must be between 0.0 and 2.0",
+                ));
             }
         }
         Ok(())

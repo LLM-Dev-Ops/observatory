@@ -21,7 +21,10 @@ pub struct HeadSampler {
 impl HeadSampler {
     /// Create a new head sampler with the given rate.
     pub fn new(rate: f64) -> Self {
-        assert!((0.0..=1.0).contains(&rate), "Sampling rate must be between 0 and 1");
+        assert!(
+            (0.0..=1.0).contains(&rate),
+            "Sampling rate must be between 0 and 1"
+        );
         Self { rate }
     }
 
@@ -111,11 +114,11 @@ impl Default for TailSampler {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use llm_observatory_core::{
-        span::{LlmSpan, LlmInput, SpanStatus},
-        types::{Provider, Latency, Cost},
-    };
     use chrono::Utc;
+    use llm_observatory_core::{
+        span::{LlmInput, LlmSpan, SpanStatus},
+        types::{Cost, Latency, Provider},
+    };
 
     #[test]
     fn test_head_sampler_always() {
@@ -142,7 +145,11 @@ mod tests {
         }
 
         // Should be roughly 500 ± 100
-        assert!(sampled > 400 && sampled < 600, "Expected ~500, got {}", sampled);
+        assert!(
+            sampled > 400 && sampled < 600,
+            "Expected ~500, got {}",
+            sampled
+        );
     }
 
     #[test]
@@ -247,7 +254,7 @@ mod tests {
             },
             output: None,
             token_usage: None,
-            cost: Some(Cost::new(0.01)), // Cheap
+            cost: Some(Cost::new(0.01)),     // Cheap
             latency: Latency::new(now, now), // Fast
             metadata: Default::default(),
             status: SpanStatus::Ok, // Not an error

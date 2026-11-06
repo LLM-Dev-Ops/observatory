@@ -12,32 +12,27 @@
 use super::SpanProcessor;
 use async_trait::async_trait;
 use llm_observatory_core::{
-    span::{LlmSpan, LlmInput, LlmOutput, ChatMessage},
+    span::{ChatMessage, LlmInput, LlmOutput, LlmSpan},
     Result,
 };
-use regex::Regex;
 use once_cell::sync::Lazy;
+use regex::Regex;
 
 /// Regex patterns for PII detection.
-static EMAIL_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b").unwrap()
-});
+static EMAIL_REGEX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b").unwrap());
 
 static PHONE_REGEX: Lazy<Regex> = Lazy::new(|| {
     Regex::new(r"\b(?:\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})\b").unwrap()
 });
 
-static SSN_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r"\b\d{3}-\d{2}-\d{4}\b").unwrap()
-});
+static SSN_REGEX: Lazy<Regex> = Lazy::new(|| Regex::new(r"\b\d{3}-\d{2}-\d{4}\b").unwrap());
 
-static CREDIT_CARD_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r"\b\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}\b").unwrap()
-});
+static CREDIT_CARD_REGEX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"\b\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}\b").unwrap());
 
-static IP_ADDRESS_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b").unwrap()
-});
+static IP_ADDRESS_REGEX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b").unwrap());
 
 /// PII redaction processor.
 #[derive(Debug, Clone)]
@@ -195,11 +190,11 @@ impl SpanProcessor for PiiRedactionProcessor {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use llm_observatory_core::{
-        span::{LlmSpan, LlmInput, SpanStatus},
-        types::{Provider, Latency},
-    };
     use chrono::Utc;
+    use llm_observatory_core::{
+        span::{LlmInput, LlmSpan, SpanStatus},
+        types::{Latency, Provider},
+    };
 
     #[test]
     fn test_email_redaction() {
@@ -273,9 +268,6 @@ mod tests {
             _ => panic!("Expected Text input"),
         }
 
-        assert_eq!(
-            processed.output.unwrap().content,
-            "Contact me at [EMAIL]"
-        );
+        assert_eq!(processed.output.unwrap().content, "Contact me at [EMAIL]");
     }
 }
