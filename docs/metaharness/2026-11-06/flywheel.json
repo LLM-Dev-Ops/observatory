@@ -1,0 +1,4394 @@
+{
+  "parent": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+  "head": "03491701419bbceea3921f8c7aab0230196549bf",
+  "trials": [
+    {
+      "trial": 0,
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 338.237478,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "c1c7c73e-2ed4-4e92-8332-7f0d736cee9e",
+              "timestamp": "2026-11-06T13:06:42.660Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "54c3af8f-76f7-4f53-8d1d-724ba238ff57"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "f3565752-7285-4ecb-be22-1f3b41eb8af2",
+              "timestamp": "2026-11-06T13:06:42.664Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "f3565752-7285-4ecb-be22-1f3b41eb8af2",
+              "timestamp": "2026-11-06T13:06:42.664Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "fae5d019-dba3-4801-962e-d3e60c17aa7d",
+              "timestamp": "2026-11-06T13:06:42.668Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "ad57f28f-f2e7-484a-877f-beadc6be5ee6",
+              "timestamp": "2026-11-06T13:06:42.672Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:42.676Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:42.676Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "203fcc18-9842-4564-8526-d63749adcd37",
+              "timestamp": "2026-11-06T13:06:42.676Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "203fcc18-9842-4564-8526-d63749adcd37",
+              "timestamp": "2026-11-06T13:06:42.676Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:42.679Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:42.679Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "a8c208ec-958d-4592-b0cf-f3539b4ba88b",
+              "timestamp": "2026-11-06T13:06:42.679Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "a8c208ec-958d-4592-b0cf-f3539b4ba88b",
+              "timestamp": "2026-11-06T13:06:42.679Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 0,
+      "revision": "03491701419bbceea3921f8c7aab0230196549bf",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 298.23111700000004,
+      "privateMarkerLogged": false,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "350ac13d-5f4e-44df-86d6-2be427f85f4a",
+              "timestamp": "2026-11-06T13:06:42.850Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "a3d8629c-6465-48d7-b2f8-85fe87cd0854",
+              "timestamp": "2026-11-06T13:06:42.873Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "null",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "930dd885-0cb0-4a79-97b8-ef80ad07ab93",
+              "timestamp": "2026-11-06T13:06:42.877Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "number",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "88655d7f-fe6c-4aec-84b2-7213ec5ce4ec",
+              "timestamp": "2026-11-06T13:06:42.880Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "string",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "86791ebd-44a7-404d-b446-4c7cdcb3aa40",
+              "timestamp": "2026-11-06T13:06:42.883Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 413,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "PAYLOAD_TOO_LARGE",
+              "message": "Request body exceeds the 10mb limit"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "38024411-f2f3-45cf-9f3f-d7e181c89cc9",
+              "timestamp": "2026-11-06T13:06:42.973Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "65e46b06-6d9c-448b-b891-a92b6834565a",
+              "timestamp": "2026-11-06T13:06:42.975Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "899fa266-8ccc-4e81-ad1f-4b0f3dcf66aa"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "db785e1f-c20f-4db5-8293-bc2a2c824f86",
+              "timestamp": "2026-11-06T13:06:42.978Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "db785e1f-c20f-4db5-8293-bc2a2c824f86",
+              "timestamp": "2026-11-06T13:06:42.978Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "444df3ee-33ef-45ae-885c-a82a74383d40",
+              "timestamp": "2026-11-06T13:06:42.981Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "84b53bf0-8da8-480a-b8a9-c0f13d62efdd",
+              "timestamp": "2026-11-06T13:06:42.983Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:42.986Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:42.986Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "95e10bb6-7724-45b1-80a9-40be80192f05",
+              "timestamp": "2026-11-06T13:06:42.986Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "95e10bb6-7724-45b1-80a9-40be80192f05",
+              "timestamp": "2026-11-06T13:06:42.986Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:42.988Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:42.988Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "793a351e-eaa7-41a1-afda-9e0e33592023",
+              "timestamp": "2026-11-06T13:06:42.988Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "793a351e-eaa7-41a1-afda-9e0e33592023",
+              "timestamp": "2026-11-06T13:06:42.988Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "revision": "03491701419bbceea3921f8c7aab0230196549bf",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 299.865181,
+      "privateMarkerLogged": false,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "37a3be45-e5d2-4d08-b3ff-f2cb6cfe69d3",
+              "timestamp": "2026-11-06T13:06:43.147Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "932d7fb7-6bd2-47d6-a988-83d5c682cc01",
+              "timestamp": "2026-11-06T13:06:43.170Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "null",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "9c16abb9-7ee0-4535-b8d7-8ce3a268e28b",
+              "timestamp": "2026-11-06T13:06:43.176Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "number",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "3739bb85-e353-462e-a842-1998da85a0f0",
+              "timestamp": "2026-11-06T13:06:43.179Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "string",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "798a256c-cf09-449c-b11b-7eae39cb9cc0",
+              "timestamp": "2026-11-06T13:06:43.182Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 413,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "PAYLOAD_TOO_LARGE",
+              "message": "Request body exceeds the 10mb limit"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "ced21f68-db2a-4f94-bef2-fe2402821195",
+              "timestamp": "2026-11-06T13:06:43.267Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "c2e942f2-e564-42be-8119-f03f4ad90bf0",
+              "timestamp": "2026-11-06T13:06:43.270Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "251e5c6c-ac22-4d2f-b09f-a85b78d16620"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "878a416a-185b-420a-a68d-a38c2bffa2c2",
+              "timestamp": "2026-11-06T13:06:43.273Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "878a416a-185b-420a-a68d-a38c2bffa2c2",
+              "timestamp": "2026-11-06T13:06:43.273Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "ecb7bde0-8ebc-448b-ace0-d645fd630f4d",
+              "timestamp": "2026-11-06T13:06:43.276Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "05bac449-428c-4ea8-8f7f-6e6bf96775a0",
+              "timestamp": "2026-11-06T13:06:43.278Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:43.281Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:43.281Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "c9f45d77-c168-46ff-92ad-82f7a8fc5a04",
+              "timestamp": "2026-11-06T13:06:43.281Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "c9f45d77-c168-46ff-92ad-82f7a8fc5a04",
+              "timestamp": "2026-11-06T13:06:43.281Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:43.284Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:43.284Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "87b16529-3be2-4757-b1d1-dc2cd8bc1d38",
+              "timestamp": "2026-11-06T13:06:43.284Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "87b16529-3be2-4757-b1d1-dc2cd8bc1d38",
+              "timestamp": "2026-11-06T13:06:43.284Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 312.816323,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "a0c81a9e-3662-47e0-9fe2-ed1c90352fd7",
+              "timestamp": "2026-11-06T13:06:43.583Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "54ea4668-c178-4bd4-b331-4da09b4b4173"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "e085142d-5b97-47d7-8a43-10ab6c1c8989",
+              "timestamp": "2026-11-06T13:06:43.586Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "e085142d-5b97-47d7-8a43-10ab6c1c8989",
+              "timestamp": "2026-11-06T13:06:43.586Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "e68a6896-801f-479a-83ec-74651cfb4f70",
+              "timestamp": "2026-11-06T13:06:43.588Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "ca37a6cf-d542-49bc-ab77-7874ed5301e3",
+              "timestamp": "2026-11-06T13:06:43.592Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:43.595Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:43.595Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "ed3cc9fe-15b4-43a8-8f1a-7de9352e0314",
+              "timestamp": "2026-11-06T13:06:43.595Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "ed3cc9fe-15b4-43a8-8f1a-7de9352e0314",
+              "timestamp": "2026-11-06T13:06:43.595Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:43.597Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:43.597Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "6270d736-b3fe-4671-89a0-47ac91f79a1f",
+              "timestamp": "2026-11-06T13:06:43.597Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "6270d736-b3fe-4671-89a0-47ac91f79a1f",
+              "timestamp": "2026-11-06T13:06:43.597Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 311.4036649999998,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "72c1166a-accc-4b25-9dc4-ea9289ce73f0",
+              "timestamp": "2026-11-06T13:06:43.895Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "2634d456-e1b3-403e-b713-499e7211facd"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "5a30f7e8-b78c-445d-bcc6-9057032e3b00",
+              "timestamp": "2026-11-06T13:06:43.898Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "5a30f7e8-b78c-445d-bcc6-9057032e3b00",
+              "timestamp": "2026-11-06T13:06:43.898Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "780db17f-17a6-4351-8d0a-ceb6d907e7d7",
+              "timestamp": "2026-11-06T13:06:43.901Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "b9d67d54-bffd-4095-863b-5d2b62451c47",
+              "timestamp": "2026-11-06T13:06:43.904Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:43.907Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:43.907Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "b4dec655-9807-4605-a908-3222c522b28b",
+              "timestamp": "2026-11-06T13:06:43.907Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "b4dec655-9807-4605-a908-3222c522b28b",
+              "timestamp": "2026-11-06T13:06:43.907Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:43.909Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:43.909Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "04b14f5f-ef79-438a-b081-12dd6c7b85b6",
+              "timestamp": "2026-11-06T13:06:43.909Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "04b14f5f-ef79-438a-b081-12dd6c7b85b6",
+              "timestamp": "2026-11-06T13:06:43.909Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "revision": "03491701419bbceea3921f8c7aab0230196549bf",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 316.6523460000001,
+      "privateMarkerLogged": false,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "fdc75bd1-4b15-48e1-bde7-fbfee0bbfbf6",
+              "timestamp": "2026-11-06T13:06:44.076Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "d12bd61d-f17b-408f-8998-856c8cd80dff",
+              "timestamp": "2026-11-06T13:06:44.091Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "null",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "0100f116-209e-447a-8dcd-2e1ed522587e",
+              "timestamp": "2026-11-06T13:06:44.099Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "number",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "0c8b58d2-5ed3-4de9-94a1-a3c4136a628f",
+              "timestamp": "2026-11-06T13:06:44.102Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "string",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "e5ebff01-acdf-446a-9fa7-326b2748011d",
+              "timestamp": "2026-11-06T13:06:44.105Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 413,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "PAYLOAD_TOO_LARGE",
+              "message": "Request body exceeds the 10mb limit"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "ff3eefbd-52f7-41dd-af4a-b88b13b53cbd",
+              "timestamp": "2026-11-06T13:06:44.203Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "56297e8e-ac1e-4719-8259-85f1a386836c",
+              "timestamp": "2026-11-06T13:06:44.206Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "46b99b86-a9ca-4af4-b6fa-130bbf0b0ba7"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "d3e201ca-0155-4879-b5b1-f2ac21543858",
+              "timestamp": "2026-11-06T13:06:44.210Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "d3e201ca-0155-4879-b5b1-f2ac21543858",
+              "timestamp": "2026-11-06T13:06:44.210Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "f3a9b347-96ca-4053-92f0-508408e9fa97",
+              "timestamp": "2026-11-06T13:06:44.212Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "53fe77be-7b61-41d1-8607-d205414a20b6",
+              "timestamp": "2026-11-06T13:06:44.216Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:44.219Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:44.219Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "b45f1479-1d00-4f9d-962f-4609fb5a5f47",
+              "timestamp": "2026-11-06T13:06:44.219Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "b45f1479-1d00-4f9d-962f-4609fb5a5f47",
+              "timestamp": "2026-11-06T13:06:44.219Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:44.222Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:44.222Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "811c63bf-9679-4e38-98b0-0dd19a85dd1a",
+              "timestamp": "2026-11-06T13:06:44.222Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "811c63bf-9679-4e38-98b0-0dd19a85dd1a",
+              "timestamp": "2026-11-06T13:06:44.222Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "revision": "03491701419bbceea3921f8c7aab0230196549bf",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 331.8026119999997,
+      "privateMarkerLogged": false,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "9673eea3-1a63-4167-a3f1-b4170ec4eb91",
+              "timestamp": "2026-11-06T13:06:44.408Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "aafb4508-bdb6-4ec5-b3f2-4a46b35cb172",
+              "timestamp": "2026-11-06T13:06:44.439Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "null",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "358e8522-7635-4446-bed6-e560df0dfb50",
+              "timestamp": "2026-11-06T13:06:44.448Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "number",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "37a8f111-8b64-4473-9966-d8ff2f06a022",
+              "timestamp": "2026-11-06T13:06:44.452Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "string",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "88344f3d-b725-465b-ab15-a46197b80f81",
+              "timestamp": "2026-11-06T13:06:44.455Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 413,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "PAYLOAD_TOO_LARGE",
+              "message": "Request body exceeds the 10mb limit"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "853f0ea7-2536-4966-acc3-8e7f501931ca",
+              "timestamp": "2026-11-06T13:06:44.542Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "cbfa7252-7cce-4ca8-936f-c8d79ed23022",
+              "timestamp": "2026-11-06T13:06:44.545Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "7accd348-9d38-4d31-8029-9c6a36cb58fd"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "a71b1895-1d58-438d-adb6-723c6d656952",
+              "timestamp": "2026-11-06T13:06:44.549Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "a71b1895-1d58-438d-adb6-723c6d656952",
+              "timestamp": "2026-11-06T13:06:44.549Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "b4280501-4ebf-41f3-896e-6c10bd282bf4",
+              "timestamp": "2026-11-06T13:06:44.552Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "71828513-f4ec-4eac-a44d-73eaa2c0b536",
+              "timestamp": "2026-11-06T13:06:44.555Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:44.558Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:44.558Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "5a773b44-4ef2-4004-b729-e8cc532f3f0c",
+              "timestamp": "2026-11-06T13:06:44.558Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "5a773b44-4ef2-4004-b729-e8cc532f3f0c",
+              "timestamp": "2026-11-06T13:06:44.558Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:44.561Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:44.561Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "3f126971-abcb-4527-870b-36131fbe0f5d",
+              "timestamp": "2026-11-06T13:06:44.561Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "3f126971-abcb-4527-870b-36131fbe0f5d",
+              "timestamp": "2026-11-06T13:06:44.561Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 326.061999,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "c6981acd-9546-4b97-8c90-50af2d7f1e6b",
+              "timestamp": "2026-11-06T13:06:44.869Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "66e59861-88e7-4ce1-bf4e-acbaac036f57"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "80c33e3d-ca76-4b71-87ed-64ef3782ef1a",
+              "timestamp": "2026-11-06T13:06:44.872Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "80c33e3d-ca76-4b71-87ed-64ef3782ef1a",
+              "timestamp": "2026-11-06T13:06:44.872Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "f9d1514c-5aed-435d-910c-eba72ed2e619",
+              "timestamp": "2026-11-06T13:06:44.875Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "81b39ebd-ae2e-494b-b30f-f3d00c3d8a6d",
+              "timestamp": "2026-11-06T13:06:44.878Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:44.880Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:44.880Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "c83af48e-210b-4b66-a6cf-1c5883e4b93f",
+              "timestamp": "2026-11-06T13:06:44.880Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "c83af48e-210b-4b66-a6cf-1c5883e4b93f",
+              "timestamp": "2026-11-06T13:06:44.880Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:44.883Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:44.883Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "3af3902b-f4da-4e65-affd-f4295a77ad48",
+              "timestamp": "2026-11-06T13:06:44.883Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "3af3902b-f4da-4e65-affd-f4295a77ad48",
+              "timestamp": "2026-11-06T13:06:44.883Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 309.4261660000002,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "a84a6eb0-bba7-41cf-b855-8cdd5e512511",
+              "timestamp": "2026-11-06T13:06:45.181Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "e41c6613-8754-4e8d-bc48-68e75698fb2d"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "943243a1-f0fa-429f-8b43-b969a8c51d64",
+              "timestamp": "2026-11-06T13:06:45.185Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "943243a1-f0fa-429f-8b43-b969a8c51d64",
+              "timestamp": "2026-11-06T13:06:45.185Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "98f46fc1-46fe-46fa-ae5f-73e28ee9f7b7",
+              "timestamp": "2026-11-06T13:06:45.188Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "6054af05-06d0-47cc-bf41-a4e424a84cc8",
+              "timestamp": "2026-11-06T13:06:45.191Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:45.193Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:45.193Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "7acec0f4-81c7-402a-b18e-af5bc7375c90",
+              "timestamp": "2026-11-06T13:06:45.193Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "7acec0f4-81c7-402a-b18e-af5bc7375c90",
+              "timestamp": "2026-11-06T13:06:45.193Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:45.196Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:45.196Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "02daa7ee-0114-4646-ab37-a4fdd5b30a3b",
+              "timestamp": "2026-11-06T13:06:45.196Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "02daa7ee-0114-4646-ab37-a4fdd5b30a3b",
+              "timestamp": "2026-11-06T13:06:45.196Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "trial": 4,
+      "revision": "03491701419bbceea3921f8c7aab0230196549bf",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 320.0192689999999,
+      "privateMarkerLogged": false,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "f58df0f8-00dd-4392-84de-ee90100d0e24",
+              "timestamp": "2026-11-06T13:06:45.366Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "cf54b853-7996-4e18-950f-99e417bed84b",
+              "timestamp": "2026-11-06T13:06:45.395Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "null",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "6488e1f5-5c0b-4759-b811-57b390a8a845",
+              "timestamp": "2026-11-06T13:06:45.403Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "number",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "69e9fd80-3754-4563-820e-7c375a26784d",
+              "timestamp": "2026-11-06T13:06:45.406Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "string",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "776829cc-b28a-4f15-af99-53e778930279",
+              "timestamp": "2026-11-06T13:06:45.409Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 413,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "PAYLOAD_TOO_LARGE",
+              "message": "Request body exceeds the 10mb limit"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "3a968377-9eb8-4f66-9218-eb8e5a7aa34f",
+              "timestamp": "2026-11-06T13:06:45.496Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "e9d853e7-b294-4a7e-9f66-ebdbdb33ec9e",
+              "timestamp": "2026-11-06T13:06:45.500Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "0de9914a-30d8-41ed-94dd-7fdfc8ec9331"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "2c969251-9440-4f70-91af-574b7b10255c",
+              "timestamp": "2026-11-06T13:06:45.503Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "2c969251-9440-4f70-91af-574b7b10255c",
+              "timestamp": "2026-11-06T13:06:45.503Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "5cd5c1ae-f6b1-4a06-8172-c88e5bbc01ae",
+              "timestamp": "2026-11-06T13:06:45.505Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "561ee4db-db94-4e9f-9c7a-4d1aaeb3bc8f",
+              "timestamp": "2026-11-06T13:06:45.508Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:45.512Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:45.512Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "c4a57858-df40-4e23-ab6c-c13ef69adb8a",
+              "timestamp": "2026-11-06T13:06:45.512Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "c4a57858-df40-4e23-ab6c-c13ef69adb8a",
+              "timestamp": "2026-11-06T13:06:45.512Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:45.516Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:45.516Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "191b0274-da17-4e7b-a74c-ac93db1d51e6",
+              "timestamp": "2026-11-06T13:06:45.516Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "191b0274-da17-4e7b-a74c-ac93db1d51e6",
+              "timestamp": "2026-11-06T13:06:45.516Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "evaluations": [
+    {
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 301.23984800000017,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "d5e6e3d7-e609-4cc0-82dc-53ce8dc0de1d",
+              "timestamp": "2026-11-06T13:06:45.800Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "38aa982a-168d-4b49-aec6-bafb6248967f"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "d67ca28a-91b7-496f-b5ff-eaeeeaac4e36",
+              "timestamp": "2026-11-06T13:06:45.805Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "d67ca28a-91b7-496f-b5ff-eaeeeaac4e36",
+              "timestamp": "2026-11-06T13:06:45.805Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "17ad8e22-772d-4cc7-ba1b-cca1ef010181",
+              "timestamp": "2026-11-06T13:06:45.807Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "2bdcc115-364d-4fc9-8416-3fc9b62e3575",
+              "timestamp": "2026-11-06T13:06:45.810Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:45.814Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:45.814Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "35b822ec-3745-49e5-bcaa-eaff8b821d0b",
+              "timestamp": "2026-11-06T13:06:45.814Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "35b822ec-3745-49e5-bcaa-eaff8b821d0b",
+              "timestamp": "2026-11-06T13:06:45.814Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:45.817Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:45.817Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "d2a512d5-bebf-4686-8b77-8b73e3cdd27c",
+              "timestamp": "2026-11-06T13:06:45.817Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "d2a512d5-bebf-4686-8b77-8b73e3cdd27c",
+              "timestamp": "2026-11-06T13:06:45.817Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "suite": "holdout"
+    },
+    {
+      "revision": "210bd9f9b55fc45208b3b4301c10a2dbd4dcc7e7",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 323.2602360000001,
+      "privateMarkerLogged": true,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "null",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "number",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "string",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 500,
+          "passed": false,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INTERNAL_ERROR",
+              "message": "Internal server error"
+            },
+            "layers_executed": [
+              "error_handling"
+            ]
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "c81a2342-cef8-4fd5-adac-48dc82093591",
+              "timestamp": "2026-11-06T13:06:46.123Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "30030ff7-f68d-4ad5-905b-c6bb57e3a808"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "8cc7b91b-5752-4e9d-8222-c654506bf19c",
+              "timestamp": "2026-11-06T13:06:46.127Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "8cc7b91b-5752-4e9d-8222-c654506bf19c",
+              "timestamp": "2026-11-06T13:06:46.127Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "465e9d24-77c1-416a-a7ed-97ac88dd559a",
+              "timestamp": "2026-11-06T13:06:46.130Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "c748bd27-5b2c-48f7-bd1a-629b486a4286",
+              "timestamp": "2026-11-06T13:06:46.133Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:46.137Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:46.137Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "4db37593-36e1-4a64-9d6c-91ead0bdbf86",
+              "timestamp": "2026-11-06T13:06:46.137Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "4db37593-36e1-4a64-9d6c-91ead0bdbf86",
+              "timestamp": "2026-11-06T13:06:46.137Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:46.140Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:46.140Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "9ec6988f-fcd8-4ecd-8bd0-cdc2b81e1dc8",
+              "timestamp": "2026-11-06T13:06:46.140Z"
+            },
+            "processing_time_ms": 0,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "9ec6988f-fcd8-4ecd-8bd0-cdc2b81e1dc8",
+              "timestamp": "2026-11-06T13:06:46.140Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "suite": "anchor"
+    },
+    {
+      "revision": "03491701419bbceea3921f8c7aab0230196549bf",
+      "command": [
+        "/usr/bin/node",
+        "scripts/parser-boundary-probe.cjs",
+        "."
+      ],
+      "exit": 0,
+      "elapsedMs": 311.89741099999947,
+      "privateMarkerLogged": false,
+      "holdout": [
+        {
+          "name": "malformed",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "92db2647-b3e7-4221-a524-b936279c1064",
+              "timestamp": "2026-11-06T13:06:46.313Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "truncated",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "a69535da-7971-4aa3-9d4d-5e76305ae685",
+              "timestamp": "2026-11-06T13:06:46.327Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "null",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "c7d36852-24df-4bc4-ab95-93d66c0e07c1",
+              "timestamp": "2026-11-06T13:06:46.331Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "number",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "e8d4074a-cf40-49d6-87d0-fab48c1b3859",
+              "timestamp": "2026-11-06T13:06:46.336Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "string",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "INVALID_JSON",
+              "message": "Request body must be valid JSON"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "82469517-9c3e-4418-906c-92e6c844cb76",
+              "timestamp": "2026-11-06T13:06:46.340Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "oversized",
+          "status": 413,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "PAYLOAD_TOO_LARGE",
+              "message": "Request body exceeds the 10mb limit"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "322f9d9d-0d63-4ff1-bc4f-42ed44756693",
+              "timestamp": "2026-11-06T13:06:46.438Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "name": "health",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "healthy": true,
+            "service": "observatory-agents",
+            "agents": 7,
+            "execution_metadata": {
+              "trace_id": "7c64ea3c-8af1-49c8-9331-4fb11e6cbd3d",
+              "timestamp": "2026-11-06T13:06:46.442Z",
+              "service": "observatory-agents"
+            },
+            "layers_executed": [
+              "input_validation",
+              "agent_dispatch",
+              "response_assembly"
+            ]
+          }
+        },
+        {
+          "name": "telemetry",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "telemetry-collector-agent",
+            "processed": 1,
+            "decision_event": {
+              "agent_id": "telemetry-collector-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "telemetry_ingestion",
+              "inputs_hash": "ca18d43d1e3a44aaea6d781eb1467d004922685299eef2cda746bb63ea9594db",
+              "outputs": {
+                "processed": 1,
+                "event_ids": [
+                  "84b31418-ed02-4f63-af71-b4f4126dfcd0"
+                ]
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "f9445042-486f-43b7-8b3a-03938a18ad11",
+              "timestamp": "2026-11-06T13:06:46.445Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "event_normalization",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "f9445042-486f-43b7-8b3a-03938a18ad11",
+              "timestamp": "2026-11-06T13:06:46.445Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "shape validation",
+          "status": 400,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "VALIDATION_FAILED",
+              "message": "payload.events must be an array"
+            },
+            "layers_executed": [
+              "input_validation"
+            ],
+            "execution_metadata": {
+              "trace_id": "17218407-7977-4e77-ab07-1fc059d4bf63",
+              "timestamp": "2026-11-06T13:06:46.447Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "missing route",
+          "status": 404,
+          "passed": true,
+          "body": {
+            "success": false,
+            "error": {
+              "code": "NOT_FOUND",
+              "message": "Endpoint POST /absent not found"
+            },
+            "layers_executed": [
+              "routing"
+            ],
+            "execution_metadata": {
+              "trace_id": "603f00ed-fda9-434d-9003-1cc6f03d356f",
+              "timestamp": "2026-11-06T13:06:46.450Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "health targets",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "health-check-agent",
+            "evaluations": [
+              {
+                "target_id": "a",
+                "status": "healthy",
+                "confidence": 1,
+                "evaluated_at": "2026-11-06T13:06:46.453Z"
+              }
+            ],
+            "decision_event": {
+              "agent_id": "health-check-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "health_evaluation",
+              "inputs_hash": "64a5c1fa619be56d0812d298523b674436784f69836364cefdb1ab35b9de4b2f",
+              "outputs": {
+                "evaluations": [
+                  {
+                    "target_id": "a",
+                    "status": "healthy",
+                    "confidence": 1,
+                    "evaluated_at": "2026-11-06T13:06:46.453Z"
+                  }
+                ],
+                "target_count": 1
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "1049388a-468e-4a77-becf-897538f3ae66",
+              "timestamp": "2026-11-06T13:06:46.453Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "health_evaluation",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "1049388a-468e-4a77-becf-897538f3ae66",
+              "timestamp": "2026-11-06T13:06:46.453Z",
+              "service": "observatory-agents"
+            }
+          }
+        },
+        {
+          "name": "SLO fields",
+          "status": 200,
+          "passed": true,
+          "body": {
+            "success": true,
+            "agent": "slo-enforcement-agent",
+            "violations": [],
+            "slo_statuses": [
+              {
+                "slo_id": "a",
+                "status": "compliant",
+                "current_value": null,
+                "threshold": 99,
+                "evaluated_at": "2026-11-06T13:06:46.456Z"
+              }
+            ],
+            "slos_evaluated": 1,
+            "decision_event": {
+              "agent_id": "slo-enforcement-agent",
+              "agent_version": "1.0.0",
+              "decision_type": "slo_enforcement",
+              "inputs_hash": "75d911addc76b618682335106e717d14734cf7e52f2564aeebad4edc972131fe",
+              "outputs": {
+                "violations": [],
+                "slo_statuses": [
+                  {
+                    "slo_id": "a",
+                    "status": "compliant",
+                    "current_value": null,
+                    "threshold": 99,
+                    "evaluated_at": "2026-11-06T13:06:46.456Z"
+                  }
+                ],
+                "slos_evaluated": 1,
+                "metrics_evaluated": 0
+              },
+              "confidence": 1,
+              "constraints_applied": [],
+              "execution_ref": "fcd53b21-4c21-426b-905f-168ca81f0d84",
+              "timestamp": "2026-11-06T13:06:46.456Z"
+            },
+            "processing_time_ms": 1,
+            "layers_executed": [
+              "input_validation",
+              "slo_evaluation",
+              "violation_detection",
+              "decision_event_emission",
+              "response_assembly"
+            ],
+            "execution_metadata": {
+              "trace_id": "fcd53b21-4c21-426b-905f-168ca81f0d84",
+              "timestamp": "2026-11-06T13:06:46.456Z",
+              "service": "observatory-agents"
+            }
+          }
+        }
+      ],
+      "suite": "holdout"
+    }
+  ],
+  "inverse": {
+    "path": "functions/index.js",
+    "parentBytes": "/**\n * Observatory Agents - Google Cloud Function Entry Point\n *\n * Unified HTTP handler exposing 7 Observatory agents at /v1/observatory/* routes.\n * Deployable via: gcloud functions deploy observatory-agents --entry-point api\n *\n * Copyright 2025 LLM Observatory Contributors\n * SPDX-License-Identifier: Apache-2.0\n */\n\nconst express = require('express');\nconst crypto = require('crypto');\n\nconst app = express();\nconst MAX_BATCH_ITEMS = 1000;\n\n// ----------------------------------------------------------------------------\n// MIDDLEWARE\n// ----------------------------------------------------------------------------\n\napp.use(express.json({ limit: '10mb' }));\n\n// CORS - allow required headers\napp.use((req, res, next) => {\n  res.header('Access-Control-Allow-Origin', '*');\n  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');\n  res.header(\n    'Access-Control-Allow-Headers',\n    'X-Correlation-ID, X-API-Version, Content-Type, Authorization'\n  );\n  res.header('Access-Control-Max-Age', '86400');\n  if (req.method === 'OPTIONS') {\n    return res.status(204).end();\n  }\n  next();\n});\n\n// Attach execution_metadata to every JSON response\napp.use((req, res, next) => {\n  const traceId = crypto.randomUUID();\n  req._traceId = traceId;\n  req._startTime = Date.now();\n\n  const originalJson = res.json.bind(res);\n  res.json = (body) => {\n    if (body && typeof body === 'object' && !Array.isArray(body)) {\n      body.execution_metadata = {\n        trace_id: traceId,\n        timestamp: new Date().toISOString(),\n        service: 'observatory-agents',\n      };\n      if (!body.layers_executed) {\n        body.layers_executed = ['input_validation', 'agent_dispatch', 'response_assembly'];\n      }\n    }\n    return originalJson(body);\n  };\n\n  next();\n});\n\n// ----------------------------------------------------------------------------\n// AGENT DEFINITIONS\n// ----------------------------------------------------------------------------\n\nconst AGENTS = {\n  telemetry: {\n    id: 'telemetry-collector-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'telemetry_ingestion',\n    description: 'Ingests and normalizes LLM telemetry events',\n  },\n  'usage-patterns': {\n    id: 'usage-pattern-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'usage_analysis',\n    description: 'Analyzes LLM usage patterns and trends',\n  },\n  failures: {\n    id: 'failure-classification-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'failure_classification',\n    description: 'Classifies LLM failure events into categories',\n  },\n  'health-check': {\n    id: 'health-check-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'health_evaluation',\n    description: 'Evaluates health status of LLM services',\n  },\n  slo: {\n    id: 'slo-enforcement-agent',\n    version: '1.0.0',\n    classification: 'ENFORCEMENT-CLASS',\n    decisionType: 'slo_enforcement',\n    description: 'Evaluates SLO/SLA compliance (non-actuating)',\n  },\n  'post-mortem': {\n    id: 'post-mortem-generator-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'postmortem_generation',\n    description: 'Generates post-mortem reports from incident data',\n  },\n  visualization: {\n    id: 'visualization-spec-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'visualization_spec',\n    description: 'Generates dashboard visualization specifications',\n  },\n};\n\n// ----------------------------------------------------------------------------\n// UTILITY\n// ----------------------------------------------------------------------------\n\nfunction hashInputs(inputs) {\n  return crypto.createHash('sha256').update(JSON.stringify(inputs)).digest('hex');\n}\n\nfunction readBoundedArray(res, value, field, { required = false } = {}) {\n  if (!Array.isArray(value)) {\n    res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: `${field} must be an array` },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n\n  if (required && value.length === 0) {\n    res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: `${field} must contain at least one item` },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n\n  if (value.length > MAX_BATCH_ITEMS) {\n    res.status(413).json({\n      success: false,\n      error: {\n        code: 'PAYLOAD_TOO_LARGE',\n        message: `${field} exceeds the ${MAX_BATCH_ITEMS}-item limit`,\n      },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n\n  return value;\n}\n\n// Only these routes dereference batch entries; telemetry/metric values remain unrestricted.\nfunction readObjectArray(res, value, field) {\n  const entries = readBoundedArray(res, value, field);\n  if (!entries) return null;\n  const invalidIndex = entries.findIndex(\n    (entry) => entry === null || typeof entry !== 'object' || Array.isArray(entry)\n  );\n  if (invalidIndex !== -1) {\n    res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: `${field}[${invalidIndex}] must be an object` },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n  return entries;\n}\n\nfunction buildDecisionEvent(agentMeta, inputsHash, executionRef, outputs, confidence) {\n  return {\n    agent_id: agentMeta.id,\n    agent_version: agentMeta.version,\n    decision_type: agentMeta.decisionType,\n    inputs_hash: inputsHash,\n    outputs,\n    confidence: confidence ?? 1.0,\n    constraints_applied: [],\n    execution_ref: executionRef,\n    timestamp: new Date().toISOString(),\n  };\n}\n\n// ----------------------------------------------------------------------------\n// HEALTH ENDPOINT\n// ----------------------------------------------------------------------------\n\napp.get('/health', (req, res) => {\n  res.json({\n    healthy: true,\n    service: 'observatory-agents',\n    agents: 7,\n  });\n});\n\n// ----------------------------------------------------------------------------\n// AGENT ROUTES - POST /v1/observatory/:agent\n// ----------------------------------------------------------------------------\n\n/**\n * Telemetry Collector\n * Accepts: { agent, payload: { events: [...] }, context }\n */\napp.post('/v1/observatory/telemetry', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  const rawEvents = Array.isArray(payload) ? payload : payload?.events;\n  const events = readBoundedArray(res, rawEvents, 'payload.events', { required: true });\n  if (!events) return;\n\n  const agentMeta = AGENTS.telemetry;\n  const inputsHash = hashInputs(events);\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    processed: events.length,\n    event_ids: events.map(() => crypto.randomUUID()),\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    processed: events.length,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'event_normalization', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Usage Pattern Analyzer\n * Accepts: { agent, payload: { time_range, dimensions, filters }, context }\n */\napp.post('/v1/observatory/usage-patterns', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const agentMeta = AGENTS['usage-patterns'];\n  const inputsHash = hashInputs(payload);\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    analysis_requested: true,\n    time_range: payload.time_range,\n    dimensions: payload.dimensions,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    analysis: {\n      time_range: payload.time_range,\n      dimensions: payload.dimensions || [],\n      patterns: [],\n    },\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'pattern_analysis', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Failure Classification\n * Accepts: { agent, payload: { error_events, context }, context }\n */\napp.post('/v1/observatory/failures', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const errorEvents = readBoundedArray(res, payload.error_events ?? [], 'payload.error_events');\n  if (!errorEvents) return;\n  const agentMeta = AGENTS.failures;\n  const inputsHash = hashInputs(payload);\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    classified: errorEvents.length,\n    classifications: errorEvents.map((e, i) => ({\n      event_index: i,\n      category: 'unclassified',\n      confidence: 0.0,\n    })),\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    classifications: decisionEvent.outputs.classifications,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'failure_classification', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Health Check Agent\n * Accepts: { agent, payload: { targets, options }, context }\n */\napp.post('/v1/observatory/health-check', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const targets = readObjectArray(res, payload.targets ?? [], 'payload.targets');\n  if (!targets) return;\n  const agentMeta = AGENTS['health-check'];\n  const inputsHash = hashInputs(payload);\n\n  const evaluations = targets.map((t) => ({\n    target_id: t.id || t.target_id,\n    target_type: t.type || t.target_type,\n    status: 'healthy',\n    confidence: 1.0,\n    evaluated_at: new Date().toISOString(),\n  }));\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    evaluations,\n    target_count: targets.length,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    evaluations,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'health_evaluation', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * SLO/SLA Enforcement\n * Accepts: { agent, payload: { slo_definitions, metrics, evaluation_time }, context }\n */\napp.post('/v1/observatory/slo', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const sloDefinitions = readObjectArray(\n    res,\n    payload.slo_definitions ?? [],\n    'payload.slo_definitions'\n  );\n  if (!sloDefinitions) return;\n  const metrics = readBoundedArray(res, payload.metrics ?? [], 'payload.metrics');\n  if (!metrics) return;\n  const agentMeta = AGENTS.slo;\n  const inputsHash = hashInputs(payload);\n\n  const sloStatuses = sloDefinitions.map((slo) => ({\n    slo_id: slo.id || slo.slo_id,\n    status: 'compliant',\n    current_value: null,\n    threshold: slo.threshold,\n    evaluated_at: new Date().toISOString(),\n  }));\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    violations: [],\n    slo_statuses: sloStatuses,\n    slos_evaluated: sloDefinitions.length,\n    metrics_evaluated: metrics.length,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    violations: [],\n    slo_statuses: sloStatuses,\n    slos_evaluated: sloDefinitions.length,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'slo_evaluation', 'violation_detection', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Post-Mortem Generator\n * Accepts: { agent, payload: { incident_id, time_range, scope, options }, context }\n */\napp.post('/v1/observatory/post-mortem', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const agentMeta = AGENTS['post-mortem'];\n  const inputsHash = hashInputs(payload);\n  const reportId = crypto.randomUUID();\n\n  const report = {\n    report_id: reportId,\n    incident_id: payload.incident_id,\n    time_range: payload.time_range,\n    generated_at: new Date().toISOString(),\n    summary: 'Post-mortem report generated',\n    sections: [],\n  };\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    report_id: reportId,\n    generation_requested: true,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    report,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'data_aggregation', 'report_generation', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Visualization Spec Generator\n * Accepts: { agent, payload: { visualization_type, data_sources, metrics, time_range }, context }\n */\napp.post('/v1/observatory/visualization', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const agentMeta = AGENTS.visualization;\n  const inputsHash = hashInputs(payload);\n  const specId = crypto.randomUUID();\n\n  const spec = {\n    spec_id: specId,\n    visualization_type: payload.visualization_type,\n    generated_at: new Date().toISOString(),\n    config: {},\n  };\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    spec_id: specId,\n    generation_requested: true,\n    visualization_type: payload.visualization_type,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    spec,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'spec_generation', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n// ----------------------------------------------------------------------------\n// ERROR HANDLING\n// ----------------------------------------------------------------------------\n\napp.use((err, req, res, _next) => {\n  console.error('Unhandled error:', err);\n  res.status(500).json({\n    success: false,\n    error: { code: 'INTERNAL_ERROR', message: 'Internal server error' },\n    layers_executed: ['error_handling'],\n  });\n});\n\n// 404 handler\napp.use((req, res) => {\n  res.status(404).json({\n    success: false,\n    error: {\n      code: 'NOT_FOUND',\n      message: `Endpoint ${req.method} ${req.path} not found`,\n    },\n    layers_executed: ['routing'],\n  });\n});\n\n// ----------------------------------------------------------------------------\n// EXPORT FOR CLOUD FUNCTIONS\n// ----------------------------------------------------------------------------\n\nexports.api = app;\n\n",
+    "sha256": "478d980816374c0a17000d8d1c969dd54c40604a1358134ad2fc61550a109d5b"
+  },
+  "fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+  "replay": {
+    "pass": true,
+    "checks": {
+      "receipts": true,
+      "reachesRoot": true,
+      "contiguousParents": true,
+      "allPromoted": true,
+      "gateUnchanged": true,
+      "gateReExecutes": true,
+      "allCommitsReceipts": true,
+      "sealedFieldsAuthentic": true
+    },
+    "failures": [],
+    "chainSummary": "gen0(root)"
+  },
+  "promotions": [],
+  "replayBundle": {
+    "data_source": "LIVE_HTTP",
+    "root_id": "root",
+    "chain": [
+      {
+        "id": "root",
+        "generation": 0,
+        "parents": [],
+        "mutation": null,
+        "primaryDelta": 0,
+        "anchorScore": 1,
+        "verdict": "ROOT",
+        "failureReasons": [],
+        "receipt": {
+          "payload": {
+            "kind": "root",
+            "root": "root"
+          },
+          "signature": "cqBBNYZF9ZHWYT7AjVSp9RKnPs0Z9kcDPeklEZZ5K1EVQneb+RFc+I83g+GfvXnlTWAd6zOGO/sFLjFb7NjmCQ==",
+          "publicKey": "MCowBQYDK2VwAyEAE+lKvb9jqf3CXlXABhR2YjCfhf7AI1KdZo4aKKYoeOU=",
+          "alg": "ed25519"
+        },
+        "createdAt": "gen-0"
+      }
+    ],
+    "all_commits": [
+      {
+        "id": "root__revision_gen1",
+        "generation": 1,
+        "parents": [
+          "root"
+        ],
+        "mutation": {
+          "target": "revision",
+          "summary": "Preserve parser rejection status and private response envelope",
+          "inverse": {
+            "path": "functions/index.js",
+            "parentBytes": "/**\n * Observatory Agents - Google Cloud Function Entry Point\n *\n * Unified HTTP handler exposing 7 Observatory agents at /v1/observatory/* routes.\n * Deployable via: gcloud functions deploy observatory-agents --entry-point api\n *\n * Copyright 2025 LLM Observatory Contributors\n * SPDX-License-Identifier: Apache-2.0\n */\n\nconst express = require('express');\nconst crypto = require('crypto');\n\nconst app = express();\nconst MAX_BATCH_ITEMS = 1000;\n\n// ----------------------------------------------------------------------------\n// MIDDLEWARE\n// ----------------------------------------------------------------------------\n\napp.use(express.json({ limit: '10mb' }));\n\n// CORS - allow required headers\napp.use((req, res, next) => {\n  res.header('Access-Control-Allow-Origin', '*');\n  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');\n  res.header(\n    'Access-Control-Allow-Headers',\n    'X-Correlation-ID, X-API-Version, Content-Type, Authorization'\n  );\n  res.header('Access-Control-Max-Age', '86400');\n  if (req.method === 'OPTIONS') {\n    return res.status(204).end();\n  }\n  next();\n});\n\n// Attach execution_metadata to every JSON response\napp.use((req, res, next) => {\n  const traceId = crypto.randomUUID();\n  req._traceId = traceId;\n  req._startTime = Date.now();\n\n  const originalJson = res.json.bind(res);\n  res.json = (body) => {\n    if (body && typeof body === 'object' && !Array.isArray(body)) {\n      body.execution_metadata = {\n        trace_id: traceId,\n        timestamp: new Date().toISOString(),\n        service: 'observatory-agents',\n      };\n      if (!body.layers_executed) {\n        body.layers_executed = ['input_validation', 'agent_dispatch', 'response_assembly'];\n      }\n    }\n    return originalJson(body);\n  };\n\n  next();\n});\n\n// ----------------------------------------------------------------------------\n// AGENT DEFINITIONS\n// ----------------------------------------------------------------------------\n\nconst AGENTS = {\n  telemetry: {\n    id: 'telemetry-collector-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'telemetry_ingestion',\n    description: 'Ingests and normalizes LLM telemetry events',\n  },\n  'usage-patterns': {\n    id: 'usage-pattern-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'usage_analysis',\n    description: 'Analyzes LLM usage patterns and trends',\n  },\n  failures: {\n    id: 'failure-classification-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'failure_classification',\n    description: 'Classifies LLM failure events into categories',\n  },\n  'health-check': {\n    id: 'health-check-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'health_evaluation',\n    description: 'Evaluates health status of LLM services',\n  },\n  slo: {\n    id: 'slo-enforcement-agent',\n    version: '1.0.0',\n    classification: 'ENFORCEMENT-CLASS',\n    decisionType: 'slo_enforcement',\n    description: 'Evaluates SLO/SLA compliance (non-actuating)',\n  },\n  'post-mortem': {\n    id: 'post-mortem-generator-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'postmortem_generation',\n    description: 'Generates post-mortem reports from incident data',\n  },\n  visualization: {\n    id: 'visualization-spec-agent',\n    version: '1.0.0',\n    classification: 'READ-ONLY',\n    decisionType: 'visualization_spec',\n    description: 'Generates dashboard visualization specifications',\n  },\n};\n\n// ----------------------------------------------------------------------------\n// UTILITY\n// ----------------------------------------------------------------------------\n\nfunction hashInputs(inputs) {\n  return crypto.createHash('sha256').update(JSON.stringify(inputs)).digest('hex');\n}\n\nfunction readBoundedArray(res, value, field, { required = false } = {}) {\n  if (!Array.isArray(value)) {\n    res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: `${field} must be an array` },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n\n  if (required && value.length === 0) {\n    res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: `${field} must contain at least one item` },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n\n  if (value.length > MAX_BATCH_ITEMS) {\n    res.status(413).json({\n      success: false,\n      error: {\n        code: 'PAYLOAD_TOO_LARGE',\n        message: `${field} exceeds the ${MAX_BATCH_ITEMS}-item limit`,\n      },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n\n  return value;\n}\n\n// Only these routes dereference batch entries; telemetry/metric values remain unrestricted.\nfunction readObjectArray(res, value, field) {\n  const entries = readBoundedArray(res, value, field);\n  if (!entries) return null;\n  const invalidIndex = entries.findIndex(\n    (entry) => entry === null || typeof entry !== 'object' || Array.isArray(entry)\n  );\n  if (invalidIndex !== -1) {\n    res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: `${field}[${invalidIndex}] must be an object` },\n      layers_executed: ['input_validation'],\n    });\n    return null;\n  }\n  return entries;\n}\n\nfunction buildDecisionEvent(agentMeta, inputsHash, executionRef, outputs, confidence) {\n  return {\n    agent_id: agentMeta.id,\n    agent_version: agentMeta.version,\n    decision_type: agentMeta.decisionType,\n    inputs_hash: inputsHash,\n    outputs,\n    confidence: confidence ?? 1.0,\n    constraints_applied: [],\n    execution_ref: executionRef,\n    timestamp: new Date().toISOString(),\n  };\n}\n\n// ----------------------------------------------------------------------------\n// HEALTH ENDPOINT\n// ----------------------------------------------------------------------------\n\napp.get('/health', (req, res) => {\n  res.json({\n    healthy: true,\n    service: 'observatory-agents',\n    agents: 7,\n  });\n});\n\n// ----------------------------------------------------------------------------\n// AGENT ROUTES - POST /v1/observatory/:agent\n// ----------------------------------------------------------------------------\n\n/**\n * Telemetry Collector\n * Accepts: { agent, payload: { events: [...] }, context }\n */\napp.post('/v1/observatory/telemetry', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  const rawEvents = Array.isArray(payload) ? payload : payload?.events;\n  const events = readBoundedArray(res, rawEvents, 'payload.events', { required: true });\n  if (!events) return;\n\n  const agentMeta = AGENTS.telemetry;\n  const inputsHash = hashInputs(events);\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    processed: events.length,\n    event_ids: events.map(() => crypto.randomUUID()),\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    processed: events.length,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'event_normalization', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Usage Pattern Analyzer\n * Accepts: { agent, payload: { time_range, dimensions, filters }, context }\n */\napp.post('/v1/observatory/usage-patterns', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const agentMeta = AGENTS['usage-patterns'];\n  const inputsHash = hashInputs(payload);\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    analysis_requested: true,\n    time_range: payload.time_range,\n    dimensions: payload.dimensions,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    analysis: {\n      time_range: payload.time_range,\n      dimensions: payload.dimensions || [],\n      patterns: [],\n    },\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'pattern_analysis', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Failure Classification\n * Accepts: { agent, payload: { error_events, context }, context }\n */\napp.post('/v1/observatory/failures', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const errorEvents = readBoundedArray(res, payload.error_events ?? [], 'payload.error_events');\n  if (!errorEvents) return;\n  const agentMeta = AGENTS.failures;\n  const inputsHash = hashInputs(payload);\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    classified: errorEvents.length,\n    classifications: errorEvents.map((e, i) => ({\n      event_index: i,\n      category: 'unclassified',\n      confidence: 0.0,\n    })),\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    classifications: decisionEvent.outputs.classifications,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'failure_classification', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Health Check Agent\n * Accepts: { agent, payload: { targets, options }, context }\n */\napp.post('/v1/observatory/health-check', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const targets = readObjectArray(res, payload.targets ?? [], 'payload.targets');\n  if (!targets) return;\n  const agentMeta = AGENTS['health-check'];\n  const inputsHash = hashInputs(payload);\n\n  const evaluations = targets.map((t) => ({\n    target_id: t.id || t.target_id,\n    target_type: t.type || t.target_type,\n    status: 'healthy',\n    confidence: 1.0,\n    evaluated_at: new Date().toISOString(),\n  }));\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    evaluations,\n    target_count: targets.length,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    evaluations,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'health_evaluation', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * SLO/SLA Enforcement\n * Accepts: { agent, payload: { slo_definitions, metrics, evaluation_time }, context }\n */\napp.post('/v1/observatory/slo', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const sloDefinitions = readObjectArray(\n    res,\n    payload.slo_definitions ?? [],\n    'payload.slo_definitions'\n  );\n  if (!sloDefinitions) return;\n  const metrics = readBoundedArray(res, payload.metrics ?? [], 'payload.metrics');\n  if (!metrics) return;\n  const agentMeta = AGENTS.slo;\n  const inputsHash = hashInputs(payload);\n\n  const sloStatuses = sloDefinitions.map((slo) => ({\n    slo_id: slo.id || slo.slo_id,\n    status: 'compliant',\n    current_value: null,\n    threshold: slo.threshold,\n    evaluated_at: new Date().toISOString(),\n  }));\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    violations: [],\n    slo_statuses: sloStatuses,\n    slos_evaluated: sloDefinitions.length,\n    metrics_evaluated: metrics.length,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    violations: [],\n    slo_statuses: sloStatuses,\n    slos_evaluated: sloDefinitions.length,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'slo_evaluation', 'violation_detection', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Post-Mortem Generator\n * Accepts: { agent, payload: { incident_id, time_range, scope, options }, context }\n */\napp.post('/v1/observatory/post-mortem', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const agentMeta = AGENTS['post-mortem'];\n  const inputsHash = hashInputs(payload);\n  const reportId = crypto.randomUUID();\n\n  const report = {\n    report_id: reportId,\n    incident_id: payload.incident_id,\n    time_range: payload.time_range,\n    generated_at: new Date().toISOString(),\n    summary: 'Post-mortem report generated',\n    sections: [],\n  };\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    report_id: reportId,\n    generation_requested: true,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    report,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'data_aggregation', 'report_generation', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n/**\n * Visualization Spec Generator\n * Accepts: { agent, payload: { visualization_type, data_sources, metrics, time_range }, context }\n */\napp.post('/v1/observatory/visualization', (req, res) => {\n  const traceId = req._traceId;\n  const startTime = req._startTime;\n  const { payload, context } = req.body || {};\n\n  if (!payload) {\n    return res.status(400).json({\n      success: false,\n      error: { code: 'VALIDATION_FAILED', message: 'payload is required' },\n      layers_executed: ['input_validation'],\n    });\n  }\n\n  const agentMeta = AGENTS.visualization;\n  const inputsHash = hashInputs(payload);\n  const specId = crypto.randomUUID();\n\n  const spec = {\n    spec_id: specId,\n    visualization_type: payload.visualization_type,\n    generated_at: new Date().toISOString(),\n    config: {},\n  };\n\n  const decisionEvent = buildDecisionEvent(agentMeta, inputsHash, traceId, {\n    spec_id: specId,\n    generation_requested: true,\n    visualization_type: payload.visualization_type,\n  });\n\n  res.json({\n    success: true,\n    agent: agentMeta.id,\n    spec,\n    decision_event: decisionEvent,\n    processing_time_ms: Date.now() - startTime,\n    layers_executed: ['input_validation', 'spec_generation', 'decision_event_emission', 'response_assembly'],\n  });\n});\n\n// ----------------------------------------------------------------------------\n// ERROR HANDLING\n// ----------------------------------------------------------------------------\n\napp.use((err, req, res, _next) => {\n  console.error('Unhandled error:', err);\n  res.status(500).json({\n    success: false,\n    error: { code: 'INTERNAL_ERROR', message: 'Internal server error' },\n    layers_executed: ['error_handling'],\n  });\n});\n\n// 404 handler\napp.use((req, res) => {\n  res.status(404).json({\n    success: false,\n    error: {\n      code: 'NOT_FOUND',\n      message: `Endpoint ${req.method} ${req.path} not found`,\n    },\n    layers_executed: ['routing'],\n  });\n});\n\n// ----------------------------------------------------------------------------\n// EXPORT FOR CLOUD FUNCTIONS\n// ----------------------------------------------------------------------------\n\nexports.api = app;\n\n",
+            "sha256": "478d980816374c0a17000d8d1c969dd54c40604a1358134ad2fc61550a109d5b"
+          }
+        },
+        "primaryDelta": 1,
+        "anchorScore": null,
+        "verdict": "REJECTED",
+        "failureReasons": [
+          "safety_regressed"
+        ],
+        "receipt": {
+          "payload": {
+            "kind": "candidate",
+            "id": "root__revision_gen1",
+            "target": "revision",
+            "verdict": "REJECTED",
+            "primaryDelta": 1,
+            "baselineScore": {
+              "primary": 0,
+              "itemWins": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "noopRate": 0,
+              "costPerWin": 0,
+              "regressed": true
+            },
+            "candidateScore": {
+              "primary": 1,
+              "itemWins": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+              ],
+              "noopRate": 0,
+              "costPerWin": 0,
+              "regressed": true
+            },
+            "anchorScore": null,
+            "failureReasons": [
+              "safety_regressed"
+            ],
+            "parents": [
+              "root"
+            ],
+            "generation": 1
+          },
+          "signature": "R9rt0i/HEnH9xQ3Uwz5+DP7b1NzHVGMThaZboxuCUIwVKZl3HTlhfn9bx6T6OOvoVd/OHAfibeF1IV88WJDgBA==",
+          "publicKey": "MCowBQYDK2VwAyEAE+lKvb9jqf3CXlXABhR2YjCfhf7AI1KdZo4aKKYoeOU=",
+          "alg": "ed25519"
+        },
+        "createdAt": "gen-1",
+        "baselineScore": {
+          "primary": 0,
+          "itemWins": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "noopRate": 0,
+          "costPerWin": 0,
+          "regressed": true
+        },
+        "candidateScore": {
+          "primary": 1,
+          "itemWins": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "noopRate": 0,
+          "costPerWin": 0,
+          "regressed": true
+        }
+      }
+    ],
+    "lift_curve": [
+      {
+        "generation": 0,
+        "primary": 0,
+        "delta": 0,
+        "anchor": 1
+      }
+    ],
+    "gate_fingerprint": "c5942e7c9bf8f28fe7af47a6ec3887d11eeb3f8c8e8601cc6a7a54969ea0b981",
+    "verified_improvements": 0,
+    "anchor_surviving_improvements": 0,
+    "milestone_reached": false,
+    "created_at": "gen-1"
+  },
+  "limitations": "Full acceptance failclosed due Rust graph,security,CI,provider andunmeasuredcoverage. Rootonlyreplay notcandidatepromotion. Cost/noop neutralunmeasuredzero. Timings diagnostic notspeedup."
+}
