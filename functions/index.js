@@ -18,8 +18,6 @@ const MAX_BATCH_ITEMS = 1000;
 // MIDDLEWARE
 // ----------------------------------------------------------------------------
 
-app.use(express.json({ limit: '10mb' }));
-
 // CORS - allow required headers
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -58,6 +56,9 @@ app.use((req, res, next) => {
 
   next();
 });
+
+// Parse after response middleware so rejected bodies retain CORS and trace metadata.
+app.use(express.json({ limit: '10mb' }));
 
 // ----------------------------------------------------------------------------
 // AGENT DEFINITIONS
@@ -508,6 +509,22 @@ app.post('/v1/observatory/visualization', (req, res) => {
 // ----------------------------------------------------------------------------
 
 app.use((err, req, res, _next) => {
+  // Only map known parser failures; unexpected application errors remain server errors.
+  // Never log parser errors: their body property can contain private request data.
+  if (err.type === 'entity.parse.failed' && err.status === 400) {
+    return res.status(400).json({
+      success: false,
+      error: { code: 'INVALID_JSON', message: 'Request body must be valid JSON' },
+      layers_executed: ['input_validation'],
+    });
+  }
+  if (err.type === 'entity.too.large' && err.status === 413) {
+    return res.status(413).json({
+      success: false,
+      error: { code: 'PAYLOAD_TOO_LARGE', message: 'Request body exceeds the 10mb limit' },
+      layers_executed: ['input_validation'],
+    });
+  }
   console.error('Unhandled error:', err);
   res.status(500).json({
     success: false,
